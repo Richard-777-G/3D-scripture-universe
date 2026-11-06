@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
-import { loadBsb, loadOpenBible, loadTheographic } from "./normalize.mjs";
+import { loadBsb, loadOpenBible, loadTheographic, loadTeluguIrv } from "./normalize.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
@@ -20,7 +20,9 @@ export function loadInputs() {
   const bsb = loadBsb(core.books);
   const openbible = loadOpenBible(core.books);
   const theographic = loadTheographic(core.books);
+  const irv = loadTeluguIrv(core.books);
   assets.v_bsb = bsb.data.join("\n");
+  assets.v_irv = irv.data.join("\n");
 
   return {
     core,
@@ -33,6 +35,6 @@ export function loadInputs() {
     assets,
     openbible: openbible.data,
     theographic: theographic.data,
-    importErrors: [...bsb.errors, ...openbible.errors, ...theographic.errors],
+    importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors],
   };
 }

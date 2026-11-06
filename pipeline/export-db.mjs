@@ -63,6 +63,7 @@ const VERSIONS = [
   ["darby", "Darby Translation (1890)", "en", "darby"],
   ["webster", "Webster's Bible (1833)", "en", "webster"],
   ["tel", "Telugu Bible, Old Version", "te", "telugu-ov"],
+  ["irv", "Telugu Indian Revised Version 2019", "te", "telugu-irv"],
 ];
 const srcById = Object.fromEntries(input.sources.datasets.map((d) => [d.id, d]));
 

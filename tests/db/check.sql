@@ -36,6 +36,9 @@ insert into problems select 'genesis 1:1 hebrew', coalesce(string_agg(translit, 
 insert into problems select 'bsb john 3:16', coalesce(min(text), 'missing')
   from verses where version_code = 'bsb' and verse_key = 43003016 having coalesce(min(text), '') not like 'For God so loved the world%';
 
+insert into problems select 'telugu irv john 3:16', coalesce(min(text), 'missing')
+  from verses where version_code = 'irv' and verse_key = 43003016 having coalesce(min(text), '') not like '%దేవుడు లోకాన్ని ఎంతో ప్రేమించాడు%';
+
 insert into problems select 'full openbible loaded', count(*)::text from cross_refs having count(*) < 340000;
 
 insert into problems select 'wheel subset', count(*)::text

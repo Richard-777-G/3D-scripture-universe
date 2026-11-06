@@ -5,8 +5,10 @@
  *   node pipeline/fetch.mjs            download what is missing, verify every sha256
  *   node pipeline/fetch.mjs --update   record sha256 for entries that have none yet
  *
- * Files are stored gzipped at data/raw/<id>/<commit12>/<basename>.gz and are never
- * edited by hand. Downloads use curl so the system proxy settings apply.
+ * Git-pinned files are stored gzipped at data/raw/<id>/<commit12>/<basename>.gz.
+ * Files marked `manual` were supplied by hand and are stored as-is at
+ * data/raw/<id>/<version>/<name>; they are only verified, never downloaded.
+ * Nothing in data/raw is edited by hand. Downloads use curl so the proxy settings apply.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -19,14 +21,20 @@ const LOCK = path.join(ROOT, "pipeline/sources.lock.json");
 const update = process.argv.includes("--update");
 const lock = JSON.parse(fs.readFileSync(LOCK, "utf8"));
 
-export const rawPath = (f) => path.join(ROOT, "data/raw", f.id, f.commit.slice(0, 12), path.basename(f.path) + ".gz");
+export const rawPath = (f) =>
+  f.manual
+    ? path.join(ROOT, "data/raw", f.id, f.version, f.path)
+    : path.join(ROOT, "data/raw", f.id, f.commit.slice(0, 12), path.basename(f.path) + ".gz");
 const sha = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
 
 let changed = false, failed = 0;
 for (const f of lock.files) {
   const out = rawPath(f);
   let body;
-  if (fs.existsSync(out)) {
+  if (f.manual) {
+    if (!fs.existsSync(out)) { console.error(`missing hand-supplied file ${out}`); failed++; continue; }
+    body = fs.readFileSync(out);
+  } else if (fs.existsSync(out)) {
     body = zlib.gunzipSync(fs.readFileSync(out));
   } else {
     const url = `https://raw.githubusercontent.com/${f.repo}/${f.commit}/${f.path}`;

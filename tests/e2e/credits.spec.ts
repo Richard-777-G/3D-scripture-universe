@@ -7,7 +7,7 @@ test.describe("credits and licences", () => {
     const sc = app.locator("#sc");
     await expect(app.locator("#sheet")).toHaveClass(/open/);
     await expect(sc).toContainText("Credits and licences");
-    for (const t of ["OpenBible.info cross-references", "STEPBible", "Berean Standard Bible", "Theographic", "Telugu Bible"]) await expect(sc).toContainText(t);
+    for (const t of ["OpenBible.info cross-references", "STEPBible", "Berean Standard Bible", "Theographic", "Telugu Bible", "Telugu Indian Revised Version"]) await expect(sc).toContainText(t);
     await expect(sc).toContainText("CC BY-SA 4.0");
     await expect(sc).toContainText("share-alike");
   });

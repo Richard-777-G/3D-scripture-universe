@@ -55,5 +55,6 @@ See `docs/DATA.md` for data notes and known gaps.
 - Berean Standard Bible: public domain (CC0)
 - Hebrew/Greek: STEPBible TAHOT/TAGNT and lexicons (CC BY 4.0)
 - Texts: KJV, ASV, BBE, YLT, Darby, Webster and Telugu (Old Version), all public domain
+- Telugu Indian Revised Version 2019: © 2017, 2019 Bridge Connectivity Solutions, CC BY-SA 4.0, via eBible.org
 
 The in-app **Credits and licences** screen (the "⋯" menu) lists every source from `data/sources.json`.
