@@ -83,4 +83,20 @@ describe("data validation", () => {
     expect(X.fv.length).toBe(42732);
     expect(seen.size).toBe(40099);
   });
+
+  it("imports the Telugu IRV in full, in KJV numbering", () => {
+    const lines = input.assets.v_irv.split("\n");
+    expect(lines).toHaveLength(31102);
+    expect(lines.filter((l: string) => !l.trim())).toHaveLength(0);
+    expect(lines[0]).toBe("ఆరంభంలో దేవుడు ఆకాశాలనూ భూమినీ సృష్టించాడు.");
+    expect(lines[26136]).toContain("దేవుడు లోకాన్ని ఎంతో ప్రేమించాడు");
+    expect(lines.some((l: string) => /[<>]/.test(l))).toBe(false);
+  });
+
+  it("keeps the two NRSV-only verses by joining them to their KJV verse", () => {
+    const lines = input.assets.v_irv.split("\n");
+    const rev13v1 = 30909; // Revelation 13:1 in KJV numbering
+    expect(lines[rev13v1]).toMatch(/^దానికోసం ఆ మహా సర్పం సముద్ర తీరంలో/);
+  });
 });
+

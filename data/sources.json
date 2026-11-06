@@ -106,6 +106,18 @@
    "origin": "v16 snapshot"
   },
   {
+   "id": "telugu-irv",
+   "name": "Telugu Indian Revised Version (IRV) 2019",
+   "url": "https://ebible.org/Scriptures/",
+   "licence": "CC BY-SA 4.0",
+   "attribution": "The Indian Revised Version Holy Bible in the Telugu language of India, copyright © 2017, 2019 Bridge Connectivity Solutions Pvt. Ltd. Text from eBible.org. Changes: converted to plain text without notes or headings, and NRSV verse numbering mapped to KJV numbering (3 John 1:15 joined to 1:14; Revelation 12:18 joined to 13:1).",
+   "packs": [
+    "v_irv"
+   ],
+   "origin": "eBible.org SWORD module telirv2019eb version 36.43 (2026-10-29), supplied by hand; pinned by sha256 in pipeline/sources.lock.json",
+   "shareAlike": true
+  },
+  {
    "id": "scripture-universe-content",
    "name": "Scripture Universe story, journeys, evidence and Q&A",
    "licence": "Own content; each item cites its own sources",

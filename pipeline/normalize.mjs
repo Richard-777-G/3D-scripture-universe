@@ -7,6 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 import { verseTable } from "./validate.mjs";
+import { readZText } from "./sword.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const lock = JSON.parse(fs.readFileSync(path.join(ROOT, "pipeline/sources.lock.json"), "utf8"));
@@ -71,6 +72,27 @@ export function loadBsb(books) {
     lines[i] = r[3].trim();
   }
   return { data: lines, errors };
+}
+
+/* ---------- Telugu Indian Revised Version 2019 (SWORD module, NRSV numbering) ---------- */
+
+/**
+ * NRSV numbers two verses that KJV numbering folds into a neighbour. Their text
+ * is kept, attached to the KJV verse it belongs to (noted in the credits, as
+ * CC BY-SA requires for changes).
+ */
+export const NRSV_TO_KJV_MERGES = {
+  "3John.1.15": ["3John.1.14", "after"],
+  "Rev.12.18": ["Rev.13.1", "before"],
+};
+
+export function loadTeluguIrv(books) {
+  const kjvOsis = [];
+  books.forEach((b, bi) => b.ch.forEach((n, c) => { for (let v = 1; v <= n; v++) kjvOsis.push(`${OSIS[bi]}.${c + 1}.${v}`); }));
+  const lock = JSON.parse(fs.readFileSync(path.join(ROOT, "pipeline/sources.lock.json"), "utf8"));
+  const version = lock.files.find((f) => f.id === "telirv").version;
+  const { lines, errors } = readZText(path.join(ROOT, "data/raw/telirv", version), "pipeline/versification/nrsv.json", kjvOsis, NRSV_TO_KJV_MERGES);
+  return { data: lines, errors: errors.map((e) => "Telugu IRV: " + e) };
 }
 
 /* ---------- OpenBible.info cross-references (TSV: From, To, Votes) ---------- */

@@ -4,7 +4,7 @@
 
 | Data | Size | Source |
 |---|---|---|
-| Bible versions | 8 versions × 31,102 verses: KJV, BSB, ASV, BBE, YLT, Darby, Webster, Telugu Old Version | Public domain (BSB: CC0) |
+| Bible versions | 9 versions × 31,102 verses: KJV, BSB, ASV, BBE, YLT, Darby, Webster, Telugu Old Version, Telugu IRV 2019 | Public domain (BSB: CC0); Telugu IRV: CC BY-SA 4.0 |
 | Cross-references (wheel) | 42,732 OT↔NT rows with 3+ votes, shown as 40,099 threads | OpenBible.info (CC BY) |
 | Cross-references (database) | 344,794 links across the whole Bible, dated 2024-11-04 | OpenBible.info (CC BY) |
 | People, places, events | 3,067 people with 8,436 family links, 1,298 places with coordinates, 450 dated events | Theographic (CC BY-SA 4.0) |
@@ -57,5 +57,5 @@ Items 2 and 5 from Phase 1 are resolved for the new sources and the cross-refere
    - "Go to John 3:16" opens the book of John with chapter 3 selected, not the verse.
    - "Ps 22" is not understood; "Psalm 22" is.
 7. **The Explain button needs a backend.** The AI explanations only work inside Claude (`window.claude`). On the website they say the feature is unavailable. A server-side endpoint that answers only from this database, with citations, is planned for Phase 5.
-8. **Telugu IRV 2019 is not imported yet.** Its source (eBible.org) can't be reached from this build environment, and I found no copy in the GitHub collections used here. It needs a manual download or a mirror.
+8. **Telugu IRV 2019:** imported from the eBible.org SWORD module supplied by hand (`data/raw/telirv/36.43/`, sha256 in the lock file). It uses NRSV numbering; the two verses KJV numbering doesn't have (3 John 1:15, Revelation 12:18) are joined to 3 John 1:14 and Revelation 13:1, and the Credits screen says so.
 9. **TSK.** The handover lists TSK through scrollmapper. The cross-reference file scrollmapper provides is OpenBible's, so that's what is imported. A separate TSK layer would need its own source.

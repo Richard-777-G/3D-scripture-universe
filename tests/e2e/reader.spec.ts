@@ -62,6 +62,14 @@ test.describe("library and reader", () => {
     await expect.poll(() => panelText(app)).toMatch(/[ఀ-౿]{3,}/);
   });
 
+  test("reads the Telugu Indian Revised Version", async ({ app }) => {
+    await uni(app, (U) => U.openReader(42, 3));
+    await uni(app, (U) => U.openVpk("main"));
+    await app.locator("#vpkb button").filter({ hasText: "తెలుగు IRV" }).first().click();
+    await expect.poll(() => uni(app, (U) => U.rdVer)).toBe("irv");
+    await expect(app.locator("#pc")).toContainText("దేవుడు లోకాన్ని ఎంతో ప్రేమించాడు");
+  });
+
   test("loads Hebrew words for Genesis 1:1 from STEPBible", async ({ app }) => {
     await uni(app, (U) => U.openReader(0, 1));
     await expect.poll(() => uni(app, (U) => typeof U.WCACHE[0])).toBe("object");

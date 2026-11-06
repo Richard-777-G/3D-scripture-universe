@@ -1,5 +1,5 @@
 {
- "_note": "Upstream files pinned to a commit. `npm run fetch` downloads each into data/raw/<id>/<commit>/ and checks sha256. Change a commit here to take a new release, then run fetch and the full checks.",
+ "_note": "Upstream files. Entries with `commit` are pinned to a git commit and downloaded by `npm run fetch` into data/raw/<id>/<commit12>/ (gzipped). Entries with `manual: true` were supplied by hand (the source site cannot be reached from CI) and are stored as-is in data/raw/<id>/<version>/. Every file's sha256 is checked on each run.",
  "files": [
   {
    "id": "bsb",
@@ -42,6 +42,62 @@
    "commit": "3f461f2f3cf8939f2b79430ae238a36528024ed3",
    "path": "json/verses.json",
    "sha256": "b6be3dbcab9f6a6c5fffbfd67dc3092b754d500616d6c36618e5c586d7d97942"
+  },
+  {
+   "id": "telirv",
+   "manual": true,
+   "version": "36.43",
+   "path": "telirv2019eb.conf",
+   "url": "https://ebible.org/Scriptures/ (module telirv2019eb, SwordVersionDate 2026-10-29)",
+   "sha256": "799d98ece29ce3c3dd490a66bbc637842ad144b80459f920bf188f1a24444e0d"
+  },
+  {
+   "id": "telirv",
+   "manual": true,
+   "version": "36.43",
+   "path": "ot.bzs",
+   "url": "https://ebible.org/Scriptures/ (module telirv2019eb, SwordVersionDate 2026-10-29)",
+   "sha256": "fbc82e7751818d251f02a28862874dd43740fc220834b63326776ed00b029d26"
+  },
+  {
+   "id": "telirv",
+   "manual": true,
+   "version": "36.43",
+   "path": "ot.bzv",
+   "url": "https://ebible.org/Scriptures/ (module telirv2019eb, SwordVersionDate 2026-10-29)",
+   "sha256": "1e6a5d9d7918d7b1eb29dba945510b4d1a04c8510df93f6ce7fd76c70abb9448"
+  },
+  {
+   "id": "telirv",
+   "manual": true,
+   "version": "36.43",
+   "path": "ot.bzz",
+   "url": "https://ebible.org/Scriptures/ (module telirv2019eb, SwordVersionDate 2026-10-29)",
+   "sha256": "7170bb0e516966c01b7a14ef3cf5e914299684821a1fe87fd6882abe036f5eb0"
+  },
+  {
+   "id": "telirv",
+   "manual": true,
+   "version": "36.43",
+   "path": "nt.bzs",
+   "url": "https://ebible.org/Scriptures/ (module telirv2019eb, SwordVersionDate 2026-10-29)",
+   "sha256": "fbf4a6354594e6c4807614523db88bcc717b8377f238524ac7c082fb79013275"
+  },
+  {
+   "id": "telirv",
+   "manual": true,
+   "version": "36.43",
+   "path": "nt.bzv",
+   "url": "https://ebible.org/Scriptures/ (module telirv2019eb, SwordVersionDate 2026-10-29)",
+   "sha256": "e2fcd691b5ab14a1adfbc8d8be0f38d0ab83c4df8c78fd29138d319e08f72bb8"
+  },
+  {
+   "id": "telirv",
+   "manual": true,
+   "version": "36.43",
+   "path": "nt.bzz",
+   "url": "https://ebible.org/Scriptures/ (module telirv2019eb, SwordVersionDate 2026-10-29)",
+   "sha256": "d8047c5a77306ba1300c81ce60ffb51e1883ce4d636b520ef810f8f19a372603"
   }
  ]
 }
