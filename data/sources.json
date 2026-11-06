@@ -1,0 +1,38 @@
+{
+ "_note": "Every dataset the app ships must be listed here with its licence. build-packs fails if a pack has no entry. 'origin' records where the file in data/raw came from; v16 snapshot files were not recorded with their upstream file, so Phase 2 replaces them with pinned upstream downloads.",
+ "datasets": [
+  {
+   "id": "openbible-xrefs",
+   "name": "OpenBible.info cross-references",
+   "url": "https://www.openbible.info/labs/cross-references/",
+   "licence": "CC BY",
+   "attribution": "Cross-references from OpenBible.info",
+   "packs": ["core"],
+   "origin": "v16 snapshot (OT to NT links with votes)"
+  },
+  {
+   "id": "stepbible",
+   "name": "STEPBible Data (TAHOT, TAGNT, TBESH, TBESG)",
+   "url": "https://github.com/STEPBible/STEPBible-Data",
+   "licence": "CC BY 4.0",
+   "attribution": "Hebrew and Greek data from STEP Bible (www.stepbible.org)",
+   "packs": ["words", "lex"],
+   "origin": "v16 snapshot"
+  },
+  { "id": "kjv", "name": "King James Version (1769)", "licence": "Public domain", "attribution": "", "packs": ["kjv"], "origin": "v16 snapshot; two KJV editions merged, see docs/DATA.md" },
+  { "id": "asv", "name": "American Standard Version (1901)", "licence": "Public domain", "attribution": "", "packs": ["v_asv"], "origin": "v16 snapshot" },
+  { "id": "bbe", "name": "Bible in Basic English", "licence": "Public domain", "attribution": "", "packs": ["v_bbe"], "origin": "v16 snapshot" },
+  { "id": "ylt", "name": "Young's Literal Translation (1898)", "licence": "Public domain", "attribution": "", "packs": ["v_ylt"], "origin": "v16 snapshot" },
+  { "id": "darby", "name": "Darby Translation (1890)", "licence": "Public domain", "attribution": "", "packs": ["v_darby"], "origin": "v16 snapshot" },
+  { "id": "webster", "name": "Webster's Bible (1833)", "licence": "Public domain", "attribution": "", "packs": ["v_webster"], "origin": "v16 snapshot" },
+  { "id": "telugu-ov", "name": "Telugu Bible, Old Version", "licence": "Public domain", "attribution": "", "packs": ["v_tel"], "origin": "v16 snapshot" },
+  {
+   "id": "scripture-universe-content",
+   "name": "Scripture Universe story, journeys, evidence and Q&A",
+   "licence": "Own content; each item cites its own sources",
+   "attribution": "",
+   "packs": ["journeys", "story", "evidence", "qa"],
+   "origin": "content/*.json"
+  }
+ ]
+}

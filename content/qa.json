@@ -1,0 +1,187 @@
+[
+ {
+  "id": "qa_after",
+  "gen": true,
+  "items": [
+   "isa7",
+   "isa53",
+   "isa9"
+  ],
+  "ev": [
+   "isaiahscroll"
+  ],
+  "q": "Weren’t the prophecies written after Jesus, to fit him?",
+  "a": "No. The Great Isaiah Scroll from Qumran is dated to about 125 BCE, more than a century before Jesus was born, and it contains all 66 chapters of Isaiah, including chapters 7, 9 and 53. Jewish scholars had also translated the Old Testament into Greek (the Septuagint) before his birth.",
+  "src": [
+   {
+    "t": "Wikipedia: Isaiah Scroll",
+    "u": "https://en.wikipedia.org/wiki/Isaiah_Scroll"
+   },
+   {
+    "t": "GotQuestions: Isaiah 7:14 – virgin or young woman?",
+    "u": "https://www.gotquestions.org/virgin-or-young-woman.html"
+   }
+  ]
+ },
+ {
+  "id": "qa_changed",
+  "gen": true,
+  "items": [],
+  "ev": [
+   "isaiahscroll",
+   "ketef",
+   "p52",
+   "sinaiticus"
+  ],
+  "q": "Hasn’t the Bible been changed over the centuries?",
+  "a": "Copying by hand did produce small differences, mostly spelling, word order and easily spotted slips. GotQuestions notes that over 99 percent of the text is not in question and that no teaching depends on the rest. When the Dead Sea Scrolls were found, copies hundreds of years older than any known before matched the later text closely.",
+  "src": [
+   {
+    "t": "GotQuestions: Has the Bible been corrupted?",
+    "u": "https://www.gotquestions.org/Bible-corrupted.html"
+   }
+  ]
+ },
+ {
+  "id": "qa_exist",
+  "gen": true,
+  "items": [],
+  "ev": [
+   "outside",
+   "pilate",
+   "caiaphas"
+  ],
+  "q": "Did Jesus really exist?",
+  "a": "Yes. Writers who were not Christians mention him: the Jewish historian Josephus (about 93), the Roman historian Tacitus (about 116), who says Christ was executed under Pontius Pilate, and Pliny the Younger (about 112). Historians generally agree that Jesus was a real first-century figure, and his baptism by John and his crucifixion under Pilate have almost universal agreement.",
+  "src": [
+   {
+    "t": "Wikipedia: Sources for the historicity of Jesus",
+    "u": "https://en.wikipedia.org/wiki/Sources_for_the_historicity_of_Jesus"
+   }
+  ]
+ },
+ {
+  "id": "qa_legend",
+  "gen": true,
+  "items": [
+   "ps16"
+  ],
+  "ev": [
+   "creed"
+  ],
+  "q": "Could the resurrection be a legend that grew later?",
+  "a": "The creed Paul quotes in 1 Corinthians 15:3–8 is dated by many scholars to within a few years of the crucifixion, and it names witnesses who were still alive. William Lane Craig gives reasons historians take the empty tomb seriously: the first witnesses were women, whose testimony counted for little then, so the story is unlikely to be invented; the disciples preached the resurrection in Jerusalem, where the tomb could be checked; and opponents said the body was stolen, which assumes the tomb was empty.",
+  "src": [
+   {
+    "t": "Stand to Reason: An Early and Reliable Account of Jesus’ Resurrection",
+    "u": "https://www.str.org/w/an-early-and-reliable-account-of-jesus-resurrection"
+   },
+   {
+    "t": "bethinking (William Lane Craig): The Historicity of the Empty Tomb of Jesus",
+    "u": "https://www.bethinking.org/did-jesus-rise-from-the-dead/the-historicity-of-the-empty-tomb-of-jesus"
+   }
+  ]
+ },
+ {
+  "id": "qa_god",
+  "gen": true,
+  "items": [
+   "iam",
+   "sonofman"
+  ],
+  "ev": [],
+  "q": "Did Jesus himself claim to be God?",
+  "a": "The Gospels report several such claims. He said “I and my Father are one” (John 10:30), and his opponents answered that he made himself God (10:33). He forgave sins, which the scribes said only God can do (Mark 2:5–7). Before the high priest he applied Daniel’s “Son of man… coming in the clouds of heaven” to himself (Mark 14:62). And he accepted worship (Matthew 14:33; 28:9).",
+  "src": [
+   {
+    "t": "Bible Hub: Did Jesus claim to be God?",
+    "u": "https://biblehub.com/q/did_jesus_claim_to_be_god.htm"
+   }
+  ]
+ },
+ {
+  "id": "qa_almah",
+  "gen": false,
+  "items": [
+   "isa7",
+   "godwithus"
+  ],
+  "ev": [
+   "isaiahscroll"
+  ],
+  "q": "Doesn’t the word in Isaiah 7:14 just mean “young woman”?",
+  "a": "The Hebrew word almah does mean a young woman, normally an unmarried one. But in the 3rd century BCE, Jewish scholars translating Isaiah into Greek chose parthenos, the specific Greek word for virgin, and Matthew follows that reading. Many Christians see a double fulfilment: a sign for King Ahaz in his own day, and its full meaning in the virgin birth of Jesus.",
+  "src": [
+   {
+    "t": "GotQuestions: Isaiah 7:14 – virgin or young woman?",
+    "u": "https://www.gotquestions.org/virgin-or-young-woman.html"
+   }
+  ]
+ },
+ {
+  "id": "qa_servant",
+  "gen": false,
+  "items": [
+   "isa53"
+  ],
+  "ev": [
+   "isaiahscroll"
+  ],
+  "q": "Isn’t the suffering servant just the nation of Israel?",
+  "a": "Isaiah 53:8 says the servant was stricken “for the transgression of my people”, which sets the servant apart from the people he suffers for. Some ancient Jewish writings also linked the chapter with the Messiah. In Acts 8 Philip begins from this very passage and tells an Ethiopian official about Jesus.",
+  "src": [
+   {
+    "t": "GotQuestions: Who is the suffering servant in Isaiah 53?",
+    "u": "https://www.gotquestions.org/suffering-servant-Isaiah-53.html"
+   }
+  ]
+ },
+ {
+  "id": "qa_iam",
+  "gen": false,
+  "items": [
+   "iam"
+  ],
+  "ev": [],
+  "q": "Was Jesus only saying he was older than Abraham?",
+  "a": "He did not say “before Abraham was, I was”. He said “I am”, the name God gave Moses at the burning bush (Exodus 3:14). The crowd took it as a claim to be God and picked up stones to throw at him (John 8:59).",
+  "src": [
+   {
+    "t": "GotQuestions: What did Jesus mean by “before Abraham was, I am”?",
+    "u": "https://www.gotquestions.org/before-Abraham-was-I-am.html"
+   }
+  ]
+ },
+ {
+  "id": "qa_alpha",
+  "gen": false,
+  "items": [
+   "firstlast"
+  ],
+  "ev": [],
+  "q": "Is it really Jesus who calls himself “Alpha and Omega”?",
+  "a": "In Revelation 22 the speaker says “behold, I come quickly… I am Alpha and Omega, the beginning and the end, the first and the last” (22:12–13), and then “I Jesus have sent mine angel” (22:16). In Isaiah 44:6 and 48:12, “the first and the last” is a title the LORD uses for himself alone. Christians read Jesus taking it as a claim to be God.",
+  "src": [
+   {
+    "t": "GotQuestions: What does it mean that Jesus is the Alpha and Omega?",
+    "u": "https://www.gotquestions.org/alpha-and-omega.html"
+   }
+  ]
+ },
+ {
+  "id": "qa_seed",
+  "gen": false,
+  "items": [
+   "gen3"
+  ],
+  "ev": [],
+  "q": "Is the “seed” one person, or all people?",
+  "a": "The verse moves from “her seed” to “it shall bruise thy head, and thou shalt bruise his heel”: one person who is wounded and yet wins. Paul makes a similar argument from a singular “seed” that means Christ when he writes about Abraham (Galatians 3:16). Since Irenaeus in the 2nd century, Christians have read Genesis 3:15 as the first promise of the Messiah.",
+  "src": [
+   {
+    "t": "Wikipedia: Seed of the woman",
+    "u": "https://en.wikipedia.org/wiki/Seed_of_the_woman"
+   }
+  ]
+ }
+]
