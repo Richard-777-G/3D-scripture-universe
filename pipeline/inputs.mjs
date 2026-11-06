@@ -7,6 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 import { loadBsb, loadOpenBible, loadTheographic, loadTeluguIrv } from "./normalize.mjs";
+import { loadEvidenceCentre } from "./evidence-centre.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
@@ -32,6 +33,7 @@ export function loadInputs() {
     evidence: json("content/evidence.json"),
     qa: json("content/qa.json"),
     sources: json("data/sources.json"),
+    evidenceCentre: loadEvidenceCentre(),
     assets,
     openbible: openbible.data,
     theographic: theographic.data,

@@ -1,0 +1,1168 @@
+[
+ {
+  "id": "tacitus-annals",
+  "pillar": "historical",
+  "kind": "text",
+  "title": "Tacitus: Christus was executed under Pontius Pilate",
+  "summary": "The Roman historian Tacitus, writing about the fire of Rome in AD 64, says Nero blamed the Christians, who took their name from Christus, executed by the procurator Pontius Pilate in the reign of Tiberius.",
+  "shows": "A Roman historian with no sympathy for Christians records Jesus' execution under Pilate and a sizeable Christian community in Rome by the 60s.",
+  "limits": "Tacitus wrote about 80 years later and does not say where he got the information. He calls Pilate a procurator; the Pilate Stone calls him prefect. A minority of scholars argue the sentence was added later; most accept it.",
+  "era": "Written about AD 116, about events of AD 64",
+  "yearFrom": 116,
+  "yearTo": 116,
+  "discovered": null,
+  "place": "Rome",
+  "verses": [
+   "Luke 3:1",
+   "Matthew 27:26",
+   "Acts 28:22"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Tacitus on the Christians (Annals 15.44, text and notes)",
+    "publisher": "Livius.org",
+    "url": "https://livius.org/sources/content/tacitus/tacitus-on-the-christians"
+   },
+   {
+    "title": "Tacitus on Jesus",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tacitus_on_Jesus"
+   }
+  ],
+  "tags": [
+   "roman-source",
+   "jesus"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "josephus-james",
+  "pillar": "historical",
+  "kind": "text",
+  "title": "Josephus: James, \"the brother of Jesus, who was called Christ\"",
+  "summary": "The Jewish historian Josephus records that the high priest Ananus had James, \"the brother of Jesus, who was called Christ\", tried before the Sanhedrin and stoned (Antiquities 20.200).",
+  "shows": "A first-century Jewish writer mentions Jesus and his brother James in passing, as known people. Most scholars accept the passage as genuine, and it appears in all Greek manuscripts.",
+  "limits": "A minority argue that the words \"who was called Christ\" were a later scribal addition.",
+  "era": "Written about AD 93, about events of about AD 62",
+  "yearFrom": 93,
+  "yearTo": 94,
+  "discovered": null,
+  "place": "Jerusalem",
+  "verses": [
+   "Galatians 1:19",
+   "Mark 6:3",
+   "Acts 15:13"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Josephus, Antiquities of the Jews 20.200 (Whiston translation)",
+    "publisher": "Lexundria",
+    "url": "https://lexundria.com/j_aj/20.200/wst"
+   },
+   {
+    "title": "The last days of James",
+    "publisher": "Biblical Archaeology Society",
+    "url": "https://library.biblicalarchaeology.org/sidebar/the-last-days-of-james/"
+   },
+   {
+    "title": "Josephus on James the Just? A re-evaluation of Antiquitates Judaicae 20.9.1 (sceptical view)",
+    "publisher": "Orion Center, Hebrew University (bibliography)",
+    "url": "https://orion-bibliography.huji.ac.il/node/74077"
+   }
+  ],
+  "tags": [
+   "jewish-source",
+   "jesus",
+   "debate-noted"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "josephus-testimonium",
+  "pillar": "historical",
+  "kind": "text",
+  "title": "Josephus' longer passage about Jesus (the Testimonium)",
+  "summary": "Antiquities 18.63-64 describes Jesus as a wise man and teacher, condemned to the cross by Pilate, whose followers did not abandon him. Some lines in it read like Christian belief.",
+  "shows": "Most scholars think Josephus wrote a core passage about Jesus that later Christian copyists expanded. A 2025 Oxford monograph argues the whole passage is genuine.",
+  "limits": "This is one of the most debated texts in ancient history. Total authenticity has long been rejected by most scholars; a minority hold the whole passage is a forgery. JARVIS must present all three views.",
+  "era": "Written about AD 93",
+  "yearFrom": 93,
+  "yearTo": 94,
+  "discovered": null,
+  "place": "Rome",
+  "verses": [
+   "Luke 23:1-25"
+  ],
+  "strength": "debated",
+  "sources": [
+   {
+    "title": "BMCR 2026.11.03 (book review)",
+    "publisher": "Bryn Mawr Classical Review",
+    "url": "https://bmcr.brynmawr.edu/?p=98859"
+   },
+   {
+    "title": "The earliest non-Christian testimony to Jesus: Josephus turns out to be genuine (on T. C. Schmidt, 2025)",
+    "publisher": "Biola University, The Good Book Blog",
+    "url": "https://www.biola.edu/blogs/good-book-blog/2025/the-earliest-non-christian-testimony-to-jesus-josephus-turns-out-to-be-genuine"
+   }
+  ],
+  "tags": [
+   "jewish-source",
+   "jesus",
+   "debated"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "josephus-john-baptist",
+  "pillar": "historical",
+  "kind": "text",
+  "title": "Josephus on John the Baptist",
+  "summary": "Josephus describes John, \"called the Baptist\", as a good man who called Jews to righteousness and baptism, and says Herod Antipas had him killed at the fortress of Machaerus because he feared John's influence.",
+  "shows": "An independent first-century account of John the Baptist, his baptising, and his death at Herod Antipas' order. Josephus names the place, which the Gospels do not.",
+  "limits": "Josephus gives a political motive; the Gospels give John's criticism of Herod's marriage. The two can both be true, but they are different emphases.",
+  "era": "Written about AD 93, about events of about AD 28-29",
+  "yearFrom": 93,
+  "yearTo": 94,
+  "discovered": null,
+  "place": "Machaerus",
+  "verses": [
+   "Mark 6:17-29",
+   "Matthew 14:3-12",
+   "Luke 3:19-20"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Josephus, Antiquities of the Jews 18.116-119 (Whiston translation)",
+    "publisher": "Lexundria",
+    "url": "https://lexundria.com/j_aj/18.116-18.119/wst"
+   },
+   {
+    "title": "Machaerus",
+    "publisher": "Encyclopedia.com",
+    "url": "https://www.encyclopedia.com/religion/encyclopedias-almanacs-transcripts-and-maps/machaerus"
+   }
+  ],
+  "tags": [
+   "jewish-source"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "pliny-letter",
+  "pillar": "historical",
+  "kind": "text",
+  "title": "Pliny: Christians sing \"to Christ as to a god\"",
+  "summary": "Pliny the Younger, Roman governor of Bithynia, wrote to Emperor Trajan asking how to deal with Christians. He reports that they met before dawn on a fixed day, sang a hymn to Christ as to a god, and bound themselves by oath not to steal or commit crimes.",
+  "shows": "The earliest surviving Roman document about how Rome treated the new movement, and an outside witness that Christians worshipped Christ within a century of Jesus.",
+  "limits": "It tells us about Christian practice, not about the life of Jesus. Reading the hymn line as proof of early belief in Christ's divinity is an interpretation.",
+  "era": "Early 2nd century AD",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Bithynia",
+  "verses": [
+   "Acts 20:7",
+   "1 Peter 1:1"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Pliny on the Christians",
+    "publisher": "Fordham University, Internet History Sourcebooks",
+    "url": "https://sourcebooks.web.fordham.edu/source/pliny1.asp"
+   },
+   {
+    "title": "Pliny, Letters 10.96-97 (text)",
+    "publisher": "York University",
+    "url": "https://www.yorku.ca/pswarney/Texts/pliny-10-96-97.htm"
+   }
+  ],
+  "tags": [
+   "roman-source",
+   "early-church"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "suetonius-chrestus",
+  "pillar": "historical",
+  "kind": "text",
+  "title": "Suetonius: Jews expelled from Rome over \"Chrestus\"",
+  "summary": "Suetonius writes that Emperor Claudius expelled Jews from Rome because of constant disturbances at the instigation of Chrestus. Acts 18:2 says Aquila and Priscilla had left Italy because Claudius ordered all Jews to leave Rome.",
+  "shows": "A Roman record of the same expulsion that Acts mentions.",
+  "limits": "Whether \"Chrestus\" means Christ is disputed: it was also an ordinary name. The often-quoted date of AD 49 comes from Orosius, a 5th-century writer.",
+  "era": "Written early 2nd century AD, about events in Claudius' reign (AD 41-54)",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Rome",
+  "verses": [
+   "Acts 18:2"
+  ],
+  "strength": "debated",
+  "sources": [
+   {
+    "title": "Suetonius on the Christians (Claudius 25.4)",
+    "publisher": "Early Christian Writings",
+    "url": "https://earlychristianwritings.com/suetonius.html"
+   },
+   {
+    "title": "Judeans and Celts: authors on Claudius' actions against foreigners",
+    "publisher": "Philip A. Harland (York University)",
+    "url": "https://www.philipharland.com/Blog/?p=9639"
+   }
+  ],
+  "tags": [
+   "roman-source",
+   "debated"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "nt-manuscripts",
+  "pillar": "historical",
+  "kind": "manuscript",
+  "title": "More than 5,800 Greek New Testament manuscripts",
+  "summary": "The Institute for New Testament Textual Research in Münster keeps the official list of Greek New Testament manuscripts. Over 5,800 have been catalogued, from small papyrus fragments to complete Bibles.",
+  "shows": "The New Testament is far better attested in manuscripts than any other ancient text, so scholars can compare thousands of copies to recover the wording.",
+  "limits": "Most manuscripts are partial and many are medieval; only 61 contain the whole New Testament. Catalogue numbers do not map one-to-one onto physical objects, and the list is still growing.",
+  "era": "2nd century AD onwards",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": null,
+  "verses": [],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "How many Greek New Testament manuscripts are there really? The latest numbers",
+    "publisher": "INTF, University of Münster (NTVMR blog)",
+    "url": "https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/how-many-greek-new-testament-manuscripts-are-there-really-the-latest-numbers"
+   },
+   {
+    "title": "Manuscripts 101: Manuscript Contents",
+    "publisher": "Center for the Study of New Testament Manuscripts",
+    "url": "https://www.csntm.org/2022/06/21/manuscripts-101-manuscript-contents/"
+   }
+  ],
+  "tags": [
+   "manuscripts"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "holy-sepulchre-garden",
+  "pillar": "archaeological",
+  "kind": "site",
+  "title": "Traces of an ancient garden under the Church of the Holy Sepulchre",
+  "summary": "Excavations led by Francesca Romana Stasolla of Sapienza University of Rome found seeds and pollen of olive trees and grapevines in soil beneath the church floor. The area appears to have been a quarry that was later filled in and cultivated.",
+  "shows": "Cultivated land at the traditional site of the crucifixion and burial, which matches John 19:41: \"in the place where he was crucified there was a garden\".",
+  "limits": "Preliminary results from press interviews. The plant remains have not yet been dated precisely and no peer-reviewed report has been published.",
+  "era": "About 2,000 years ago (dating in progress)",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2025,
+  "place": "Jerusalem",
+  "verses": [
+   "John 19:41-42"
+  ],
+  "strength": "preliminary",
+  "sources": [
+   {
+    "title": "Ancient garden found at Jesus' burial site",
+    "publisher": "archaeologymag.com",
+    "url": "https://archaeologymag.com/2025/04/ancient-garden-found-at-jesus-burial-site"
+   },
+   {
+    "title": "The stones speak: excavations reshaping the history of the Holy Sepulchre",
+    "publisher": "Middle East Council of Churches",
+    "url": "https://www.mecc.org/news-en/2025/7/14/the-stones-speak-excavations-reshaping-the-history-of-the-holy-sepulchre"
+   }
+  ],
+  "tags": [
+   "latest",
+   "jesus",
+   "jerusalem"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "edicule-tomb-dating",
+  "pillar": "geographical",
+  "kind": "tomb",
+  "title": "The tomb in the Holy Sepulchre: opened in 2016 and dated",
+  "summary": "During the 2016 restoration of the shrine (the Edicule) over the traditional tomb of Jesus, a team from the National Technical University of Athens had the burial bed open for about 60 hours. Mortar between the rock and the marble slab was dated by two laboratories to about AD 345.",
+  "shows": "The tomb was enshrined in the time of Emperor Constantine, so the site was honoured as Jesus' tomb by the early 4th century.",
+  "limits": "Archaeology cannot show that this is the tomb of Jesus of Nazareth. It shows how old the shrine is, not who was buried there.",
+  "era": "Mortar dated about AD 345; tested 2016-2017",
+  "yearFrom": 345,
+  "yearTo": 345,
+  "discovered": 2016,
+  "place": "Jerusalem",
+  "verses": [
+   "John 19:41-42",
+   "Mark 16:1-6"
+  ],
+  "strength": "moderate",
+  "sources": [
+   {
+    "title": "Report on the dating of Jesus' tomb (2017)",
+    "publisher": "National Geographic",
+    "url": "https://www.nationalgeographic.com/history/article/jesus-tomb-archaeology-jerusalem-christianity-rome"
+   },
+   {
+    "title": "Mortar found in Jesus' tomb dates to the Constantine era",
+    "publisher": "Smithsonian Magazine",
+    "url": "https://www.smithsonianmag.com/smart-news/mortar-found-jesus-tomb-dates-constantine-era-180967345/"
+   }
+  ],
+  "tags": [
+   "tomb",
+   "jesus",
+   "jerusalem"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "hezekiah-bulla",
+  "pillar": "archaeological",
+  "kind": "inscription",
+  "title": "King Hezekiah's own seal impression",
+  "summary": "A clay seal impression reading \"Belonging to Hezekiah [son of] Ahaz king of Judah\" was found in Eilat Mazar's Ophel excavations at the foot of the Temple Mount. It was announced in December 2015.",
+  "shows": "The first seal impression of an Israelite or Judean king found in a scientific excavation, naming the king of 2 Kings 18 and his father.",
+  "limits": "Similar Hezekiah seals had appeared on the antiquities market, where finds cannot be checked; this one matters because its find-spot is documented.",
+  "era": "About 700 BC",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2015,
+  "place": "Jerusalem",
+  "verses": [
+   "2 Kings 18:1-7",
+   "Isaiah 36:1"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "News release on the Hezekiah seal impression (2 December 2015)",
+    "publisher": "ScienceDaily",
+    "url": "https://www.sciencedaily.com/releases/2015/12/151202132519.htm"
+   },
+   {
+    "title": "Impression of King Hezekiah's royal seal discovered, 2 Dec 2015",
+    "publisher": "Israel Ministry of Foreign Affairs",
+    "url": "https://embassies.gov.il/MFA/IsraelExperience/history/Pages/Impression-of-King-Hezekiah-royal-seal-discovered-2-Dec-2015.aspx"
+   }
+  ],
+  "tags": [
+   "seal",
+   "king",
+   "jerusalem"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "herod-tomb",
+  "pillar": "geographical",
+  "kind": "tomb",
+  "title": "The tomb of Herod the Great at Herodium",
+  "summary": "In May 2007 Ehud Netzer of the Hebrew University announced that he had found Herod's tomb on the slope of Herodium, Herod's palace-fortress about 12 km south of Jerusalem, with fragments of a decorated sarcophagus now in the Israel Museum.",
+  "shows": "The probable burial place of the king who ruled when Jesus was born.",
+  "limits": "No inscription names Herod. In 2013 two archaeologists argued the tomb is too modest to be his; the excavators stand by the identification.",
+  "era": "Herod died about 4 BC",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2007,
+  "place": "Herodium",
+  "verses": [
+   "Matthew 2:1",
+   "Matthew 2:19"
+  ],
+  "strength": "debated",
+  "sources": [
+   {
+    "title": "Tomb of Herod",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tomb_of_Herod"
+   },
+   {
+    "title": "Herod's tomb (In the trenches)",
+    "publisher": "Archaeology Magazine archive",
+    "url": "https://archive.archaeology.org/0707/trenches/herod.html"
+   }
+  ],
+  "tags": [
+   "tomb",
+   "king",
+   "debated"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "pilgrimage-road",
+  "pillar": "archaeological",
+  "kind": "site",
+  "title": "The stepped street from the Pool of Siloam to the Temple",
+  "summary": "A paved stepped street about 600 m long and 8 m wide ran from the Pool of Siloam up towards the Temple Mount. Over 100 coins found beneath the paving led the excavators (published in the journal Tel Aviv, 2019) to date its construction to Pontius Pilate's governorship.",
+  "shows": "The street pilgrims climbed to the Temple in Jesus' time, built under the governor who later sentenced him.",
+  "limits": "The Pilate attribution rests on the coin dates and is the most likely reading, not certain. Whether the pool was used for ritual washing is debated.",
+  "era": "About AD 30, under Pontius Pilate",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2019,
+  "place": "Jerusalem",
+  "verses": [
+   "John 9:7",
+   "John 7:10"
+  ],
+  "strength": "moderate",
+  "sources": [
+   {
+    "title": "News release on the 2019 Tel Aviv journal study (21 October 2019)",
+    "publisher": "ScienceDaily",
+    "url": "https://www.sciencedaily.com/releases/2019/10/191021082748.htm"
+   },
+   {
+    "title": "Road where Jesus walked is re-opened to the public",
+    "publisher": "Biblical Archaeology Society",
+    "url": "https://www.biblicalarchaeology.org/daily/biblical-sites-places/temple-at-jerusalem/road-where-jesus-walked-is-re-opened-to-public/"
+   }
+  ],
+  "tags": [
+   "latest",
+   "jesus",
+   "jerusalem",
+   "pilate"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "yehohanan",
+  "pillar": "archaeological",
+  "kind": "artifact",
+  "title": "A crucified man's heel bone with the nail still in it",
+  "summary": "In 1968 a tomb at Giv'at ha-Mivtar in Jerusalem held an ossuary inscribed \"Yehohanan son of Hagakol\". A heel bone inside still had an iron nail through it, with wood fragments.",
+  "shows": "Physical proof that Romans nailed victims to crosses in Judea in the time of Jesus, and that a crucified man could receive a proper Jewish burial in a family tomb.",
+  "limits": "Re-examination in 1985 found the nail went through one heel, not both as first reported. It says nothing about Jesus directly.",
+  "era": "1st century AD",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 1968,
+  "place": "Jerusalem",
+  "verses": [
+   "John 20:25",
+   "Luke 24:39",
+   "Mark 15:42-46"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Jehohanan",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jehohanan"
+   },
+   {
+    "title": "A tomb in Jerusalem reveals the history of crucifixion and Roman crucifixion methods",
+    "publisher": "Biblical Archaeology Society",
+    "url": "https://www.biblicalarchaeology.org/daily/biblical-topics/crucifixion/a-tomb-in-jerusalem-reveals-the-history-of-crucifixion-and-roman-crucifixion-methods/"
+   }
+  ],
+  "tags": [
+   "crucifixion",
+   "jerusalem"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "sennacherib-prism",
+  "pillar": "archaeological",
+  "kind": "inscription",
+  "title": "Sennacherib's prism: Hezekiah shut up \"like a bird in a cage\"",
+  "summary": "The Assyrian king Sennacherib's annals, on six-sided clay prisms (the Taylor Prism in the British Museum and another in Chicago), describe his campaign against Judah: he took many towns, shut Hezekiah up in Jerusalem \"like a bird in a cage\", and received heavy tribute.",
+  "shows": "The same invasion, king and tribute as 2 Kings 18-19, told by the enemy.",
+  "limits": "It is royal propaganda. Notably, it does not claim Jerusalem was taken, and it says nothing of the loss the Bible reports in 2 Kings 19:35.",
+  "era": "About 690 BC, about the campaign of 701 BC",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 1830,
+  "place": "Nineveh",
+  "verses": [
+   "2 Kings 18:13-16",
+   "2 Kings 19:35-36",
+   "Isaiah 36:1"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Taylor prism",
+    "publisher": "Cuneiform Digital Library Initiative (Oxford)",
+    "url": "https://cdli.ox.ac.uk/wiki/taylor_prism"
+   },
+   {
+    "title": "Sennacherib's attack on Hezekiah (A. R. Millard, Tyndale Biblical Archaeology Lecture 1984)",
+    "publisher": "Tyndale Bulletin",
+    "url": "https://tyndalebulletin.org/article/30570-sennacherib-s-attack-on-hezekiah.pdf"
+   }
+  ],
+  "tags": [
+   "assyria",
+   "king"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "jehoiachin-tablets",
+  "pillar": "archaeological",
+  "kind": "inscription",
+  "title": "Rations for Jehoiachin, king of Judah, in Babylon",
+  "summary": "Clay tablets from Robert Koldewey's excavations at Babylon (1899-1917) list oil and barley rations for \"Jehoiachin, king of Judah\" and his sons. They are in the Pergamon Museum in Berlin.",
+  "shows": "The exiled king of 2 Kings 24-25 was a named, provided-for captive in Babylon, as 2 Kings 25:27-30 says.",
+  "limits": "The tablets name five sons; the Bible elsewhere lists seven sons of Jehoiachin (1 Chronicles 3:17-18).",
+  "era": "About 595-570 BC",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Babylon",
+  "verses": [
+   "2 Kings 25:27-30",
+   "Jeremiah 52:31-34"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Jehoiachin's Rations Tablets",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jehoiachin%27s_Rations_Tablets"
+   },
+   {
+    "title": "A tablet, a king and his rations",
+    "publisher": "Armstrong Institute of Biblical Archaeology",
+    "url": "https://armstronginstitute.org/117-a-tablet-a-king-and-his-rations/print"
+   }
+  ],
+  "tags": [
+   "babylon",
+   "king",
+   "exile"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "galilee-boat",
+  "pillar": "archaeological",
+  "kind": "artifact",
+  "title": "A first-century fishing boat from the Sea of Galilee",
+  "summary": "During a drought in 1986 two brothers from Kibbutz Ginosar found a wooden boat about 8.2 m long in the lake mud. Pottery, coins and carbon-14 tests date it between the 1st century BC and the 1st century AD. It is shown at the Yigal Allon Centre at Ginosar.",
+  "shows": "The kind of boat the fishermen disciples would have used on the lake.",
+  "limits": "The nickname \"Jesus boat\" is informal. Nothing connects this boat to Jesus or the disciples.",
+  "era": "1st century BC to 1st century AD",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 1986,
+  "place": "Sea of Galilee",
+  "verses": [
+   "Luke 5:1-11",
+   "Mark 4:35-41"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Sea of Galilee Boat",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sea_of_Galilee_Boat"
+   },
+   {
+    "title": "Ancient boat, IAA No. 87-1582",
+    "publisher": "Israel Antiquities Authority",
+    "url": "https://antiquities.org.il/site_Item_eng.aspx?id=133"
+   }
+  ],
+  "tags": [
+   "galilee",
+   "jesus"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "magdala-synagogue",
+  "pillar": "archaeological",
+  "kind": "site",
+  "title": "A synagogue from Jesus' time at Magdala",
+  "summary": "A salvage excavation begun in 2009 at Magdala on the Sea of Galilee uncovered a synagogue of the Second Temple period. At its centre stood the Magdala Stone, carved with images of the Temple, including one of the earliest known seven-branched menorahs.",
+  "shows": "The kind of Galilean synagogue where the Gospels say Jesus taught, in the home town of Mary Magdalene.",
+  "limits": "There is no evidence that Jesus taught in this particular building. A second synagogue was found elsewhere at Magdala in 2021.",
+  "era": "1st century AD (before AD 70)",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2009,
+  "place": "Magdala",
+  "verses": [
+   "Matthew 4:23",
+   "Luke 8:2",
+   "Mark 1:39"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Archaeological park",
+    "publisher": "Magdala",
+    "url": "https://www.magdala.org/archaeology"
+   },
+   {
+    "title": "New first-century synagogue",
+    "publisher": "Biblical Archaeology Society",
+    "url": "https://www.biblicalarchaeology.org/daily/new-first-century-synagogue/"
+   }
+  ],
+  "tags": [
+   "galilee",
+   "jesus",
+   "synagogue"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "babylonian-chronicle",
+  "pillar": "archaeological",
+  "kind": "inscription",
+  "title": "Babylon's own record of the capture of Jerusalem in 597 BC",
+  "summary": "A Babylonian chronicle tablet in the British Museum (BM 21946, published by Donald Wiseman in 1956) records that Nebuchadnezzar besieged \"the city of Judah\", captured its king and appointed a king of his choice.",
+  "shows": "The capture of Jerusalem and the replacement of King Jehoiachin by Zedekiah, as 2 Kings 24 tells it, dated by the chronicle to March 597 BC.",
+  "limits": "The chronicle names neither Jehoiachin nor Zedekiah; the identification comes from matching the events.",
+  "era": "597 BC",
+  "yearFrom": -597,
+  "yearTo": -597,
+  "discovered": null,
+  "place": "Babylon",
+  "verses": [
+   "2 Kings 24:10-17",
+   "2 Chronicles 36:9-10"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Nebuchadnezzar Chronicle",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nebuchadnezzar_Chronicle"
+   },
+   {
+    "title": "The Babylonian Chronicle (Chronicle 5): Nebuchadnezzar besieges Jerusalem, 597 BCE",
+    "publisher": "Center for Online Judaic Studies",
+    "url": "https://cojs.org/the_babylonian_chronicle_-chronicle_5-_nebuchadnezzar_besieges_jerusalem-_597_bce/"
+   }
+  ],
+  "tags": [
+   "babylon",
+   "exile",
+   "jerusalem"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "mount-ebal-tablet",
+  "pillar": "archaeological",
+  "kind": "inscription",
+  "title": "The Mount Ebal \"curse tablet\" (disputed)",
+  "summary": "A small folded lead object, found in 2019 by sifting debris from 1980s excavations on Mount Ebal, was published in 2023 by Scott Stripling and colleagues as a curse text naming God (YHW), which would make it among the oldest Hebrew inscriptions.",
+  "shows": "If the reading is right, early Israelite worship on Mount Ebal, the mountain of the curses in Deuteronomy 27.",
+  "limits": "Strongly disputed. Other scholars argue there is no readable inscription and that the object is a fishing-net weight. The app shows it only as a disputed claim.",
+  "era": "Claimed Late Bronze Age",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2019,
+  "place": "Mount Ebal",
+  "verses": [
+   "Deuteronomy 27:4-26",
+   "Joshua 8:30-35"
+  ],
+  "strength": "debated",
+  "sources": [
+   {
+    "title": "'Curse tablet' with oldest Hebrew name of god is actually a fishing weight, experts argue",
+    "publisher": "Live Science",
+    "url": "https://www.livescience.com/archaeology/curse-tablet-with-oldest-hebrew-name-of-god-is-actually-a-fishing-weight-experts-argue"
+   },
+   {
+    "title": "Mt. Ebal curse tablet? A refutation of the claims regarding the so called Mt. Ebal curse tablet (Heritage Science, 2024)",
+    "publisher": "DOAJ",
+    "url": "https://doaj.org/article/d7861140d8d743158c29a999648ffb5d"
+   }
+  ],
+  "tags": [
+   "latest",
+   "debated"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "el-araj-bethsaida",
+  "pillar": "geographical",
+  "kind": "site",
+  "title": "El-Araj: Bethsaida and the Church of the Apostles?",
+  "summary": "Excavators from Kinneret College and Nyack College at el-Araj, on the north shore of the Sea of Galilee, found a Byzantine church with mosaic floors. They identify it with the Church of the Apostles that a Bavarian bishop, Willibald, visited in AD 725, built over the house of Peter and Andrew in Bethsaida.",
+  "shows": "A possible location for Bethsaida, the home town of Peter, Andrew and Philip.",
+  "limits": "The identification is disputed. The team at the rival site of et-Tell disagrees, and no inscription naming the apostles has been found.",
+  "era": "Church built about the 5th century AD",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2019,
+  "place": "Bethsaida",
+  "verses": [
+   "John 1:44",
+   "Mark 8:22",
+   "Matthew 11:21"
+  ],
+  "strength": "debated",
+  "sources": [
+   {
+    "title": "Bethsaida and the Church of the Apostles",
+    "publisher": "Biblical Archaeology Society",
+    "url": "https://library.biblicalarchaeology.org/department/bethsaida-and-the-church-of-the-apostles/"
+   },
+   {
+    "title": "Report on the 2019 el-Araj finds",
+    "publisher": "Christianity Today",
+    "url": "https://christianitytoday.com/ct/2019/august-web-only/archeologists-lost-city-apostles-bethsaida-el-araj-israel.html"
+   }
+  ],
+  "tags": [
+   "latest",
+   "galilee",
+   "apostles",
+   "debated"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "shiloh",
+  "pillar": "geographical",
+  "kind": "site",
+  "title": "Shiloh, where the tabernacle stood",
+  "summary": "Tel Shiloh, where Joshua set up the tabernacle and where Samuel grew up, has been excavated by Israel Finkelstein (1981-1984) and since 2017 by the Associates for Biblical Research under Scott Stripling, who report finds from the early Israelite period.",
+  "shows": "A real, excavated town matching the biblical Shiloh, with evidence of early occupation and worship.",
+  "limits": "The excavators themselves call the tabernacle identification unconfirmed and their results preliminary.",
+  "era": "Early Iron Age (period of the Judges)",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Shiloh",
+  "verses": [
+   "Joshua 18:1",
+   "1 Samuel 1:3",
+   "1 Samuel 3:21"
+  ],
+  "strength": "preliminary",
+  "sources": [
+   {
+    "title": "CHLS joins ABR in historic dig at Shiloh",
+    "publisher": "Assemblies of God News",
+    "url": "https://news.ag.org/en/articles/news/2018/08/chls-joins-abr-in-historic-dig-at-shiloh"
+   },
+   {
+    "title": "Excavation at site of ancient Shiloh offers evidence for biblical accounts",
+    "publisher": "Aleteia",
+    "url": "https://aleteia.org/2019/11/02/excavation-at-site-of-ancient-shiloh-offers-evidence-for-biblical-accounts"
+   }
+  ],
+  "tags": [
+   "tabernacle",
+   "judges"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "capernaum",
+  "pillar": "geographical",
+  "kind": "site",
+  "title": "Capernaum and the house of Peter",
+  "summary": "Franciscan excavations at Capernaum found a first-century house that was turned into a place of worship and later covered by a 5th-century octagonal church. Christians identify it as Peter's house, where Jesus stayed. A large synagogue stands nearby.",
+  "shows": "Jesus' base in Galilee, with very early Christian veneration of one particular house.",
+  "limits": "That the house was Peter's is a tradition supported by archaeology, not proven.",
+  "era": "House 1st century AD; octagonal church 5th century",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Capernaum",
+  "verses": [
+   "Mark 1:21",
+   "Mark 1:29-33",
+   "Matthew 8:14-15"
+  ],
+  "strength": "tradition",
+  "sources": [
+   {
+    "title": "Capernaum",
+    "publisher": "Encyclopedia.com",
+    "url": "https://www.encyclopedia.com/religion/encyclopedias-almanacs-transcripts-and-maps/capernaum-0"
+   },
+   {
+    "title": "In Capernaum, the place of the Eucharistic promise",
+    "publisher": "Custody of the Holy Land",
+    "url": "https://www.custodia.org/?p=421723"
+   }
+  ],
+  "tags": [
+   "galilee",
+   "jesus",
+   "apostles"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "cave-of-patriarchs",
+  "pillar": "geographical",
+  "kind": "tomb",
+  "title": "The Cave of the Patriarchs at Hebron",
+  "summary": "Genesis 23 tells how Abraham bought the cave of Machpelah to bury Sarah; Abraham, Isaac, Rebekah, Jacob and Leah were later buried there. The massive enclosure over the traditional site is attributed to Herod the Great and is the only Herodian building of its kind still standing.",
+  "shows": "A burial site venerated by Jews, Christians and Muslims, enclosed in Herod's time.",
+  "limits": "When the tradition began is not known; the identification rests on tradition, not excavation.",
+  "era": "Enclosure late 1st century BC",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Hebron",
+  "verses": [
+   "Genesis 23:17-20",
+   "Genesis 49:29-32",
+   "Genesis 50:13"
+  ],
+  "strength": "tradition",
+  "sources": [
+   {
+    "title": "Cave of the Patriarchs",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cave_of_the_Patriarchs"
+   },
+   {
+    "title": "Machpelah",
+    "publisher": "Encyclopedia of the Bible (Bible Gateway)",
+    "url": "https://classic.biblegateway.com/resources/encyclopedia-of-the-bible/Machpelah"
+   }
+  ],
+  "tags": [
+   "tomb",
+   "patriarchs"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "garden-tomb",
+  "pillar": "geographical",
+  "kind": "tomb",
+  "title": "The Garden Tomb (Gordon's Calvary)",
+  "summary": "A rock-cut tomb north of Jerusalem's Damascus Gate, proposed in the 1880s as Jesus' tomb because it lies near a skull-shaped hill. It is a popular place of prayer.",
+  "shows": "What a rock-cut garden tomb near the city looks like.",
+  "limits": "Its identification as Jesus' tomb is disputed. Archaeologist Gabriel Barkay dates the tomb to the 8th-7th centuries BC, centuries before Jesus, as part of an Iron Age cemetery. The Garden Tomb Association itself does not claim it is the authentic tomb.",
+  "era": "Tomb Iron Age (8th-7th century BC); proposed as Jesus' tomb in the 1880s",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Jerusalem",
+  "verses": [
+   "John 19:41-42"
+  ],
+  "strength": "debated",
+  "sources": [
+   {
+    "title": "Garden Tomb",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Garden_Tomb"
+   },
+   {
+    "title": "Garden Tomb, 8th-7th century BCE",
+    "publisher": "Center for Online Judaic Studies",
+    "url": "https://cojs.org/?p=5806"
+   }
+  ],
+  "tags": [
+   "tomb",
+   "jerusalem",
+   "debated"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "rachels-tomb",
+  "pillar": "geographical",
+  "kind": "tomb",
+  "title": "Rachel's Tomb near Bethlehem",
+  "summary": "Genesis says Rachel died on the way to Ephrath (Bethlehem) and Jacob set a pillar on her grave. The site north of Bethlehem has been visited as her tomb since at least the early 4th century AD; the present domed building dates from the Ottoman period, about 1620.",
+  "shows": "One of the oldest continuously venerated biblical burial sites.",
+  "limits": "1 Samuel 10:2 places Rachel's grave on the border of Benjamin, which some scholars take as a second, northern tradition. The site's identification rests on tradition.",
+  "era": "Tradition attested from the 4th century AD; building about 1620",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Bethlehem",
+  "verses": [
+   "Genesis 35:19-20",
+   "1 Samuel 10:2",
+   "Matthew 2:18"
+  ],
+  "strength": "tradition",
+  "sources": [
+   {
+    "title": "Rachel's Tomb",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rachel%27s_Tomb"
+   },
+   {
+    "title": "Rachel's Tomb",
+    "publisher": "BibleWalks",
+    "url": "https://www.biblewalks.com/rachelstomb/"
+   }
+  ],
+  "tags": [
+   "tomb",
+   "patriarchs"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "siloam-tunnel-dating",
+  "pillar": "scientific",
+  "kind": "study",
+  "title": "Hezekiah's tunnel dated in the laboratory to about 700 BC",
+  "summary": "Amos Frumkin, Aryeh Shimron and Jeff Rosenbaum dated plant material in the tunnel's plaster by radiocarbon and stalactites that grew inside it by uranium-thorium. Their results, published in Nature in 2003, place the tunnel at about 700 BC.",
+  "shows": "The first radiometric dating of a structure named in the Bible. It fits Hezekiah's reign (2 Kings 20:20) and rules out a proposed 2nd-century BC date.",
+  "limits": "The inscription in the tunnel does not name the king; the link to Hezekiah comes from the Bible, the script and this dating together.",
+  "era": "About 700 BC; study published 2003",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 2003,
+  "place": "Jerusalem",
+  "verses": [
+   "2 Kings 20:20",
+   "2 Chronicles 32:30"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Radiometric dating of the Siloam Tunnel, Jerusalem (Nature 425, 2003)",
+    "publisher": "Hebrew University research portal",
+    "url": "https://cris.huji.ac.il/en/publications/radiometric-dating-of-the-siloam-tunnel-jerusalem/"
+   },
+   {
+    "title": "News release on the Siloam Tunnel dating (2003)",
+    "publisher": "EurekAlert!",
+    "url": "https://eurekalert.org/news-releases/542305"
+   }
+  ],
+  "tags": [
+   "dating",
+   "jerusalem",
+   "king"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "dead-sea-scrolls-radiocarbon",
+  "pillar": "scientific",
+  "kind": "study",
+  "title": "Radiocarbon dating of the Dead Sea Scrolls",
+  "summary": "Accelerator radiocarbon tests on Dead Sea Scrolls, first published in the journal Radiocarbon in 1992, agreed with the dates scholars had given them from their handwriting in all but one case. The Great Isaiah Scroll has been tested three times.",
+  "shows": "Independent laboratory confirmation that the scrolls, including complete Isaiah with chapter 53, were copied before the time of Jesus.",
+  "limits": "Published ranges for the Isaiah scroll vary between tests, and possible contamination of samples has been debated.",
+  "era": "Scrolls copied about 3rd century BC to 1st century AD",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": 1947,
+  "place": "Qumran",
+  "verses": [
+   "Isaiah 53:3-7",
+   "Isaiah 7:14"
+  ],
+  "strength": "strong",
+  "sources": [
+   {
+    "title": "Radiocarbon dating of fourteen Dead Sea Scrolls (Bonani et al., Radiocarbon, 1992)",
+    "publisher": "Radiocarbon journal, University of Arizona",
+    "url": "https://journals.uair.arizona.edu/index.php/radiocarbon/article/download/1537/1541"
+   },
+   {
+    "title": "Isaiah Scroll",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Isaiah_Scroll"
+   }
+  ],
+  "tags": [
+   "dating",
+   "manuscripts",
+   "prophecy"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "universe-beginning",
+  "pillar": "scientific",
+  "kind": "argument",
+  "title": "The universe had a beginning: the data and the argument",
+  "summary": "Measurements of the cosmic microwave background by the Planck satellite fit a universe that has expanded from a hot, dense state about 13.8 billion years ago. Many Christian thinkers argue, for example in the kalam cosmological argument, that a universe with a beginning needs a cause beyond it, as Genesis 1:1 says.",
+  "shows": "Modern cosmology describes a finite past for the observable universe, which fits the Bible's teaching that the world was created.",
+  "limits": "The measurement is science; the step from it to God is philosophy. Philosophers and physicists dispute the argument's premises (for example, whether an actual infinite is possible and what came before the Big Bang). JARVIS presents it as an argument, not a scientific proof.",
+  "era": "Planck 2018 results",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": null,
+  "verses": [
+   "Genesis 1:1",
+   "Hebrews 11:3",
+   "Psalms 19:1"
+  ],
+  "strength": "debated",
+  "sources": [
+   {
+    "title": "Planck 2018 results. VI. Cosmological parameters",
+    "publisher": "Astronomy & Astrophysics (NASA ADS record)",
+    "url": "https://ui.adsabs.harvard.edu/abs/2020A%26A...641A...6P/abstract"
+   },
+   {
+    "title": "Cosmological argument",
+    "publisher": "Stanford Encyclopedia of Philosophy (archived edition)",
+    "url": "https://plato.stanford.edu/archives/spr2005/entries/cosmological-argument/"
+   }
+  ],
+  "tags": [
+   "cosmology",
+   "argument",
+   "debated"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "messianic-thread",
+  "pillar": "theological",
+  "kind": "argument",
+  "title": "One story across both Testaments",
+  "summary": "New Testament writers repeatedly present Old Testament promises as fulfilled in Jesus. This app maps 41 of these connections with their sources, and readers on OpenBible.info have linked Old and New Testament passages in 40,099 threads.",
+  "shows": "The two Testaments are bound together by quotation and allusion, from Genesis 3:15 to Revelation 21, which Christians read as one unfolding plan.",
+  "limits": "This is an argument from the text itself. Jewish readers often understand these passages differently, and the app's journeys show those readings where sources give them. The thread count measures readers' cross-references, not truth.",
+  "era": "Old Testament to New Testament",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": null,
+  "verses": [
+   "Genesis 3:15",
+   "Luke 24:27",
+   "Revelation 21:1-4"
+  ],
+  "strength": "moderate",
+  "sources": [
+   {
+    "title": "Old Testament messianic prophecies quoted in the New Testament",
+    "publisher": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Old_Testament_messianic_prophecies_quoted_in_the_New_Testament"
+   },
+   {
+    "title": "Bible cross-references",
+    "publisher": "OpenBible.info",
+    "url": "https://www.openbible.info/labs/cross-references/"
+   }
+  ],
+  "tags": [
+   "prophecy",
+   "argument"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ },
+ {
+  "id": "augustine-confessions",
+  "pillar": "spiritual",
+  "kind": "testimony",
+  "title": "Augustine's conversion, in his own words",
+  "summary": "In his Confessions, written around AD 400, Augustine of Hippo describes years of searching, then hearing a child's voice say \"take up and read\", opening Paul's letter, and finding his life changed. His account has been read for sixteen centuries.",
+  "shows": "A first-hand, published account of a life transformed by reading Scripture, from one of the most influential thinkers in history.",
+  "limits": "A testimony shows what a person experienced and how they changed. It is not proof to a sceptic, and the app says so.",
+  "era": "Written about AD 400",
+  "yearFrom": null,
+  "yearTo": null,
+  "discovered": null,
+  "place": "Milan",
+  "verses": [
+   "Romans 13:13-14"
+  ],
+  "strength": "testimony",
+  "sources": [
+   {
+    "title": "The Confessions of Saint Augustine (E. B. Pusey translation), Book VIII",
+    "publisher": "Project Gutenberg",
+    "url": "https://www.gutenberg.org/ebooks/3296.txt.utf-8"
+   },
+   {
+    "title": "The Confessions (Pusey translation, audio)",
+    "publisher": "LibriVox",
+    "url": "https://librivox.org/the-confessions-by-saint-augustine-of-hippo/"
+   }
+  ],
+  "tags": [
+   "testimony",
+   "public-domain"
+  ],
+  "status": "draft",
+  "reviewedBy": null,
+  "videos": []
+ }
+]

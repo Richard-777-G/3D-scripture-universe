@@ -55,6 +55,13 @@ insert into problems select 'jerusalem on the map', coalesce(min(name), 'missing
 
 insert into problems select 'share-alike recorded', id from sources where id = 'theographic' and not share_alike;
 
+insert into problems select 'evidence items have 2+ sources', i.id
+  from evidence_items i left join evidence_item_sources s on s.item_id = i.id group by i.id having count(s.*) < 2;
+
+insert into problems select 'existing evidence has a pillar', id from evidence where pillar is null;
+
+insert into problems select 'drafts are not public', count(*)::text from evidence_items where status = 'published' and reviewed_by is null having count(*) > 0;
+
 select * from problems;
 do $$ begin
   if exists (select 1 from problems) then raise exception 'database check found % problem(s)', (select count(*) from problems); end if;

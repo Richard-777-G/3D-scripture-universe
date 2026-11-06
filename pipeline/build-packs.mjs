@@ -45,6 +45,7 @@ put("core", "json", JSON.stringify(input.core));
 put("kjv", "txt", input.kjv.join("\n"));
 for (const k of ["journeys", "story", "evidence", "qa"]) put(k, "json", JSON.stringify(input[k]));
 put("sources", "json", JSON.stringify(input.sources.datasets));
+put("evidence-centre", "json", JSON.stringify(input.evidenceCentre));
 for (const [k, text] of Object.entries(input.assets)) put(k, k.startsWith("v_") ? "txt" : "json", text);
 // Theographic people, places and events (loaded on demand by later features)
 for (const k of ["people", "places", "events"]) put(k, "json", JSON.stringify(input.theographic[k]));

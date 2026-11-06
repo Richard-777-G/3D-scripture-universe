@@ -1,0 +1,50 @@
+[
+ {
+  "id": "spiritual",
+  "ord": 1,
+  "title": "Spiritual evidence",
+  "question": "Did what the Bible promised come true, and does it change lives?",
+  "scope": "Fulfilled prophecy (curated promise to fulfilment pairs) and published, attributable testimonies. Testimonies are persuasive to believers but are not proof to a sceptic, and the app says so.",
+  "itemKinds": ["prophecy", "testimony"]
+ },
+ {
+  "id": "historical",
+  "ord": 2,
+  "title": "Historical evidence",
+  "question": "Do writers outside the Bible confirm its people and events?",
+  "scope": "Roman and Jewish writers (Tacitus, Josephus, Pliny, Suetonius and others) and the manuscript record of the Bible itself. Disputed passages are shown with the dispute.",
+  "itemKinds": ["text", "manuscript"]
+ },
+ {
+  "id": "scientific",
+  "ord": 3,
+  "title": "Scientific evidence",
+  "question": "What do scientific methods say about the Bible's world?",
+  "scope": "Laboratory dating of biblical structures and manuscripts, and arguments from cosmology. Measurements are reported as measured; arguments built on them are labelled as arguments, with the main objections.",
+  "itemKinds": ["study", "argument"]
+ },
+ {
+  "id": "theological",
+  "ord": 4,
+  "title": "Theological evidence",
+  "question": "Does the Bible hold together as one story?",
+  "scope": "Themes and promises that run from the Old Testament into the New, shown with the passages themselves. This is an argument from the text, not an outside proof.",
+  "itemKinds": ["argument"]
+ },
+ {
+  "id": "archaeological",
+  "ord": 5,
+  "title": "Archaeological evidence",
+  "question": "Has the ground confirmed the Bible's people and places?",
+  "scope": "Inscriptions, seals, tablets, scrolls and excavated buildings, with where they were found, where they are now and what they do not show.",
+  "itemKinds": ["artifact", "inscription", "manuscript", "site"]
+ },
+ {
+  "id": "geographical",
+  "ord": 6,
+  "title": "Geographical evidence",
+  "question": "Where did it happen? Can I see it on a map?",
+  "scope": "All 1,298 Theographic places with coordinates on a map, plus curated histories of iconic sites and tombs from Genesis to Revelation. Each says whether the identification rests on excavation or on tradition.",
+  "itemKinds": ["site", "tomb"]
+ }
+]
