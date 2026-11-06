@@ -14,7 +14,8 @@
     "test:e2e": "playwright test --trace off",
     "test:db": "tests/db/run.sh",
     "export-db": "node pipeline/export-db.mjs",
-    "fetch": "node pipeline/fetch.mjs"
+    "fetch": "node pipeline/fetch.mjs",
+    "evidence:review": "node pipeline/evidence-review.mjs"
   },
   "dependencies": {
     "three": "0.128.0"

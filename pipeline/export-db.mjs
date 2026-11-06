@@ -14,6 +14,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { verseTable, validateAll } from "./validate.mjs";
 import { loadInputs } from "./inputs.mjs";
+import { parseRef } from "./evidence-centre.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const OUT = path.resolve(process.argv[2] || path.join(ROOT, "build/db"));
@@ -142,11 +143,22 @@ table("person_places", ["person_id", "kind", "place_id"],
   TG.people.flatMap((p) => [...[...new Set(p.birthPlace)].map((x) => [p.id, "birth", x]), ...[...new Set(p.deathPlace)].map((x) => [p.id, "death", x])]));
 table("event_participants", ["event_id", "person_id"], TG.events.flatMap((e) => [...new Set(e.participants)].map((x) => [e.id, x])));
 
+/* Evidence Centre */
+const EC = input.evidenceCentre;
+table("evidence_pillars", ["id", "ord", "title", "question", "scope"], EC.pillars.map((p) => [p.id, p.ord, p.title, p.question, p.scope]));
+table("evidence_items", ["id", "pillar", "kind", "title", "summary", "shows", "limits", "era", "year_from", "year_to", "discovered", "place", "strength", "status", "reviewed_by"],
+  EC.items.map((i) => [i.id, i.pillar, i.kind, i.title, i.summary, i.shows, i.limits, i.era, i.yearFrom, i.yearTo, i.discovered, i.place, i.strength, i.status, i.reviewedBy]));
+table("evidence_item_sources", ["item_id", "ord", "title", "publisher", "url"], EC.items.flatMap((i) => i.sources.map((s, k) => [i.id, k, s.title, s.publisher, s.url])));
+table("evidence_item_verses", ["item_id", "ord", "start_key", "end_key"],
+  EC.items.flatMap((i) => i.verses.map((r, k) => { const [s, e] = parseRef(r, core.books); return [i.id, k, keyOf(s), keyOf(e)]; })));
+table("evidence_item_videos", ["item_id", "ord", "title", "channel", "url"], EC.items.flatMap((i) => (i.videos || []).map((v, k) => [i.id, k, v.title, v.channel, v.url])));
+
 /* load script: one transaction, in dependency order */
 const sql = [
   "\\set ON_ERROR_STOP on",
   "begin;",
   ...tables.map((t) => `\\copy ${t.name} (${t.cols.join(", ")}) from '${t.file}'`),
+  ...Object.entries(EC.existingMap).filter(([k]) => !k.startsWith("_")).map(([id, p]) => `update evidence set pillar = '${p}' where id = '${id}';`),
   "commit;",
   "",
 ].join("\n");

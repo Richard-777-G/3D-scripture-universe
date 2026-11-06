@@ -3,6 +3,8 @@
  * "Validate" step: complete versions, links that point at real verses, content
  * that only references things that exist, and a licence for every pack.
  */
+import { validateEvidenceCentre } from "./evidence-centre.mjs";
+
 export const TOTAL_VERSES = 31102;
 /** Versions that leave some verses empty on purpose (later manuscripts). */
 const MAX_EMPTY_VERSES = 20;
@@ -157,6 +159,13 @@ export function validateAll(input) {
     if (people.length < 3000 || places.length < 1200 || events.length < 400) err("Theographic: fewer records than expected");
     const noVerse = people.filter((p) => !p.verses.length).length;
     if (noVerse) warn(`Theographic: ${noVerse} people have no verses`);
+  }
+
+  /* Evidence Centre drafts and pillars */
+  if (input.evidenceCentre) {
+    const r = validateEvidenceCentre(input.evidenceCentre, { books: core.books, evidence });
+    errors.push(...r.errors);
+    warnings.push(...r.warnings);
   }
 
   /* licences: every pack must be covered by a dataset in data/sources.json */
