@@ -1,0 +1,140 @@
+[
+ {
+  "id": "gen3",
+  "chapter": "The promise begins",
+  "t": 0,
+  "kid": "Right after the first sin, God promises that a child of the woman will one day crush the serpent. Christians call this the first announcement of the good news.",
+  "ev": []
+ },
+ {
+  "id": "gen22",
+  "chapter": "The promise begins",
+  "t": 0,
+  "kid": "Abraham is told to offer his son, but God provides a ram instead. Christians see a picture of God giving his own Son as the Lamb.",
+  "ev": []
+ },
+ {
+  "id": "passover",
+  "chapter": "Moses and the Exodus",
+  "t": 0,
+  "kid": "In Egypt a spotless lamb’s blood saved Israel, and none of its bones could be broken. John says Jesus died at Passover and none of his bones were broken.",
+  "ev": []
+ },
+ {
+  "id": "deut18",
+  "chapter": "Moses and the Exodus",
+  "t": 0,
+  "kid": "Moses promised that God would raise up another prophet like him. Peter tells the crowd in Jerusalem that this prophet is Jesus.",
+  "ev": []
+ },
+ {
+  "id": "sam7",
+  "chapter": "King David",
+  "t": 0,
+  "kid": "God promised David a son whose kingdom would last for ever. The angel tells Mary that her son will be given the throne of David.",
+  "ev": [
+   "teldan",
+   "mesha"
+  ]
+ },
+ {
+  "id": "isa7",
+  "chapter": "Born as promised",
+  "t": 0,
+  "kid": "Isaiah promises a sign: a child called Immanuel, which means “God with us”. Matthew says this came true when Jesus was born of Mary.",
+  "ev": [
+   "isaiahscroll"
+  ]
+ },
+ {
+  "id": "mic5",
+  "chapter": "Born as promised",
+  "t": 0,
+  "kid": "Micah names little Bethlehem as the birthplace of a ruler whose origins are “from of old”. Jesus is born in Bethlehem.",
+  "ev": [
+   "nativity"
+  ]
+ },
+ {
+  "id": "zech9",
+  "chapter": "The King who suffered",
+  "t": 0,
+  "kid": "Zechariah pictures Jerusalem’s king coming humbly, riding on a donkey. Jesus rides into Jerusalem on a donkey.",
+  "ev": []
+ },
+ {
+  "id": "ps22",
+  "chapter": "The King who suffered",
+  "t": 0,
+  "kid": "A psalm of David begins “My God, my God, why hast thou forsaken me?” and tells of clothes divided by lot. Jesus cries these words on the cross, and soldiers cast lots for his clothes.",
+  "ev": [
+   "pilate",
+   "caiaphas",
+   "outside"
+  ]
+ },
+ {
+  "id": "isa53",
+  "chapter": "The King who suffered",
+  "t": 2,
+  "kid": "Isaiah describes a servant “wounded for our transgressions” who goes to his death silent, “as a lamb to the slaughter”. In Acts 8, Philip explains this very passage as being about Jesus.",
+  "ev": [
+   "isaiahscroll"
+  ]
+ },
+ {
+  "id": "ps16",
+  "chapter": "Risen",
+  "t": 0,
+  "kid": "David says God will not let his Holy One see decay. At Pentecost, Peter preaches that this came true when God raised Jesus from the dead.",
+  "ev": [
+   "creed",
+   "outside"
+  ]
+ },
+ {
+  "id": "firstlast",
+  "chapter": "Who he is",
+  "t": 1,
+  "kid": "In Isaiah the LORD alone says “I am the first, and I am the last”. In Revelation, the risen Jesus says the same words about himself.",
+  "ev": [
+   "sinaiticus"
+  ]
+ },
+ {
+  "id": "iam",
+  "chapter": "Who he is",
+  "t": 0,
+  "kid": "God tells Moses his name is “I AM”. Jesus says “Before Abraham was, I am”, and the crowd picks up stones to throw at him.",
+  "ev": [
+   "p52"
+  ]
+ },
+ {
+  "id": "joel2",
+  "chapter": "The church is born",
+  "t": 0,
+  "kid": "Joel promised that God would pour out his Spirit on all people. At Pentecost, Peter says “this is that”: the church is born.",
+  "ev": [
+   "gallio",
+   "erastus",
+   "p52"
+  ]
+ },
+ {
+  "id": "olives",
+  "chapter": "Coming again",
+  "t": 0,
+  "kid": "Zechariah sees the LORD’s feet standing on the Mount of Olives. Jesus was taken up from that mountain, and angels said he would come back the same way.",
+  "ev": []
+ },
+ {
+  "id": "newheaven",
+  "chapter": "Coming again",
+  "t": 0,
+  "kid": "Isaiah promises new heavens and a new earth. The Bible ends with that promise: God will live with his people and wipe away every tear.",
+  "ev": [
+   "sinaiticus"
+  ]
+ }
+]

@@ -1,0 +1,624 @@
+[
+ {
+  "id": "merneptah",
+  "layer": "ot",
+  "title": "Israel named in Egypt, about 1208 BCE",
+  "kid": "An Egyptian stone from about 3,200 years ago names a people called Israel.",
+  "place": "Thebes, Egypt (now in the Egyptian Museum, Cairo)",
+  "grade": "artifact",
+  "what": "The Merneptah Stele is a black granite slab, over 3 metres high, found by Flinders Petrie at Thebes in 1896. It records a campaign by Pharaoh Merneptah in Canaan and lists Israel among the peoples he defeated.",
+  "shows": "It is the earliest known mention of Israel outside the Bible. The sign used for Israel marks a people, not a city, which fits a people already living in Canaan.",
+  "limits": "It never mentions the Exodus. It does not confirm Israel’s origins, escape from Egypt or wandering. A few scholars read the name differently, but most read it as Israel.",
+  "faith": "The people the Old Testament calls Israel are in the historical record in the 13th century BCE.",
+  "books": [
+   "Joshua",
+   "Judges"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Merneptah Stele",
+    "u": "https://en.wikipedia.org/wiki/Merneptah_Stele"
+   }
+  ],
+  "see": null,
+  "icon": "tablets"
+ },
+ {
+  "id": "teldan",
+  "layer": "ot",
+  "title": "“House of David” carved in stone",
+  "kid": "A broken stone from about 2,800 years ago seems to name David’s royal family.",
+  "place": "Tel Dan, northern Israel (now in the Israel Museum, Jerusalem)",
+  "grade": "artifact",
+  "what": "Fragments of an Aramaic victory inscription were found at Tel Dan in 1993 and 1994, reused in a later wall. Most scholars date it to the second half of the 9th century BCE and think a king of Damascus made it.",
+  "shows": "Most scholars read the letters bytdwd as “house of David”. If so, it is the earliest widely accepted reference outside the Bible to David as the founder of a Judahite royal line.",
+  "limits": "There is no word divider between the two words, and other readings have been proposed (a place name, a divine name). Even with the usual reading, some scholars say it would not by itself prove what the Bible says about David’s kingdom. A few called it a forgery, but most reject that because it came from a controlled dig.",
+  "faith": "David’s dynasty, from which the New Testament says the Messiah would come, was known as a real royal house within a few centuries.",
+  "books": [
+   "2 Samuel",
+   "1 Kings",
+   "Matthew"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Tel Dan stele",
+    "u": "https://en.wikipedia.org/wiki/Tel_Dan_stele"
+   }
+  ],
+  "see": null,
+  "icon": "harp"
+ },
+ {
+  "id": "siloam",
+  "layer": "ot",
+  "title": "Hezekiah’s tunnel and its inscription",
+  "kid": "Workers cut a water tunnel through solid rock under Jerusalem and left a note about it.",
+  "place": "City of David, Jerusalem (original in the Istanbul Archaeology Museum)",
+  "grade": "artifact",
+  "what": "A tunnel carries water from the Gihon Spring to the Pool of Siloam. A six-line Hebrew inscription, found in 1880, says two teams of stonecutters dug from both ends and met in the middle, hearing each other’s voices. It gives the length as 1,200 cubits.",
+  "shows": "The Bible says Hezekiah made “the pool, and a conduit” and brought water into the city (2 Kings 20:20) and stopped the springs outside (2 Chronicles 32:3–4). The tunnel and the writing style (about 700 BCE) match that setting.",
+  "limits": "The inscription does not name Hezekiah or any king. Dating rests on the style of the letters. The link to Hezekiah is a reasonable match, not a signed receipt.",
+  "faith": "The Bible’s account of Jerusalem under Hezekiah describes a real engineering work that can still be walked through.",
+  "books": [
+   "2 Kings",
+   "2 Chronicles"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Siloam inscription",
+    "u": "https://en.wikipedia.org/wiki/Siloam_inscription"
+   }
+  ],
+  "see": null,
+  "icon": "drop"
+ },
+ {
+  "id": "cyrus",
+  "layer": "ot",
+  "title": "Cyrus lets peoples go home",
+  "kid": "A clay cylinder from Babylon shows Persia’s king sending gods and peoples back to their homes.",
+  "place": "Babylon, Iraq (now in the British Museum, London)",
+  "grade": "artifact",
+  "what": "The Cyrus Cylinder was found by Hormuzd Rassam in 1879 at Babylon and dates to about 539–530 BCE, soon after Cyrus conquered the city. It says Cyrus returned the images of the gods to their places and gathered their peoples.",
+  "shows": "Ezra 1 says Cyrus allowed the Jews to return and rebuild the temple, and Isaiah 44:28 names Cyrus, long before. The Cylinder shows that this kind of policy, and this king, are real.",
+  "limits": "The Cylinder never mentions Jews, Jerusalem or Judea. It lists Mesopotamian places. Scholars link it to the biblical story, but some say it is standard royal propaganda and not a general decree. There is no archaeological proof of temple rebuilding under Cyrus.",
+  "faith": "A Persian king, named in Scripture, is a verified figure whose reign matches the setting of Ezra.",
+  "books": [
+   "Ezra",
+   "Isaiah"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Cyrus Cylinder",
+    "u": "https://en.wikipedia.org/wiki/Cyrus_Cylinder"
+   }
+  ],
+  "see": null,
+  "icon": "crown"
+ },
+ {
+  "id": "isaiahscroll",
+  "layer": "ot",
+  "title": "The Great Isaiah Scroll",
+  "kid": "A 2,100-year-old scroll holds the whole book of Isaiah, written before Jesus was born.",
+  "place": "Qumran, near the Dead Sea (kept in the Shrine of the Book, Jerusalem)",
+  "grade": "manuscript",
+  "what": "Found in Qumran Cave 1 in 1946–47. About 7.3 metres long, 54 columns on 17 sheets, it has all 66 chapters of Isaiah. Radiocarbon dating gives 356–103 BCE and handwriting dating gives 150–100 BCE.",
+  "shows": "It is about 1,000 years older than the oldest Hebrew manuscripts known before the Dead Sea Scrolls. It is generally consistent with the later Masoretic text, with more than 2,600 differences, most of them small, such as spelling.",
+  "limits": "It proves Isaiah was written down before Jesus, not that any prophecy was fulfilled. Scholars still debate who wrote which parts of Isaiah and some chapter 2 verses may be later additions.",
+  "faith": "Chapters Christians read as pointing to Jesus, such as Isaiah 7, 9 and 53, were already in circulation about a century before he was born.",
+  "books": [
+   "Isaiah"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Isaiah Scroll",
+    "u": "https://en.wikipedia.org/wiki/Isaiah_Scroll"
+   }
+  ],
+  "see": {
+   "t": "Digital Dead Sea Scrolls (Israel Museum)",
+   "u": "https://dss.collections.imj.org.il/isaiah"
+  },
+  "icon": "scroll"
+ },
+ {
+  "id": "ketef",
+  "layer": "ot",
+  "title": "Silver scrolls with the priestly blessing",
+  "kid": "Two tiny silver scrolls from about 600 BCE carry the blessing “The LORD bless thee, and keep thee”.",
+  "place": "Ketef Hinnom, Jerusalem (now in the Israel Museum)",
+  "grade": "manuscript",
+  "what": "Found in 1979 in a burial cave at Ketef Hinnom, just outside Jerusalem’s Old City, in an excavation led by Gabriel Barkay. The two rolled silver amulets are written in old Hebrew script. One preserves part of the priestly blessing of Numbers 6:24–26.",
+  "shows": "They are among the oldest surviving texts known from the Hebrew Bible. A 2004 re-examination with advanced imaging dated them to just before the Babylonian destruction of Jerusalem in 586 BCE.",
+  "limits": "The text is fragmentary and partly restored. An old blessing existing does not prove the whole book of Numbers had been written yet; one scholar calls that claim an overinterpretation. Some scholars once doubted the dating.",
+  "faith": "Words of blessing still prayed today were being worn in Jerusalem before the Babylonian exile.",
+  "books": [
+   "Numbers"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Ketef Hinnom scrolls",
+    "u": "https://en.wikipedia.org/wiki/Ketef_Hinnom_scrolls"
+   }
+  ],
+  "see": null,
+  "icon": "ring"
+ },
+ {
+  "id": "mesha",
+  "layer": "ot",
+  "title": "King Mesha’s stone names Israel’s King Omri",
+  "kid": "A Moabite king’s victory stone names Israel, its king Omri, and Israel’s God.",
+  "place": "Dhiban, Jordan (now in the Louvre, Paris)",
+  "grade": "artifact",
+  "what": "The Mesha Stele, from about 840 BCE, was seen in 1868 near Dibon. Local Bedouin broke it, but a paper impression made earlier allowed it to be restored. King Mesha of Moab says Omri, king of Israel, oppressed Moab for many days, and that he took “the altar-hearths of Yahweh”.",
+  "shows": "2 Kings 3 tells of the same struggle between Israel and King Mesha of Moab. The stone is an early reference outside the Bible to Yahweh as the God of Israel. Scholar André Lemaire has read one line as “House of David”.",
+  "limits": "The stone and 2 Kings 3 tell the war differently, each from its own side. Much of the text survives only through the impression and the restoration. The “House of David” reading is tentative.",
+  "faith": "A king and a war named in 2 Kings appear in the enemy’s own words.",
+  "books": [
+   "2 Kings",
+   "1 Kings",
+   "2 Samuel"
+  ],
+  "src": [
+   {
+    "t": "Center for Online Judaic Studies: Moabite Stone, c. 840 BCE",
+    "u": "https://cojs.org/?p=6808"
+   }
+  ],
+  "see": null,
+  "icon": "shield"
+ },
+ {
+  "id": "blackobelisk",
+  "layer": "ot",
+  "title": "The Black Obelisk: an Israelite king bows",
+  "kid": "An Assyrian monument from about 827 BCE shows a king of Israel, probably Jehu, bowing with tribute.",
+  "place": "Nimrud, Iraq (now in the British Museum, London)",
+  "grade": "artifact",
+  "what": "Found by Austen Henry Layard at Nimrud in 1846, the black limestone obelisk celebrates King Shalmaneser III. One panel shows a kneeling figure bringing tribute, with a caption naming “Yaua of Bit Omri” (Jehu, son of Omri).",
+  "shows": "It is thought to be the earliest surviving picture of a person named in the Bible: Jehu, king of Israel, whose reign is told in 2 Kings 9–10.",
+  "limits": "Jehu was not actually from Omri’s family, and some scholars suggest the figure is Jehoram of Israel instead.",
+  "faith": "Israel’s kings appear in Assyria’s own royal records.",
+  "books": [
+   "2 Kings"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Black Obelisk of Shalmaneser III",
+    "u": "https://en.wikipedia.org/wiki/Black_Obelisk_of_Shalmaneser_III"
+   }
+  ],
+  "see": null,
+  "icon": "chain"
+ },
+ {
+  "id": "lachish",
+  "layer": "ot",
+  "title": "The Lachish reliefs: Assyria attacks Judah",
+  "kid": "Huge carved stone panels show the Assyrian army capturing the Judean city of Lachish in 701 BCE.",
+  "place": "Sennacherib’s palace, Nineveh (now in the British Museum, London)",
+  "grade": "artifact",
+  "what": "Carved on the walls of a central room in King Sennacherib’s palace, the reliefs show slingers, archers, siege ramps and battering rams, captives leaving the city, and Sennacherib on his throne receiving the spoil.",
+  "shows": "2 Kings 18:14 and 2 Chronicles 32:9 say Sennacherib was at Lachish, besieging it with all his forces, while he dealt with King Hezekiah. The relief’s caption is read as confirming the city and the king’s presence.",
+  "limits": "Sennacherib’s own written records do not name Lachish. The reliefs are royal propaganda. That Jerusalem itself was not taken rests mainly on the biblical account.",
+  "faith": "A siege the Bible records in a few verses was carved in stone by the attacker himself.",
+  "books": [
+   "2 Kings",
+   "2 Chronicles",
+   "Isaiah"
+  ],
+  "src": [
+   {
+    "t": "Tyndale House, Cambridge: The Lachish Reliefs",
+    "u": "https://tyndale.cam.ac.uk/explore/articles/the-lachish-reliefs/"
+   }
+  ],
+  "see": null,
+  "icon": "wall"
+ },
+ {
+  "id": "nabonidus",
+  "layer": "ot",
+  "title": "Belshazzar named on a Babylonian cylinder",
+  "kid": "A clay cylinder of King Nabonidus names his son Belshazzar, the king at the feast in Daniel 5.",
+  "place": "Babylonia (now in the British Museum, London)",
+  "grade": "artifact",
+  "what": "A foundation text of Nabonidus, king of Babylon (reigned 556–539 BCE), recording his repair of temples. It names Belshazzar as his son.",
+  "shows": "Daniel 5 calls Belshazzar king in Babylon on its last night. Babylon’s own record names a Belshazzar as the royal son, which fits Daniel’s account.",
+  "limits": "The cylinder does not describe the feast or the fall of Babylon. Sources differ slightly on its date and where it was found.",
+  "faith": "A royal name from Daniel turns up in Babylon’s own records.",
+  "books": [
+   "Daniel"
+  ],
+  "src": [
+   {
+    "t": "Center for Online Judaic Studies: Nabonidus Cylinder, 555–540 BCE",
+    "u": "https://cojs.org/?p=6914"
+   }
+  ],
+  "see": null,
+  "icon": "lion"
+ },
+ {
+  "id": "nativity",
+  "layer": "jesus",
+  "title": "Bethlehem and the Church of the Nativity",
+  "kid": "People have marked a cave in Bethlehem as Jesus’ birthplace for about 1,700 years.",
+  "place": "Bethlehem",
+  "grade": "place",
+  "what": "Constantine ordered a church built over the traditional cave after his mother Helena visited the Holy Land in 325–326. It was dedicated in 339, and Justinian rebuilt it in the 6th century. It is a UNESCO World Heritage Site (2012).",
+  "shows": "Matthew 2:1 and Luke 2:4–7 place Jesus’ birth in Bethlehem, as Micah 5:2 says. Around 248 Origen wrote that the cave “is pointed out where he was born”.",
+  "limits": "The exact cave is tradition, not independent proof. Origen himself described it as local belief. Jerome claimed an Adonis cult had used the spot. Several later claims about tombs under the church are disputed.",
+  "faith": "Christians have honoured one specific place from very early on, and the Gospels agree on the town.",
+  "books": [
+   "Micah",
+   "Matthew",
+   "Luke"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Church of the Nativity",
+    "u": "https://en.wikipedia.org/wiki/Church_of_the_Nativity"
+   }
+  ],
+  "see": null,
+  "icon": "star"
+ },
+ {
+  "id": "caiaphas",
+  "layer": "jesus",
+  "title": "Joseph son of Caiaphas",
+  "kid": "A carved bone box in Jerusalem may have held the family of the high priest who questioned Jesus.",
+  "place": "Jerusalem, south of the Old City (now in the Israel Museum)",
+  "grade": "artifact",
+  "what": "An ornate limestone burial box (ossuary) found in a Jerusalem cave in 1990 is inscribed “Yehosef bar Qayafa”, Joseph son of Caiaphas. It was among twelve ossuaries and held the bones of six people.",
+  "shows": "Caiaphas is the high priest at Jesus’ trial in Matthew 26:57 and John 18:13. The name and the rich decoration fit a high-priestly family.",
+  "limits": "The identification is not certain. Some scholars object to the spelling, the lack of any title and the plain tomb. It is a probable find, not a proven one.",
+  "faith": "The officials named in the Gospel trial scenes belong to a real, identifiable priestly world.",
+  "books": [
+   "Matthew",
+   "John"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Caiaphas ossuary",
+    "u": "https://en.wikipedia.org/wiki/Caiaphas_ossuary"
+   }
+  ],
+  "see": null,
+  "icon": "jar"
+ },
+ {
+  "id": "pilate",
+  "layer": "jesus",
+  "title": "The Pilate Stone",
+  "kid": "A stone carved with Pontius Pilate’s name and title was found in Caesarea.",
+  "place": "Caesarea Maritima, Israel (now in the Israel Museum)",
+  "grade": "artifact",
+  "what": "Found in 1961 reused as a building block in a staircase of the Roman theatre. The damaged limestone block (82 × 65 cm) reads, in part, “Pontius Pilatus, prefect of Judea”, in a dedication to the emperor Tiberius.",
+  "shows": "It is the earliest surviving contemporary record of Pilate. The Gospels say Jesus was handed to Pilate (Matthew 27:2) and Luke 3:1 names him as governor of Judea.",
+  "limits": "The block is damaged and some letters are restored. It says nothing about Jesus.",
+  "faith": "The Roman governor under whom the Gospels say Jesus was crucified is confirmed by a stone made in his own time.",
+  "books": [
+   "Matthew",
+   "Luke"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Pilate stone",
+    "u": "https://en.wikipedia.org/wiki/Pilate_stone"
+   }
+  ],
+  "see": null,
+  "icon": "scales"
+ },
+ {
+  "id": "outside",
+  "layer": "jesus",
+  "title": "Writers outside the Bible who mention Jesus",
+  "kid": "Roman and Jewish writers, not Christians, also wrote about Jesus and his followers.",
+  "place": "Rome and the Roman world",
+  "grade": "writer",
+  "what": "Josephus (about 93–94) describes Jesus as a wise teacher condemned to a cross by Pilate, and mentions “the brother of Jesus, who was called Christ, whose name was James”. Tacitus (about 116) says “Christus” was executed under Tiberius by Pontius Pilate. Pliny the Younger (about 112) writes to Trajan about Christians worshipping Christ.",
+  "shows": "Scholars generally agree that Jesus was a real first-century figure. His baptism by John and his crucifixion under Pilate are the two events with almost universal assent.",
+  "limits": "The Josephus passage on Jesus was probably edited by Christians; scholars debate how much. Tacitus does not name his source. Suetonius’s “Chrestus” is ambiguous. Talmud passages are late and hard to identify. These sources confirm that he lived and died, not that he rose or is God.",
+  "faith": "Even critics of Christianity in the ancient world treated Jesus as a real person who was crucified.",
+  "books": [
+   "Matthew",
+   "Mark",
+   "Luke",
+   "John"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Sources for the historicity of Jesus",
+    "u": "https://en.wikipedia.org/wiki/Sources_for_the_historicity_of_Jesus"
+   }
+  ],
+  "see": null,
+  "icon": "tower"
+ },
+ {
+  "id": "siloampool",
+  "layer": "jesus",
+  "title": "The Pool of Siloam, where a blind man washed",
+  "kid": "Workers fixing a sewer in 2004 found the steps of the pool where John says Jesus sent a blind man to wash.",
+  "place": "City of David, Jerusalem",
+  "grade": "place",
+  "what": "In autumn 2004 workers found stone steps; archaeologists Eli Shukron and Ronny Reich then uncovered a large Second Temple period pool, announced in 2005. It was about 69 metres wide, with sets of steps on at least three sides.",
+  "shows": "Coins in its plaster date its rebuilding to Alexander Jannaeus (103–76 BCE), and coins nearby run to 69 CE, so it was in use in Jesus’ time. John 9:7 says Jesus told the blind man, “Go, wash in the pool of Siloam”.",
+  "limits": "That this is John’s pool is the excavators’ identification, an interpretation. A different, Byzantine pool was once wrongly thought to be the one.",
+  "faith": "John’s Gospel describes a real place, in the right city, in use at the right time.",
+  "books": [
+   "John",
+   "Isaiah"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Pool of Siloam",
+    "u": "https://en.wikipedia.org/wiki/Pool_of_Siloam"
+   }
+  ],
+  "see": null,
+  "icon": "waves"
+ },
+ {
+  "id": "bethesda",
+  "layer": "jesus",
+  "title": "The Pool of Bethesda",
+  "kid": "John describes a pool with five porches near the Sheep Gate; digging there found two large pools.",
+  "place": "Near St Anne’s Church, Jerusalem",
+  "grade": "place",
+  "what": "John 5:2 places a pool “by the sheep market… having five porches”. Conrad Schick dug there in the 19th century, and excavations in 1964 uncovered the second of two large pools, the dam between them, small healing pools, a Roman temple to Asclepius and Serapis, and Byzantine and Crusader churches.",
+  "shows": "Before the 19th century there was no clear archaeological evidence for this pool. The excavated site seems plausibly to fit John’s description.",
+  "limits": "The five porches come from John’s text; the excavations did not confirm them. The identification is plausible, not proven.",
+  "faith": "Another detail in John’s Gospel matches a real place in Jerusalem.",
+  "books": [
+   "John"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Pool of Bethesda",
+    "u": "https://en.wikipedia.org/wiki/Pool_of_Bethesda"
+   }
+  ],
+  "see": null,
+  "icon": "heart"
+ },
+ {
+  "id": "creed",
+  "layer": "jesus",
+  "title": "The earliest summary of the resurrection",
+  "kid": "Paul passes on a short creed listing people who saw Jesus alive after his death, which many scholars date very early.",
+  "place": "1 Corinthians 15:3–8",
+  "grade": "text",
+  "what": "In 1 Corinthians 15:3–8 Paul says he “delivered… that which I also received”: Christ died for our sins, was buried, rose again the third day, and was seen by Cephas, the twelve, over 500 at once (most still alive when Paul wrote), James, all the apostles, and last by Paul.",
+  "shows": "“Delivered” and “received” are terms for handing on tradition. Scholars cited by Stand to Reason date Paul’s receiving of this creed to about 2 to 8 years after the crucifixion, possibly from Peter and James in Jerusalem (Galatians 1:18–19).",
+  "limits": "The early dating comes mostly from scholars who defend the resurrection, as the source itself shows. An early creed shows what the first Christians proclaimed; whether Jesus rose is a matter of faith and argument, not archaeology. The list leaves out the women who first saw Jesus.",
+  "faith": "Belief that Jesus rose was being taught as eyewitness testimony within a few years of his death.",
+  "books": [
+   "1 Corinthians",
+   "Galatians"
+  ],
+  "src": [
+   {
+    "t": "Stand to Reason: An Early and Reliable Account of Jesus’ Resurrection",
+    "u": "https://www.str.org/w/an-early-and-reliable-account-of-jesus-resurrection"
+   }
+  ],
+  "see": null,
+  "icon": "sunrise"
+ },
+ {
+  "id": "p52",
+  "layer": "church",
+  "title": "The earliest known piece of a Gospel",
+  "kid": "A scrap of papyrus the size of a credit card has words from John’s Gospel.",
+  "place": "John Rylands Library, Manchester (bought in Egypt in 1920)",
+  "grade": "manuscript",
+  "what": "Rylands Papyrus P52 is about 8.9 × 6 cm and carries John 18:31–33 on one side and 18:37–38 on the other, in Greek, from a codex (a book, not a scroll).",
+  "shows": "It is generally considered the earliest surviving record of a canonical New Testament text. Estimates run from 100–150 (Roberts) and 125–175 (Orsini and Clarysse). The library says recent research points nearer 200.",
+  "limits": "Dating rests only on comparing handwriting, and scholars disagree about how narrow it can be. The scrap is too small to show it came from a full Gospel, and other early papyri overlap its date.",
+  "faith": "Within roughly a century or so of the events, John’s account of Jesus before Pilate was being copied and read in Egypt.",
+  "books": [
+   "John"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Rylands Library Papyrus P52",
+    "u": "https://en.wikipedia.org/wiki/Rylands_Library_Papyrus_P52"
+   }
+  ],
+  "see": null,
+  "icon": "letter"
+ },
+ {
+  "id": "gallio",
+  "layer": "church",
+  "title": "Gallio, the governor in Paul’s trial",
+  "kid": "A letter from the emperor, found at Delphi, names the governor Paul stood before.",
+  "place": "Delphi, Greece (Corinth is nearby)",
+  "grade": "artifact",
+  "what": "Nine fragments of a letter from the emperor Claudius, dated to 52, were found at the Temple of Apollo at Delphi. It names “L. Junius Gallio, my friend and proconsul”.",
+  "shows": "Acts 18:12–17 says Paul was brought before Gallio at Corinth. The inscription fixes when Gallio governed, so it helps date Paul’s time in Corinth.",
+  "limits": "The text is partly reconstructed. The link depends on this Gallio being the one in Acts, which scholars accept but which is an identification.",
+  "faith": "Luke names a real Roman official in the right place and time, which is how a careful historian writes.",
+  "books": [
+   "Acts"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Delphi Inscription",
+    "u": "https://en.wikipedia.org/wiki/Delphi_Inscription"
+   }
+  ],
+  "see": null,
+  "icon": "temple"
+ },
+ {
+  "id": "sinaiticus",
+  "layer": "church",
+  "title": "Codex Sinaiticus: a complete New Testament from the 300s",
+  "kid": "One of the oldest Bibles in the world, handwritten in Greek about 1,650 years ago, with the whole New Testament.",
+  "place": "British Library, London (also Leipzig, Sinai and St Petersburg)",
+  "grade": "manuscript",
+  "what": "Written in the mid-4th century, it contains the complete New Testament and most of the Greek Old Testament. Constantin von Tischendorf found leaves at St Catherine’s Monastery, Sinai, in 1844 and obtained the codex in 1859. About 347 leaves are in the British Library.",
+  "shows": "It is one of the oldest and most complete Bible manuscripts, the only one in its script with the complete New Testament, and one of the most important witnesses to the New Testament text. Every page can be read online.",
+  "limits": "It also contains books outside today’s Bible (the Epistle of Barnabas and part of the Shepherd of Hermas). Its text of Revelation is considered weak. St Catherine’s Monastery disputes how it was taken.",
+  "faith": "The New Testament we read today can be checked against a complete Bible copied in the 300s.",
+  "books": [
+   "Matthew",
+   "John",
+   "Revelation"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Codex Sinaiticus",
+    "u": "https://en.wikipedia.org/wiki/Codex_Sinaiticus"
+   }
+  ],
+  "see": {
+   "t": "Codex Sinaiticus online",
+   "u": "https://codexsinaiticus.org"
+  },
+  "icon": "menorah"
+ },
+ {
+  "id": "erastus",
+  "layer": "church",
+  "title": "Erastus, the city official Paul names",
+  "kid": "A stone pavement in Corinth names an Erastus who paid for it as a city official.",
+  "place": "Corinth, Greece",
+  "grade": "artifact",
+  "what": "Found in 1929, a Latin inscription in a limestone pavement says “Erastus, in return for his aedileship, laid (the pavement) at his own expense”. It dates to the second half of the 1st century.",
+  "shows": "Writing from Corinth, Paul sends greetings from “Erastus the chamberlain of the city” (Romans 16:23). The inscription is from the same city and era, and the name is rare there.",
+  "limits": "It may be the same man, but we can’t be certain. Paul’s title and “aedile” are not exactly the same office.",
+  "faith": "Paul’s letter names a real kind of official in the right city.",
+  "books": [
+   "Romans",
+   "Acts"
+  ],
+  "src": [
+   {
+    "t": "Bible Odyssey: Erastus, Gallio and Paul",
+    "u": "https://bibleodyssey.com/places/related-articles/erastus-gallio-and-paul-insights-from-inscriptions"
+   }
+  ],
+  "see": null,
+  "icon": "anchor"
+ },
+ {
+  "id": "ap_paul",
+  "layer": "apostles",
+  "title": "Paul — journeys",
+  "kid": "Paul’s journeys are written in Acts.",
+  "place": "Stops: Jerusalem → Damascus → Antioch (Syria) → Ephesus → Corinth → Rome",
+  "grade": "text",
+  "what": "Acts follows Paul from Jerusalem to Damascus (Acts 9), on mission from Antioch (Acts 13), to Corinth (Acts 18), Ephesus (Acts 19) and finally Rome (Acts 28).",
+  "shows": "",
+  "limits": "This is the route as the book of Acts tells it, in simplified form. It has several trips and stops that this map leaves out. Gallio (see the Delphi stone) gives one outside anchor for the Corinth stay.",
+  "faith": "",
+  "books": [
+   "Acts"
+  ],
+  "src": [
+   {
+    "t": "Wikipedia: Delphi Inscription",
+    "u": "https://en.wikipedia.org/wiki/Delphi_Inscription"
+   }
+  ],
+  "see": null,
+  "icon": "sword"
+ },
+ {
+  "id": "ap_john",
+  "layer": "apostles",
+  "title": "John — where tradition places him",
+  "kid": "John was exiled to the island of Patmos, where Revelation says he saw his visions.",
+  "place": "Stops: Jerusalem → Ephesus → Patmos",
+  "grade": "text",
+  "what": "Revelation 1:9 places John on Patmos. Tradition says he oversaw the churches around Ephesus and lived to old age, and that he is the one apostle with no martyrdom story.",
+  "shows": "",
+  "limits": "The Patmos exile is written in Revelation. The Ephesus ministry and the Rome boiling-oil legend are later tradition, reported by writers such as Jerome and Tertullian.",
+  "faith": "",
+  "books": [
+   "Revelation",
+   "John"
+  ],
+  "src": [
+   {
+    "t": "Christian History Institute: Authority, missions, and martyrdom",
+    "u": "https://christianhistoryinstitute.org/magazine/article/ch156-authority-missions-martyrdom"
+   }
+  ],
+  "see": null,
+  "icon": "lamp"
+ },
+ {
+  "id": "ap_andrew",
+  "layer": "apostles",
+  "title": "Andrew — where tradition places him",
+  "kid": "Tradition says Andrew travelled north of the Black Sea and died in Greece.",
+  "place": "Stops: Jerusalem → Scythia (north of Black Sea) → Patras",
+  "grade": "tradition",
+  "what": "Reported tradition: Andrew preached in Scythia, also in Anatolia and Achaia, and was crucified on an X-shaped cross in Achaia.",
+  "shows": "",
+  "limits": "This is later tradition. The source article gives no New Testament support for it.",
+  "faith": "",
+  "books": [],
+  "src": [
+   {
+    "t": "Christian History Institute: Authority, missions, and martyrdom",
+    "u": "https://christianhistoryinstitute.org/magazine/article/ch156-authority-missions-martyrdom"
+   }
+  ],
+  "see": null,
+  "icon": "fish"
+ },
+ {
+  "id": "ap_thomas",
+  "layer": "apostles",
+  "title": "Thomas — where tradition places him",
+  "kid": "The best-known tradition sends Thomas to India.",
+  "place": "Stops: Jerusalem → Kerala, India",
+  "grade": "tradition",
+  "what": "Thomas’s best-known ministry is in India. The same source doubts the older claim that his lot was Parthia.",
+  "shows": "",
+  "limits": "Later tradition. The map line is a straight route, not a documented journey, and the exact place in India is approximate.",
+  "faith": "",
+  "books": [],
+  "src": [
+   {
+    "t": "Christian History Institute: Authority, missions, and martyrdom",
+    "u": "https://christianhistoryinstitute.org/magazine/article/ch156-authority-missions-martyrdom"
+   }
+  ],
+  "see": null,
+  "icon": "mountain"
+ },
+ {
+  "id": "ap_james",
+  "layer": "apostles",
+  "title": "James (son of Zebedee) — where tradition places him",
+  "kid": "James was executed in Jerusalem; a much later legend sends him to Spain.",
+  "place": "Stops: Jerusalem → Santiago de Compostela",
+  "grade": "tradition",
+  "what": "Acts 12:2 says Herod killed James with the sword in Jerusalem. The Spanish tradition, behind the pilgrimage to Santiago de Compostela, says he also preached in Spain and his remains were taken there.",
+  "shows": "",
+  "limits": "The Jerusalem martyrdom is in the Bible. The Spain story rests on literary sources from the 7th century onward and is widely doubted.",
+  "faith": "",
+  "books": [
+   "Acts"
+  ],
+  "src": [
+   {
+    "t": "Christian History Institute: Authority, missions, and martyrdom",
+    "u": "https://christianhistoryinstitute.org/magazine/article/ch156-authority-missions-martyrdom"
+   }
+  ],
+  "see": null,
+  "icon": "staff"
+ }
+]
