@@ -32,11 +32,18 @@ test.describe("landing", () => {
     expect(r.meshes).toBeGreaterThanOrEqual(66);
   });
 
-  test("draws the cross-reference threads", async ({ app }) => {
+  test("draws only links backed by the text (quotation, shared wording, sourced)", async ({ app }) => {
     const r = await uni(app, (U) => ({ L: U.L, curves: U.curves, total: Array.from(U.M() as Float32Array).reduce((a, b) => a + b, 0) }));
-    expect(r.L).toBeGreaterThan(40_000);
-    expect(r.total).toBeGreaterThan(0);
-    expect(r.total).toBeLessThanOrEqual(r.L);
+    expect(r.L).toBeGreaterThan(3000);
+    expect(r.L).toBeLessThan(10_000);
+    expect(r.total).toBe(r.L);
+  });
+
+  test("labels links by evidence, never by votes @phone", async ({ app }) => {
+    await uni(app, (U) => U.select(39)); // Matthew
+    const t = await app.locator("#pc").innerText();
+    expect(t).not.toMatch(/cross-referenced|votes?/i);
+    expect(t).toMatch(/Same wording|Shared words|Sourced prophecy link/);
   });
 
   test("renders frames and book labels", async ({ app }) => {

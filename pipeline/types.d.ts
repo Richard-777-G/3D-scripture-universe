@@ -12,3 +12,8 @@ declare module "*/pipeline/evidence-centre.mjs" {
   export function parseRef(ref: string, books: unknown[]): [number, number] | null;
   export function validateEvidenceCentre(ec: unknown, ctx: { books: unknown[]; evidence: unknown[] }): { errors: string[]; warnings: string[] };
 }
+declare module "*/pipeline/connections.mjs" {
+  export const TIER: { sourced: number; quotation: number; wording: number };
+  export function judge(ot: [number, number], nt: [number, number], texts: string[][], df: Map<string, number>): { tier: number; words: string[] };
+  export function documentFrequency(verses: string[]): Map<string, number>;
+}

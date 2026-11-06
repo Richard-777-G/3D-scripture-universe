@@ -38,9 +38,21 @@ The app indexes verses by position (Genesis 1:1 = 0, Revelation 22:21 = 31101). 
 3. **Validate** (`pipeline/validate.mjs`): the checks below.
 4. **Packs** (`npm run packs`) and **database** (`npm run export-db`, `npm run test:db`).
 
-## Where the numbers come from
+## Which connections the app shows (since v17)
 
-- **42,732 and 40,099 are both right.** The wheel shows every OpenBible link between the Old and New Testaments with 3 or more votes: 42,732 rows. Some pairs are listed in both directions; once the app merges them there are 40,099 threads. The build fails if the wheel's links ever stop matching OpenBible exactly.
+Reader votes no longer decide anything. A link is shown only when the text supports it (`pipeline/connections.mjs`):
+
+| Label in the app | Rule | Count |
+|---|---|---|
+| Sourced prophecy link | One of the curated journey links in `content/journeys.json`, each with published citations | 95 passage pairs |
+| Same wording | The New Testament repeats words from the Old Testament passage (KJV or BSB): 4+ key words in the same order covering half the passage, or 3+ when the New Testament says it is quoting ("it is written", "spoken by the prophet") | 900 |
+| Shared words | Both passages use at least two distinctive words (words found in 150 KJV verses or fewer) | 3,910 |
+| Not shown | Listed by OpenBible.info but the passages share no distinctive wording | 67,013 |
+
+Candidates are all 73,313 Old↔New Testament links in the OpenBible.info list, whatever their vote count; 1,490 that span more than 7 verses are skipped because whole-passage links can't be checked word by word. After merging duplicates the wheel shows 4,278 links (v16 showed 42,732). The build re-checks every link against the text and fails if one is not supported.
+
+Known limits: matching is on English translations, so a quotation the New Testament makes from the Greek Septuagint in different words (for example John 19:36 and Exodus 12:46) is found only if it is also a sourced journey link. Original-language matching is planned with the STEPBible and MACULA data.
+
 - **5 of 344,799 OpenBible links can't be placed** because they cite 3 John 1:15, which the KJV numbering doesn't have (it ends 3 John at verse 14). They are left out and reported.
 
 ## Known gaps
@@ -51,7 +63,7 @@ Items 2 and 5 from Phase 1 are resolved for the new sources and the cross-refere
 2. **Upstream files for the v16 versions and STEPBible data were not recorded.** BSB, OpenBible and Theographic are now pinned. KJV, ASV, BBE, YLT, Darby, Webster, Telugu and the STEPBible words still come from the v16 snapshot. The next step is to pin them the same way.
 3. **Empty verses.** ASV and BBE have 16 empty verses each, Darby 3, Telugu 1. Most are verses that modern critical texts leave out (for example Matthew 17:21). They should be checked against the source.
 4. **3,178 words (0.7%) have no lexicon entry.** Most are Strong's variants. They show without a definition.
-5. **The cross-reference count:** resolved, see above.
+5. **The cross-reference count:** replaced by the evidence rule above.
 6. **Search behaviour (same as v16).**
    - Searching "virgin" returns verses (Luke 1:27, Matthew 1:23) but not the sourced Isaiah 7:14 journey.
    - "Go to John 3:16" opens the book of John with chapter 3 selected, not the verse.
