@@ -1,0 +1,28 @@
+{
+  "name": "scripture-universe",
+  "private": true,
+  "version": "0.17.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run packs && vite",
+    "packs": "node pipeline/build-packs.mjs",
+    "validate": "node pipeline/build-packs.mjs --check",
+    "build": "npm run packs && tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test --trace off",
+    "test:db": "tests/db/run.sh",
+    "export-db": "node pipeline/export-db.mjs"
+  },
+  "dependencies": {
+    "three": "0.128.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^22.20.5",
+    "typescript": "5.9.3",
+    "vite": "5.4.21",
+    "vitest": "2.1.9"
+  }
+}
