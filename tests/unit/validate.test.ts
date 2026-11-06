@@ -1,25 +1,12 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import fs from "node:fs";
-import zlib from "node:zlib";
 import { validateAll } from "../../pipeline/validate.mjs";
+import { loadInputs } from "../../pipeline/inputs.mjs";
 
-const raw = (rel: string) => zlib.gunzipSync(fs.readFileSync("data/raw/v16/" + rel)).toString("utf8");
-const json = (rel: string) => JSON.parse(fs.readFileSync(rel, "utf8"));
 let input: any;
 const clone = () => structuredClone(input);
 
 beforeAll(() => {
-  const assetMap = json("data/raw/v16/assets.json");
-  input = {
-    core: JSON.parse(raw("core.json.gz")),
-    kjv: raw("kjv.txt.gz").split("\n"),
-    journeys: json("content/journeys.json"),
-    story: json("content/story.json"),
-    evidence: json("content/evidence.json"),
-    qa: json("content/qa.json"),
-    sources: json("data/sources.json"),
-    assets: Object.fromEntries(Object.entries(assetMap).map(([k, rel]) => [k, raw(rel as string)])),
-  };
+  input = loadInputs();
 });
 
 describe("data validation", () => {
@@ -61,5 +48,39 @@ describe("data validation", () => {
     const x = clone();
     delete x.assets.v_tel;
     expect(validateAll(x).errors.join()).toMatch(/Telugu/);
+  });
+
+  it("fails when the wheel's links stop matching OpenBible", () => {
+    const x = clone();
+    x.core.xrefs.vo[0] += 1;
+    expect(validateAll(x).errors.join()).toMatch(/wheel links differ from OpenBible/);
+  });
+
+  it("fails when a person's family link points at nobody", () => {
+    const x = clone();
+    x.theographic.people[0].father = ["nobody_0"];
+    expect(validateAll(x).errors.join()).toMatch(/links to people or places that do not exist/);
+  });
+
+  it("imports the BSB in full", () => {
+    const lines = input.assets.v_bsb.split("\n");
+    expect(lines).toHaveLength(31102);
+    expect(lines[26136]).toMatch(/^For God so loved the world/);
+  });
+
+  it("links Abraham to Isaac and to verses in Genesis", () => {
+    const abraham = input.theographic.people.find((p: any) => p.id === "abraham_58");
+    expect(abraham.children).toContain("isaac_616");
+    expect(abraham.verses.some((v: number) => v < 1533)).toBe(true);
+  });
+
+  it("explains the cross-reference counts: 42,732 rows and 40,099 threads", () => {
+    const X = input.core.xrefs, seen = new Set<string>();
+    for (let i = 0; i < X.fv.length; i++) {
+      const d = X.d[i];
+      seen.add([d ? X.ts[i] : X.fv[i], d ? X.te[i] : X.fv[i], d ? X.fv[i] : X.ts[i], d ? X.fv[i] : X.te[i]].join("|"));
+    }
+    expect(X.fv.length).toBe(42732);
+    expect(seen.size).toBe(40099);
   });
 });

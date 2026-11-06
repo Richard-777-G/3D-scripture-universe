@@ -1,0 +1,47 @@
+{
+ "_note": "Upstream files pinned to a commit. `npm run fetch` downloads each into data/raw/<id>/<commit>/ and checks sha256. Change a commit here to take a new release, then run fetch and the full checks.",
+ "files": [
+  {
+   "id": "bsb",
+   "repo": "scrollmapper/bible_databases",
+   "commit": "59b18c5af5845728c275d5b7178ad0d024172b1f",
+   "path": "formats/csv/BSB.csv",
+   "sha256": "bdedd6c2de31b1c729a5952a2cdc383b1f1396d1e9941d0b2cda2b997e22a8fb"
+  },
+  {
+   "id": "openbible-full",
+   "repo": "scrollmapper/bible_databases",
+   "commit": "59b18c5af5845728c275d5b7178ad0d024172b1f",
+   "path": "sources/extras/cross_references.txt",
+   "sha256": "452b263f657d3e721d20341b6b82f1196fc98882d685bd4ef9050ae17f033f82"
+  },
+  {
+   "id": "theographic",
+   "repo": "robertrouse/theographic-bible-metadata",
+   "commit": "3f461f2f3cf8939f2b79430ae238a36528024ed3",
+   "path": "json/people.json",
+   "sha256": "12dc359f0892d1a706a9d0b597c82d6cb8e7bde2137d729459804b8fd33ce450"
+  },
+  {
+   "id": "theographic",
+   "repo": "robertrouse/theographic-bible-metadata",
+   "commit": "3f461f2f3cf8939f2b79430ae238a36528024ed3",
+   "path": "json/places.json",
+   "sha256": "3449802946dc9c3113096e14a1129613a179a533a99dee446bf82c6426bab280"
+  },
+  {
+   "id": "theographic",
+   "repo": "robertrouse/theographic-bible-metadata",
+   "commit": "3f461f2f3cf8939f2b79430ae238a36528024ed3",
+   "path": "json/events.json",
+   "sha256": "b0a84a4d310b3e81d2fbc43a86a84ee70b888b933c4e9b79c315c0405618e691"
+  },
+  {
+   "id": "theographic",
+   "repo": "robertrouse/theographic-bible-metadata",
+   "commit": "3f461f2f3cf8939f2b79430ae238a36528024ed3",
+   "path": "json/verses.json",
+   "sha256": "b6be3dbcab9f6a6c5fffbfd67dc3092b754d500616d6c36618e5c586d7d97942"
+  }
+ ]
+}

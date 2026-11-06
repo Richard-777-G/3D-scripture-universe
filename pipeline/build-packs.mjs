@@ -13,26 +13,13 @@ import path from "node:path";
 import zlib from "node:zlib";
 import crypto from "node:crypto";
 import { validateAll } from "./validate.mjs";
+import { loadInputs } from "./inputs.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
-const RAW = path.join(ROOT, "data/raw/v16");
 const OUT = path.join(ROOT, "public/data");
 const checkOnly = process.argv.includes("--check");
 
-const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(RAW, rel))).toString("utf8");
-const json = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"));
-
-const assetMap = JSON.parse(fs.readFileSync(path.join(RAW, "assets.json"), "utf8"));
-const input = {
-  core: JSON.parse(raw("core.json.gz")),
-  kjv: raw("kjv.txt.gz").split("\n"),
-  journeys: json("content/journeys.json"),
-  story: json("content/story.json"),
-  evidence: json("content/evidence.json"),
-  qa: json("content/qa.json"),
-  sources: json("data/sources.json"),
-  assets: Object.fromEntries(Object.entries(assetMap).map(([k, rel]) => [k, raw(rel)])),
-};
+const input = loadInputs();
 
 const report = validateAll(input);
 for (const w of report.warnings) console.warn("warn:", w);
@@ -59,6 +46,8 @@ put("kjv", "txt", input.kjv.join("\n"));
 for (const k of ["journeys", "story", "evidence", "qa"]) put(k, "json", JSON.stringify(input[k]));
 put("sources", "json", JSON.stringify(input.sources.datasets));
 for (const [k, text] of Object.entries(input.assets)) put(k, k.startsWith("v_") ? "txt" : "json", text);
+// Theographic people, places and events (loaded on demand by later features)
+for (const k of ["people", "places", "events"]) put(k, "json", JSON.stringify(input.theographic[k]));
 
 const version = crypto.createHash("sha256").update(JSON.stringify(files)).digest("hex").slice(0, 12);
 fs.writeFileSync(

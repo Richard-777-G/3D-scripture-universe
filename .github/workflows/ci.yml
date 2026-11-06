@@ -20,6 +20,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Verify pinned upstream files (sha256)
+        run: npm run fetch
       - name: Validate data and content
         run: npm run validate
       - name: Unit tests
