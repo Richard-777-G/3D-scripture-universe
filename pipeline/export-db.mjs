@@ -11,26 +11,13 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import zlib from "node:zlib";
 import crypto from "node:crypto";
 import { verseTable, validateAll } from "./validate.mjs";
+import { loadInputs } from "./inputs.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const OUT = path.resolve(process.argv[2] || path.join(ROOT, "build/db"));
-const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
-const json = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"));
-
-const assetMap = json("data/raw/v16/assets.json");
-const input = {
-  core: JSON.parse(raw("core.json.gz")),
-  kjv: raw("kjv.txt.gz").split("\n"),
-  journeys: json("content/journeys.json"),
-  story: json("content/story.json"),
-  evidence: json("content/evidence.json"),
-  qa: json("content/qa.json"),
-  sources: json("data/sources.json"),
-  assets: Object.fromEntries(Object.entries(assetMap).map(([k, rel]) => [k, raw(rel)])),
-};
+const input = loadInputs();
 const report = validateAll(input);
 if (report.errors.length) {
   console.error(report.errors.join("\n"));
@@ -69,6 +56,7 @@ function table(name, cols, rows) {
 
 const VERSIONS = [
   ["kjv", "King James Version (1769)", "en", "kjv"],
+  ["bsb", "Berean Standard Bible", "en", "bsb"],
   ["asv", "American Standard Version (1901)", "en", "asv"],
   ["bbe", "Bible in Basic English", "en", "bbe"],
   ["ylt", "Young's Literal Translation (1898)", "en", "ylt"],
@@ -79,8 +67,8 @@ const VERSIONS = [
 const srcById = Object.fromEntries(input.sources.datasets.map((d) => [d.id, d]));
 
 table("dataset_versions", ["id", "notes"], [[version, "v16 snapshot, Phase 1 migration"]]);
-table("sources", ["id", "name", "url", "licence", "attribution", "origin", "dataset_version"],
-  input.sources.datasets.map((d) => [d.id, d.name, d.url || null, d.licence, d.attribution || "", d.origin || null, version]));
+table("sources", ["id", "name", "url", "licence", "attribution", "origin", "dataset_version", "share_alike"],
+  input.sources.datasets.map((d) => [d.id, d.name, d.url || null, d.licence, d.attribution || "", d.origin || null, version, !!d.shareAlike]));
 table("books", ["id", "name", "testament", "chapters", "verse_counts"],
   core.books.map((b, i) => [i + 1, b.n, i < 39 ? "OT" : "NT", b.ch.length, b.ch]));
 table("versions", ["code", "name", "language", "licence", "source_id"],
@@ -91,9 +79,11 @@ table("verses", ["version_code", "verse_key", "text"], (function* () {
     for (let i = 0; i < lines.length; i++) if (lines[i].trim()) yield [code, keyOf(i), lines[i]];
   }
 })());
-const X = core.xrefs;
+// The full OpenBible set (about 345,000 links, both Testaments). The wheel's
+// 42,732 rows are the OT<->NT subset with 3+ votes; validate.mjs checks that.
+const OB = input.openbible;
 table("cross_refs", ["from_key", "to_start", "to_end", "votes", "source_id", "dataset_version"], (function* () {
-  for (let i = 0; i < X.fv.length; i++) yield [keyOf(X.fv[i]), keyOf(X.ts[i]), keyOf(X.te[i]), X.vo[i], "openbible-xrefs", version];
+  for (let i = 0; i < OB.from.length; i++) yield [keyOf(OB.from[i]), keyOf(OB.ts[i]), keyOf(OB.te[i]), OB.votes[i], "openbible-xrefs", version];
 })());
 
 const lexRows = [];
@@ -135,6 +125,21 @@ table("story_steps", ["story_id", "step", "journey_id", "chapter_title", "kid_te
 table("qa", ["id", "ord", "question", "answer", "general", "journey_ids", "evidence_ids", "status"],
   input.qa.map((a, i) => [a.id, i, a.q, a.a, !!a.gen, a.items, a.ev, "published"]));
 table("qa_sources", ["qa_id", "ord", "title", "url"], input.qa.flatMap((a) => a.src.map((s, k) => [a.id, k, s.t, s.u])));
+
+/* Theographic people, places and events */
+const TG = input.theographic, keys = (vs) => vs.map(keyOf);
+table("people", ["id", "name", "gender", "birth_year", "death_year", "verse_keys", "source_id"],
+  TG.people.map((p) => [p.id, p.name, p.gender, p.birthYear, p.deathYear, keys(p.verses), "theographic"]));
+table("places", ["id", "name", "latitude", "longitude", "feature_type", "comment", "verse_keys", "source_id"],
+  TG.places.map((p) => [p.id, p.name, p.lat, p.lon, p.type, p.comment, keys(p.verses), "theographic"]));
+table("events", ["id", "title", "start_year", "duration", "verse_keys", "source_id"],
+  TG.events.map((e) => [e.id, e.title, e.startYear, e.duration, keys(e.verses), "theographic"]));
+const REL = { father: "father", mother: "mother", partners: "partner", children: "child", siblings: "sibling" };
+table("person_relations", ["person_id", "relation", "related_id"],
+  TG.people.flatMap((p) => Object.entries(REL).flatMap(([k, r]) => [...new Set(p[k])].map((x) => [p.id, r, x]))));
+table("person_places", ["person_id", "kind", "place_id"],
+  TG.people.flatMap((p) => [...[...new Set(p.birthPlace)].map((x) => [p.id, "birth", x]), ...[...new Set(p.deathPlace)].map((x) => [p.id, "death", x])]));
+table("event_participants", ["event_id", "person_id"], TG.events.flatMap((e) => [...new Set(e.participants)].map((x) => [e.id, x])));
 
 /* load script: one transaction, in dependency order */
 const sql = [

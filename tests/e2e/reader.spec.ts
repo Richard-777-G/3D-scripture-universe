@@ -38,6 +38,7 @@ test.describe("library and reader", () => {
   });
 
   for (const [label, key, sample] of [
+    ["BSB", "bsb", "In the beginning was the Word"],
     ["ASV", "asv", "In the beginning was the Word"],
     ["BBE", "bbe", "From the first he was the Word"],
     ["YLT", "ylt", "In the beginning was the Word"],

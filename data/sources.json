@@ -7,8 +7,10 @@
    "url": "https://www.openbible.info/labs/cross-references/",
    "licence": "CC BY",
    "attribution": "Cross-references from OpenBible.info",
-   "packs": ["core"],
-   "origin": "v16 snapshot (OT to NT links with votes)"
+   "packs": [
+    "core"
+   ],
+   "origin": "OpenBible.info file dated 2024-11-04 via scrollmapper/bible_databases (pinned in pipeline/sources.lock.json). The wheel shows every Old/New Testament link with 3 or more votes; the build checks this."
   },
   {
    "id": "stepbible",
@@ -16,23 +18,119 @@
    "url": "https://github.com/STEPBible/STEPBible-Data",
    "licence": "CC BY 4.0",
    "attribution": "Hebrew and Greek data from STEP Bible (www.stepbible.org)",
-   "packs": ["words", "lex"],
+   "packs": [
+    "words",
+    "lex"
+   ],
    "origin": "v16 snapshot"
   },
-  { "id": "kjv", "name": "King James Version (1769)", "licence": "Public domain", "attribution": "", "packs": ["kjv"], "origin": "v16 snapshot; two KJV editions merged, see docs/DATA.md" },
-  { "id": "asv", "name": "American Standard Version (1901)", "licence": "Public domain", "attribution": "", "packs": ["v_asv"], "origin": "v16 snapshot" },
-  { "id": "bbe", "name": "Bible in Basic English", "licence": "Public domain", "attribution": "", "packs": ["v_bbe"], "origin": "v16 snapshot" },
-  { "id": "ylt", "name": "Young's Literal Translation (1898)", "licence": "Public domain", "attribution": "", "packs": ["v_ylt"], "origin": "v16 snapshot" },
-  { "id": "darby", "name": "Darby Translation (1890)", "licence": "Public domain", "attribution": "", "packs": ["v_darby"], "origin": "v16 snapshot" },
-  { "id": "webster", "name": "Webster's Bible (1833)", "licence": "Public domain", "attribution": "", "packs": ["v_webster"], "origin": "v16 snapshot" },
-  { "id": "telugu-ov", "name": "Telugu Bible, Old Version", "licence": "Public domain", "attribution": "", "packs": ["v_tel"], "origin": "v16 snapshot" },
+  {
+   "id": "kjv",
+   "name": "King James Version (1769)",
+   "licence": "Public domain",
+   "attribution": "",
+   "packs": [
+    "kjv"
+   ],
+   "origin": "v16 snapshot; two KJV editions merged, see docs/DATA.md"
+  },
+  {
+   "id": "bsb",
+   "name": "Berean Standard Bible",
+   "url": "https://berean.bible/",
+   "licence": "Public domain (CC0)",
+   "attribution": "Berean Standard Bible (BSB), dedicated to the public domain under CC0.",
+   "packs": [
+    "v_bsb"
+   ],
+   "origin": "scrollmapper/bible_databases formats/csv/BSB.csv (pinned in pipeline/sources.lock.json)"
+  },
+  {
+   "id": "asv",
+   "name": "American Standard Version (1901)",
+   "licence": "Public domain",
+   "attribution": "",
+   "packs": [
+    "v_asv"
+   ],
+   "origin": "v16 snapshot"
+  },
+  {
+   "id": "bbe",
+   "name": "Bible in Basic English",
+   "licence": "Public domain",
+   "attribution": "",
+   "packs": [
+    "v_bbe"
+   ],
+   "origin": "v16 snapshot"
+  },
+  {
+   "id": "ylt",
+   "name": "Young's Literal Translation (1898)",
+   "licence": "Public domain",
+   "attribution": "",
+   "packs": [
+    "v_ylt"
+   ],
+   "origin": "v16 snapshot"
+  },
+  {
+   "id": "darby",
+   "name": "Darby Translation (1890)",
+   "licence": "Public domain",
+   "attribution": "",
+   "packs": [
+    "v_darby"
+   ],
+   "origin": "v16 snapshot"
+  },
+  {
+   "id": "webster",
+   "name": "Webster's Bible (1833)",
+   "licence": "Public domain",
+   "attribution": "",
+   "packs": [
+    "v_webster"
+   ],
+   "origin": "v16 snapshot"
+  },
+  {
+   "id": "telugu-ov",
+   "name": "Telugu Bible, Old Version",
+   "licence": "Public domain",
+   "attribution": "",
+   "packs": [
+    "v_tel"
+   ],
+   "origin": "v16 snapshot"
+  },
   {
    "id": "scripture-universe-content",
    "name": "Scripture Universe story, journeys, evidence and Q&A",
    "licence": "Own content; each item cites its own sources",
    "attribution": "",
-   "packs": ["journeys", "story", "evidence", "qa"],
+   "packs": [
+    "journeys",
+    "story",
+    "evidence",
+    "qa"
+   ],
    "origin": "content/*.json"
+  },
+  {
+   "id": "theographic",
+   "name": "Theographic Bible Metadata (people, places, events)",
+   "url": "https://github.com/robertrouse/theographic-bible-metadata",
+   "licence": "CC BY-SA 4.0",
+   "attribution": "People, places and events from Theographic Bible Metadata by Robert Rouse, CC BY-SA 4.0. Changes: reduced to the fields the app uses and linked to its verse numbering.",
+   "packs": [
+    "people",
+    "places",
+    "events"
+   ],
+   "origin": "robertrouse/theographic-bible-metadata json/ (pinned in pipeline/sources.lock.json)",
+   "shareAlike": true
   }
  ]
 }

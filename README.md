@@ -42,7 +42,7 @@ Vercel builds the site with `npm run build` and serves `dist/` (see `vercel.json
 | `content/*.json` | Curated content, edited by hand: journeys, story, evidence, Q&A |
 | `data/raw/v16/` | The v16 data snapshot (Bible versions, cross-references, Hebrew/Greek words, lexicons) |
 | `data/sources.json` | Licence and attribution for every dataset. The build fails if a pack has none |
-| `pipeline/` | `build-packs.mjs` (validate + write packs), `validate.mjs` (the checks), `export-db.mjs` (Postgres load files), `migrate-v16.mjs` (the one-off split of v16) |
+| `pipeline/` | `sources.lock.json` + `fetch.mjs` (pinned upstream files), `normalize.mjs` (map them to verses), `validate.mjs` (the checks), `build-packs.mjs`, `export-db.mjs` (Postgres load files), `migrate-v16.mjs` (the one-off split of v16) |
 | `supabase/migrations/` | Postgres schema: reference data, curated content with review status, people/places/events, optional user tables with row-level security |
 | `tests/` | `unit/`, `e2e/`, `db/`, and `parity/` (compares every screen with v16) |
 
@@ -51,5 +51,9 @@ See `docs/DATA.md` for data notes and known gaps.
 ## Data sources
 
 - Cross-references: OpenBible.info (CC BY)
+- People, places and events: Theographic Bible Metadata (CC BY-SA 4.0)
+- Berean Standard Bible: public domain (CC0)
 - Hebrew/Greek: STEPBible TAHOT/TAGNT and lexicons (CC BY 4.0)
 - Texts: KJV, ASV, BBE, YLT, Darby, Webster and Telugu (Old Version), all public domain
+
+The in-app **Credits and licences** screen (the "⋯" menu) lists every source from `data/sources.json`.

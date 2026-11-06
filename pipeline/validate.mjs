@@ -28,6 +28,7 @@ export function validateAll(input) {
   const errors = [], warnings = [];
   const err = (m) => errors.push(m), warn = (m) => warnings.push(m);
   const { core, kjv, journeys, story, evidence, qa, sources, assets } = input;
+  for (const e of input.importErrors || []) err(e);
 
   /* books + verse numbering */
   if (core.books.length !== 66) err(`expected 66 books, found ${core.books.length}`);
@@ -129,10 +130,39 @@ export function validateAll(input) {
   if (noLex / Math.max(words, 1) > 0.02) err(`${noLex} of ${words} words have no lexicon entry (over 2%)`);
   else if (noLex) warn(`${noLex} of ${words} words have no lexicon entry`);
 
+  /* provenance: the wheel's links must be exactly OpenBible's OT<->NT links with 3+ votes */
+  if (input.openbible) {
+    const ob = input.openbible, want = new Map();
+    for (let i = 0; i < ob.from.length; i++) {
+      const a = vt.bookOf[ob.from[i]] < 39, b = vt.bookOf[ob.ts[i]] < 39;
+      if (a !== b && ob.votes[i] >= core.th[0]) want.set(ob.from[i] + "|" + ob.ts[i] + "|" + ob.te[i], ob.votes[i]);
+    }
+    let mismatch = 0;
+    for (let i = 0; i < n; i++) if (want.get(X.fv[i] + "|" + X.ts[i] + "|" + X.te[i]) !== X.vo[i]) mismatch++;
+    if (mismatch || want.size !== n) err(`wheel links differ from OpenBible: ${mismatch} rows not found, ${want.size} expected, ${n} present`);
+    if (ob.from.length < 340000) err(`OpenBible has only ${ob.from.length} links`);
+  }
+
+  /* Theographic: family, places and participants must point at records that exist */
+  if (input.theographic) {
+    const { people, places, events } = input.theographic;
+    const pIds = new Set(people.map((p) => p.id)), plIds = new Set(places.map((p) => p.id));
+    let broken = 0;
+    for (const p of people) {
+      for (const k of ["father", "mother", "partners", "children", "siblings"]) for (const r of p[k]) if (!pIds.has(r)) broken++;
+      for (const k of ["birthPlace", "deathPlace"]) for (const r of p[k]) if (!plIds.has(r)) broken++;
+    }
+    for (const e of events) for (const r of e.participants) if (!pIds.has(r)) broken++;
+    if (broken) err(`Theographic: ${broken} links to people or places that do not exist`);
+    if (people.length < 3000 || places.length < 1200 || events.length < 400) err("Theographic: fewer records than expected");
+    const noVerse = people.filter((p) => !p.verses.length).length;
+    if (noVerse) warn(`Theographic: ${noVerse} people have no verses`);
+  }
+
   /* licences: every pack must be covered by a dataset in data/sources.json */
   const covered = new Set(sources.datasets.flatMap((d) => d.packs));
   for (const d of sources.datasets) if (!d.licence) err(`dataset ${d.id} has no licence`);
-  const packs = ["core", "kjv", "journeys", "story", "evidence", "qa", ...Object.keys(assets)];
+  const packs = ["core", "kjv", "journeys", "story", "evidence", "qa", ...Object.keys(assets), ...(input.theographic ? ["people", "places", "events"] : [])];
   for (const p of packs) {
     const group = /^w\d\d$/.test(p) ? "words" : /^lex/.test(p) ? "lex" : p;
     if (!covered.has(group) && !covered.has(p)) err(`pack ${p} has no licence entry in data/sources.json`);
