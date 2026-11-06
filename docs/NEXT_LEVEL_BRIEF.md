@@ -1,6 +1,6 @@
 # Next-level brief: Scripture Universe for every age
 
-Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. Work through it in order. Each numbered stage is its own pull request (or a short series), merged only when green.
+Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. Work through it in order: section A first, then B alongside stages 1–8. Each numbered stage is its own pull request (or a short series), merged only when green.
 
 The goal: a 7-year-old, a busy adult, and an 80-year-old with poor eyesight can each open the app and use it without help. The data stays honest and sourced, and the 3D wheel stays the heart of the app.
 
@@ -17,7 +17,80 @@ The goal: a 7-year-old, a busy adult, and an 80-year-old with poor eyesight can 
 7. **Performance budget:** first screen interactive in under 3 s on a mid-range Android over 4G. No new code on the home screen route over 50 KB gzipped. Lazy-load the map, the evidence data, the lexicons and JARVIS.
 8. **Secrets:** nothing secret in the front end, the repo or the logs. The Anthropic key lives only in Vercel environment variables.
 
-## 1. Ease of use for every age (do this first)
+## A. Fix wrong connections and word meanings (do this before anything else)
+
+Richard reported wrong threads, connections caused by common words, odd Greek "translations" and too little Hebrew. These are the causes, checked in the code and data on 2026-11-06:
+
+1. **Most threads are weak.** The wheel shows every OpenBible OT↔NT link with 3+ votes: 42,732 rows. OpenBible votes are crowd-sourced. Of all 73,313 OT↔NT links: 937 have 50+ votes, 2,609 have 20–49, 5,514 have 10–19, **33,672 have only 3–9**, and 30,162 have 0–2. So about 79% of what the wheel shows today rests on 3–9 votes.
+2. **"Why two passages connect" highlights any shared word.** Shared everyday words ("the Lord", "said", "day") get highlighted, which makes weak links look meaningful.
+3. **The key-word panel picks rare words, not important ones,** and shows the raw lexicon entry (src/legacy/app.js `keyWords()` / `keyWordsHtml()`):
+   - **Ranking:** words are ranked by TF-IDF, so obscure words win.
+   - **Raw definitions:** the 4th field is a scholarly lexicon dump. For Greek it is unreadable for normal users ("Α, α, ἄλφα (which see), τό, indecl.…"). For people's names it is a genealogy.
+   - **Mixed lexicons:** at least one Hebrew key sits in the Greek lexicon (`lexg["H0175"]`, Aaron). The lexicons need validating by language.
+   - **Unclear origin:** the word data came from the v16 snapshot and is not yet pinned to STEPBible upstream (`docs/DATA.md`, known gap 2).
+
+Fix, as separate small PRs:
+
+- **A1. Connection tiers from real evidence.** Every thread gets one label, computed at build time and stored in the pack:
+  - **Quotation:** the NT verse repeats the OT verse. Detect this as a run of 4+ consecutive content words (stop-words removed, after stemming) shared by the two verses in BSB **or** KJV, **and** an OpenBible link exists. Store the matched phrase.
+  - **Strong:** 20+ OpenBible votes.
+  - **Related:** 10–19 votes.
+  - **Weak:** 3–9 votes. Hidden by default and shown only after "Show more connections"; never in Kids or Easy mode.
+  - The wheel shows Quotation + Strong by default. The legend says in plain words what each tier means and that votes come from OpenBible users.
+  - Test fixtures of well-known quotations must come out as **Quotation**:
+    - Matthew 1:23 ← Isaiah 7:14
+    - Matthew 2:6 ← Micah 5:2
+    - Matthew 27:46 ← Psalm 22:1
+    - Acts 8:32–33 ← Isaiah 53:7–8
+    - Matthew 4:4 ← Deuteronomy 8:3
+    - Romans 1:17 ← Habakkuk 2:4
+    - Hebrews 1:5 ← Psalm 2:7
+    - John 19:36 ← Exodus 12:46
+  - Add a test that common-word-only pairs are never labelled Quotation.
+  - Update the 194 v16 reference screenshots **on purpose** in this PR, and explain the change.
+- **A2. Honest highlighting.** "Why these connect" highlights only the matched quotation phrase, or for non-quotations the shared *rare content words* (Strong's-based where possible), never stop-words. When there is no textual overlap, say: "Linked by OpenBible users (N votes); no shared wording."
+- **A3. Pin the words and lexicons to their source.**
+  - **Words:** re-import Hebrew (TAHOT) and Greek (TAGNT) from STEPBible/STEPBible-Data at a pinned commit with checksums, replacing the v16 snapshot.
+  - **Lexicons:** validate that every `H…` key is Hebrew and every `G…` key Greek.
+  - **Greek definitions:** use the Dodson Greek lexicon (CC0) for short Greek definitions, with STEPBible's TBESG only as a "full entry" link.
+  - **Hebrew definitions:** use STEPBible's TBESH short gloss, plus the Enhanced BDB (unfoldingWord, CC BY) for the full entry.
+- **A4. Show the Bible's words, in context.**
+  - **Interlinear view:** in the reader, each original word shows its contextual gloss, the English the translation actually uses there (already in the data, e.g. "he created"), as the main line. Below it go the transliteration and a 1-line simple meaning. The long definition sits behind "More".
+  - **Hebrew is first-class:** every Old Testament chapter gets the same Hebrew word study the New Testament gets in Greek. Show it right to left with correct fonts and pronunciation help.
+  - **Key words:** rank by theological weight and frequency **in this chapter** (count ≥ 2, not stop-words, not names), not by rarity. Name people and places separately, linking to their Theographic entries.
+- **A5. Data truth tests in CI.**
+  - Every displayed connection must trace to a source row.
+  - Every gloss must trace to a lexicon or word row.
+  - No Greek text appears in a Hebrew panel or the reverse.
+  - The build fails otherwise.
+
+## B. Use every usable resource in the PDF
+
+Richard's instruction: use the whole resource directory, not a short list. `docs/RESOURCE_AUDIT.md` sorts all 137 entries. Handle them like this:
+
+- **Tiers 1, 2 and 3 (clean licence):** integrate all of them. Each one feeds a named feature below, is pinned with a checksum, and is credited.
+- **Tier 8 (later):** integrate each one whose licence is clean when it fits a feature below. Do not add a heavy library (Cesium, deck.gl, G6) without measuring bundle size and getting Richard's OK.
+- **Tier 7 (link only):** add each as an outbound "See it at the source" link on the matching evidence item, place, manuscript or inscription. Never copy their images or text.
+- **Tiers 4–6 (non-commercial, GPL code, no licence):** do not import. Where the same content exists under a clean licence, use that instead. For example, for Strong's, Tischendorf or Abbott-Smith (public-domain texts), use STEPBible or Dodson. List what was skipped and why on the Credits screen's "Sources we chose not to use" section.
+
+Feature map (sources by PDF number):
+
+| Feature | Sources |
+|---|---|
+| Wheel connections and tiers | 001 OpenBible; 003 scrollmapper (MIT) for cross-checks; 004 trekhleb (MIT) to cross-check counts; 016 ETCBC parallels code (MIT; data only if its licence is clean) for OT↔OT parallels such as Samuel–Kings–Chronicles |
+| Who is speaking | 014 Clear-Bible speaker-quotations (CC BY) |
+| Word study (Hebrew & Greek) | 094 STEPBible; 095/096 MACULA Hebrew/Greek; 015 Clear-Bible Alignments; 077 OpenScriptures morphhb; 080 UXLC; 085 SBLGNT (CC BY 4.0); 103 Dodson; 101 Enhanced BDB; 100 OpenScriptures BDB (public domain); 091 CNTR (verify licence first) |
+| People, places, events | 009/010 Theographic; 011 bradystephenson bible-data (CC BY) |
+| Map and journeys | 025/026 OpenBible geocoding; 027 UBS MARBLE routes; 031/032 Pleiades; 043 AWMC; 049 Natural Earth; 039 Vici (CC BY-SA); 044 DARE (CC BY-SA); 046 Syriaca (CC BY); 047 MAPA (CC BY-SA); 119 MapLibre or 121 Leaflet |
+| Evidence Centre images & records | 065 Met Open Access (CC0 images only); 068 Open Context (CC BY); 059 papyri.info (CC BY); 054 ORACC (CC BY-SA, for Assyrian/Babylonian records that name Bible people) |
+| Manuscript viewer | 128 OpenSeadragon / 127 Mirador, only for IIIF images whose licence allows display, otherwise a link |
+| Search | 122 Bible Passage Reference Parser; 132 MiniSearch or 133 FlexSearch; 134 Fuse for the book/name picker |
+| Graph analysis | 113 Graphology for centrality (which passages are most connected), computed at build time |
+| Offline data | 135 sql.js or 137 DuckDB-Wasm, only if measured faster than the current packs |
+
+Each integration PR states: source number, licence, what the user now sees, and how its data was checked.
+
+## 1. Ease of use for every age
 
 A **"How do you like to read?"** choice on first open, which can be changed any time from the menu. Remember the choice locally.
 

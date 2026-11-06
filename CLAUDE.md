@@ -3,6 +3,7 @@
 A 3D Bible app showing how the Old Testament points to Jesus in the New Testament. Live at https://scripture-universe.vercel.app. Vercel deploys `main` automatically; every PR gets a preview link.
 
 ## Read first
+- Section A of the brief (wrong connections and word meanings) comes before everything else.
 - `docs/NEXT_LEVEL_BRIEF.md` — the current spec and build order (all-ages modes, Evidence Centre, map, word study, search, JARVIS, offline/stores). Section 0 rules apply to every PR.
 - `docs/RESOURCE_AUDIT.md` — which outside data sources may be used (Tier 1 only without asking).
 - `docs/DATA.md`, `docs/EVIDENCE_CENTRE.md`, `docs/JARVIS.md` — data pipeline, evidence rules, JARVIS design.
@@ -34,6 +35,16 @@ A 3D Bible app showing how the Old Testament points to Jesus in the New Testamen
 - Data and back end: `zizi-skills:source-driven-development`, `zizi-skills:database-optimization`, `zizi-skills:security-and-hardening`, `agentic-council:skeptic-threat-model`.
 - JARVIS: `agentic-council:oracle-rag-architecture`, `agentic-council:oracle-prompt-engineering`, `agentic-council:oracle-ai-evaluation`.
 - Stores and web: `zizi-skills:app-store`, `agentic-council:pathfinder-platform-audit`, `searchfit-seo:technical-seo`, `searchfit-seo:schema-markup`, `aeotester:audit`.
+- Also available and useful here:
+  - `superpowers:writing-plans`, `superpowers:test-driven-development`, `superpowers:systematic-debugging`, `superpowers:verification-before-completion`
+  - `backend-design:design`, `backend-design:security-discipline` and the `backend-design:security-reviewer` agent for `/api/jarvis`
+  - the `fairmind-design` accessibility agents (WCAG, contrast, keyboard, screen reader) for the Easy and Kids modes
+  - `ux-ui-audit:ux-ui-audit`
+  - `geoai:cartography-geoviz` for the map
+  - `huggingface-skills:huggingface-datasets` for the BibleNLP datasets
+  - `writing-quality:claim-boundary-checker` for every evidence text
+  - `claude-security:claude-security` before store submission
+  - `ci-optimizer:ci-check`
 - Big decisions: `agentic-council:brainstorm` (quick) or `agentic-council:council` (full).
 Say in each PR which skills you used. If a skill is missing in your session, carry on without it and say so.
 
