@@ -37,7 +37,7 @@ for (const f of lock.files) {
   } else if (fs.existsSync(out)) {
     body = zlib.gunzipSync(fs.readFileSync(out));
   } else {
-    const url = `https://raw.githubusercontent.com/${f.repo}/${f.commit}/${f.path}`;
+    const url = `https://raw.githubusercontent.com/${f.repo}/${f.commit}/${f.path.split("/").map(encodeURIComponent).join("/")}`;
     console.log(`fetch ${url}`);
     body = execFileSync("curl", ["-fsSL", "--retry", "4", "--retry-delay", "2", url], { maxBuffer: 1 << 30 });
     fs.mkdirSync(path.dirname(out), { recursive: true });

@@ -635,11 +635,16 @@ const WCACHE={},LEX={};
 function needWords(b){const k="w"+String(b+1).padStart(2,"0"),lk=b<39?"lexh":"lexg";
  if(!WCACHE[b]&&WCACHE[b]!=="loading"){WCACHE[b]="loading";loadAsset(k).then(t=>{WCACHE[b]=JSON.parse(t);KWC.clear();if(uiMode==="reader")renderSheet(true)}).catch(()=>{WCACHE[b]="failed";if(uiMode==="reader")renderSheet(true)})}
  if(!LEX[lk]){LEX[lk]="loading";loadAsset(lk).then(t=>{LEX[lk]=JSON.parse(t);KWC.clear();if(uiMode==="reader")renderSheet(true)}).catch(()=>{LEX[lk]="failed"})}}
+/* Original words of a verse (STEPBible, pinned): each word leads with the English this verse uses for it,
+   then a short dictionary meaning; the full entry sits behind "More". Hebrew lists read right to left. */
+/* STEPBible marks grammar-only words with <...> or [...]: say what they are in plain words. */
+const plainGloss=g=>/^(and )?<obj\.>$/i.test(g||"")?(g.startsWith("and")?"and (marks the object; not translated)":"(marks the object; not translated)"):/^\[obj\.\]$/i.test(g||"")?"object marker, not translated":(g||"").replace(/<([^>]+)>/g,"($1)");
+const stepUrl=k=>`https://www.stepbible.org/?q=strong=${encodeURIComponent((k||"").replace(/[A-Za-z]$/,""))}`;
 function wordsHtml(v){const [bn,c,x]=vr(v),b=chs[chOf[v]].b,W=WCACHE[b],lx=LEX[b<39?"lexh":"lexg"],he=b<39;
  if(!W||W==="loading")return`<p class="meta">Loading the ${he?"Hebrew":"Greek"} words…</p>`;if(W==="failed")return`<p class="meta">The ${he?"Hebrew":"Greek"} words could not be loaded right now.</p>`;
  const ws=W[c+":"+x]||[];if(!ws.length)return`<p class="meta">No word data for this verse.</p>`;
- return`<p class="meta">Each word of the ${he?"Hebrew Old":"Greek New"} Testament, in order, with how it sounds, what it means here, and its dictionary entry. Data: STEPBible.org (CC BY).</p>`+ws.map(w=>{const L=lx&&typeof lx==="object"?lx[w[3]]:null;
-  return`<div class="ow"><span class="o${he?" he":""}" lang="${he?"he":"grc"}">${esc(w[0])}</span><span class="t">${esc(w[1])}</span><span class="s">${esc(w[3])}</span><span class="g">${esc(w[2]||"")}</span>${L?`<details><summary>Dictionary: ${esc(L[0])} · “${esc(L[2])}”</summary><p>${esc(L[3])}</p></details>`:""}</div>`}).join("")}
+ return`<p class="meta">The ${he?"Hebrew":"Greek"} words of this verse${he?", read right to left":""}. Under each word: how it sounds, the English used for it in this verse, and its basic meaning. Data: STEPBible.org (CC BY)${he?"":"; Greek meanings: Dodson Lexicon (public domain)"}.</p><div class="owl${he?" he":""}">`+ws.map(w=>{const L=lx&&typeof lx==="object"?lx[w[3]]:null,mean=w[5]||(L?L[2]:"");
+  return`<div class="ow"><span class="o${he?" he":""}" lang="${he?"he":"grc"}">${esc(w[0])}</span><span class="t">${esc(w[1])}</span><span class="g">${esc(plainGloss(w[2]))}</span>${mean?`<span class="m">Meaning: ${esc(plainGloss(mean))}</span>`:""}${L&&L[3]?`<details><summary>More about ${esc(L[0])}</summary><p>${esc(L[3])}</p><p class="meta">Used ${fmt(L[5]||0)} times in the ${he?"Old":"New"} Testament · ${esc(w[3])} · <a href="${stepUrl(w[3])}" target="_blank" rel="noopener">Full entry on STEPBible</a></p></details>`:""}</div>`}).join("")+`</div>`}
 async function explainVerse(v){const out=$("vx"+v);if(!out)return;const s=await getSample();if(!s){out.textContent="Explanations by AI are only available when this app is opened inside Claude. The word list and the linked passages above still explain the verse.";return}
  out.textContent="Thinking…";const b=chs[chOf[v]].b,[bn,c,x]=vr(v),W=WCACHE[b]&&typeof WCACHE[b]==="object"?WCACHE[b][c+":"+x]:null,lx=LEX[b<39?"lexh":"lexg"];
  const words=W?W.map(w=>`${w[1]} (${w[3]}) = ${w[2]}${lx&&lx[w[3]]?"; dictionary: "+lx[w[3]][2]:""}`).join("\n"):"(not loaded)";
@@ -663,10 +668,13 @@ $("vpk").addEventListener("click",e=>{const t=e.target;if(t===$("vpk")||t.closes
  if(vpkMode==="main"){rdVer=v||"kjv";if(rdPar===rdVer)rdPar=null}else rdPar=v||null;
  try{localStorage.setItem("su_ver",JSON.stringify([rdVer,rdPar]))}catch(e){}closeVpk();renderSheet(true)});
 function keyWordsHtml(b,c){needWords(b);const kw=keyWords(b,c),he=b<39;
- if(!kw)return`<div class="kw"><div class="kwsrc">Loading the ${he?"Hebrew":"Greek"} key words for this chapter…</div></div>`;if(!kw.length)return"";
- return`<details class="kw"${kwOpen?" open":""} data-kw><summary>Key ${he?"Hebrew":"Greek"} words in this chapter<small>${kw.map(k=>esc(k.L[1])).join(" · ")}</small></summary>
-${kw.map(k=>`<div class="kwi"><span class="o${he?" he":""}" lang="${he?"he":"grc"}">${esc(k.L[0])}</span><span class="t">${esc(k.L[1])}</span><span class="g">“${esc(k.L[2])}” · ${esc(k.s)}</span><p>${esc(k.L[3].length>220?k.L[3].slice(0,220)+"…":k.L[3])}</p><div class="vv">${k.verses.slice(0,10).map(v=>`<button data-kwv="${chs[chBase[b]+c-1].v0+v-1}">v. ${v}</button>`).join("")}${k.verses.length>10?`<span class="meta" style="margin:6px 0 0">+${k.verses.length-10} more</span>`:""}</div></div>`).join("")}
-<div class="kwsrc">Chosen by how often each word appears in this chapter compared with the rest of the Bible (everyday words like \u201csay\u201d, \u201cbe\u201d and \u201ccome\u201d are left out). Tap a verse number to read that verse with its original words. Words and meanings: STEPBible.org (CC BY 4.0).</div></details>`}
+ if(!kw)return`<div class="kw"><div class="kwsrc">Loading the ${he?"Hebrew":"Greek"} key words for this chapter…</div></div>`;if(!kw.length&&!kw.names.length)return"";
+ const first=l=>{const t=(l||"").split("\n")[0];return t.length>180?t.slice(0,180)+"…":t};
+ const gl=g=>(g||"").split(":")[0].trim(); // STEPBible glosses like "land: country/planet" -> "land"
+ return`<details class="kw"${kwOpen?" open":""} data-kw><summary>Key ${he?"Hebrew":"Greek"} words in this chapter<small>${kw.length?kw.map(k=>esc(gl(k.L[2]))).join(" · "):"People and places"}</small></summary>
+${kw.map(k=>`<div class="kwi"><span class="o${he?" he":""}" lang="${he?"he":"grc"}">${esc(k.L[0])}</span><span class="t">${esc(k.L[1])}</span><span class="g">“${esc(gl(k.L[2]))}” · ${k.n} times in this chapter</span>${k.L[3]?`<details><summary>Meaning</summary><p>${esc(first(k.L[3]))}</p><p class="meta"><a href="${stepUrl(k.s)}" target="_blank" rel="noopener">Full entry on STEPBible</a></p></details>`:""}<div class="vv">${k.verses.slice(0,10).map(v=>`<button data-kwv="${chs[chBase[b]+c-1].v0+Math.max(v,1)-1}">v. ${v}</button>`).join("")}${k.verses.length>10?`<span class="meta" style="margin:6px 0 0">+${k.verses.length-10} more</span>`:""}</div></div>`).join("")}
+${kw.names.length?`<div class="kwn"><b>People and places named:</b> ${kw.names.map(n=>`<span lang="${he?"he":"grc"}">${esc(n.L[0])}</span> ${esc(n.L[2])}`).join(" · ")}</div>`:""}
+<div class="kwsrc">Words used two or more times in this chapter, most frequent first (everyday words like \u201csay\u201d, \u201cbe\u201d and \u201ccome\u201d, and names, are left out). Tap a verse number to read that verse with its original words. Words and meanings: STEPBible.org (CC BY 4.0)${he?"":", Dodson Lexicon (public domain)"}.</div></details>`}
 let kwOpen=false;
 const KWSTOP=new Set(['G1510','G3004','G2036','G2046','G2064','G1096','G3956','G4160','G1325','G2192','G3708','G1492','H0559','H1961','H6213','H0935','H5414','H3605','H1696','H7200','H3212','H1980','H3318']);
 
@@ -679,10 +687,16 @@ function chapConn(){const key=selBook+"|"+selChap+"|"+T();if(key===CCK)return CC
  cnt.delete(selBook);const list=[...cnt.keys()].sort((a,b)=>cnt.get(b)-cnt.get(a));CCK=key;CCV={list,rank:new Map(list.map((k,i)=>[k,i+1])),cnt};return CCV}
 const KWC=new Map(),CNTC=new Map();
 function keyWords(b,c){const k=b+":"+c;if(KWC.has(k))return KWC.get(k);const W=WCACHE[b],lx=LEX[b<39?"lexh":"lexg"];if(!W||typeof W!=="object"||!lx||typeof lx!=="object")return null;
- const N=B[b].ch[c-1],tf=new Map(),where=new Map();
- for(let v=1;v<=N;v++){const ws=W[c+":"+v]||[];const seen=new Set();ws.forEach(w=>{const L=lx[w[3]];if(!L||KWSTOP.has((w[3].match(/[HG]\d+/)||[""])[0])||!/^(H|G|A):[NVA]/.test(L[4]||""))return;tf.set(w[3],(tf.get(w[3])||0)+1);if(!seen.has(w[3])){seen.add(w[3]);if(!where.has(w[3]))where.set(w[3],[]);where.get(w[3]).push(v)}})}
- const sc=[];tf.forEach((n,s)=>{const df=lx[s][5]||1;sc.push([s,n*Math.log(1189/df)+(n>=2?1000:0)])});sc.sort((a,b)=>b[1]-a[1]);
- const out=sc.slice(0,6).map(([s],i)=>({s,L:lx[s],verses:where.get(s),mk:"abcdef"[i]}));out.byVerse=new Map();out.forEach(k=>k.verses.forEach(v=>{const a=out.byVerse.get(v)||"";out.byVerse.set(v,a+k.mk)}));KWC.set(k,out);return out}
+ const N=B[b].ch[c-1],tf=new Map(),where=new Map(),names=new Map();
+ for(let v=0;v<=N;v++){const ws=W[c+":"+v]||[];const seen=new Set();ws.forEach(w=>{const L=lx[w[3]];if(!L)return;const ty=L[4]||"";
+   if(/^N:/.test(ty)){if(!names.has(w[3]))names.set(w[3],{L,n:0});names.get(w[3]).n++;return}
+   if(KWSTOP.has((w[3].match(/[HG]\d+/)||[""])[0])||!/^(H|G|A):(N|V|A)/.test(ty))return;
+   tf.set(w[3],(tf.get(w[3])||0)+1);if(!seen.has(w[3])){seen.add(w[3]);if(!where.has(w[3]))where.set(w[3],[]);where.get(w[3]).push(v)}})}
+ // Words that recur in this chapter (2+ times) carry its themes; among equals, the less common word first.
+ const sc=[];tf.forEach((n,s)=>{if(n>=2)sc.push([s,n,lx[s][5]||1])});sc.sort((a,b)=>b[1]-a[1]||a[2]-b[2]);
+ const out=sc.slice(0,6).map(([s,n],i)=>({s,n,L:lx[s],verses:where.get(s),mk:"abcdef"[i]}));
+ out.names=[...names.values()].sort((a,b)=>b.n-a.n).slice(0,10);
+ out.byVerse=new Map();out.forEach(k=>k.verses.forEach(v=>{const a=out.byVerse.get(v)||"";out.byVerse.set(v,a+k.mk)}));KWC.set(k,out);return out}
 function fnMarks(b,c,x){return "";const kw=keyWords(b,c);if(!kw)return"";const m=kw.byVerse.get(x);return m?[...m].map(l=>`<span class="fn">${l}</span>`).join(""):""}
 function chapCounts(v0,n){const k=v0+":"+n;let cnt=CNTC.get(k);if(cnt)return cnt;cnt=new Map();for(let i=0;i<L;i++){const a=oS[i],z=oE[i],a2=nS[i],z2=nE[i];if(z>=v0&&a<v0+n)for(let v=Math.max(a,v0);v<=Math.min(z,v0+n-1);v++)cnt.set(v,(cnt.get(v)||0)+1);if(z2>=v0&&a2<v0+n)for(let v=Math.max(a2,v0);v<=Math.min(z2,v0+n-1);v++)cnt.set(v,(cnt.get(v)||0)+1)}CNTC.set(k,cnt);return cnt}
 let refStepBook=null;
