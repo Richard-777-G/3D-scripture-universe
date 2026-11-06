@@ -229,3 +229,7 @@ mark{background:#f2d47a33;color:#fff3c4;border-radius:3px;padding:0 1px}
 #boot b{font:700 22px "Source Serif 4",Georgia,serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
 #boot span{font:15px/1.5 Inter,system-ui,sans-serif;color:var(--mute);max-width:320px}
 #boot button{min-height:44px;padding:0 22px;border-radius:22px;border:1px solid var(--gold);background:transparent;color:var(--ink);font:600 15px Inter,system-ui,sans-serif;cursor:pointer}
+/* Credits screen (Phase 2) */
+#sc ul.credits{padding-left:18px}
+#sc ul.credits li{margin:0 0 12px;line-height:1.45}
+#sc ul.credits a{color:var(--gold)}
