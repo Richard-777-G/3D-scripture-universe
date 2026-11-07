@@ -18,6 +18,8 @@
     "evidence:review": "node pipeline/evidence-review.mjs"
   },
   "dependencies": {
+    "@types/leaflet": "1.9.12",
+    "leaflet": "1.9.4",
     "three": "0.128.0"
   },
   "devDependencies": {

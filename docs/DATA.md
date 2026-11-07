@@ -55,6 +55,30 @@ Known limits: matching is on English translations, so a quotation the New Testam
 
 - **5 of 344,799 OpenBible links can't be placed** because they cite 3 John 1:15, which the KJV numbering doesn't have (it ends 3 John at verse 14). They are left out and reported.
 
+## The map (since v17)
+
+Three packs, each under one licence, loaded only when someone opens the map:
+
+| Pack | Source (pinned in `pipeline/sources.lock.json`) | Licence | What it holds |
+|---|---|---|---|
+| `geo` | OpenBible.info Bible Geocoding Data, `data/ancient.jsonl` | CC BY 4.0 | 1,285 places named in the Bible text (1,252 with a location), their verses, the best-supported location and up to four other proposals |
+| `routes` | UBS Project MARBLE Bible routes (Dr Leen Ritmeyer) | CC BY-SA 4.0 | 177 journey lines, grouped by period of the Bible story |
+| `geobase` | Natural Earth 1:10m land, lakes, rivers | Public domain | Coastlines and water cut to the Bible world (10°W–62°E, 8°N–47°N) |
+
+How sure a location is comes from OpenBible's own score out of 1000 for the top identification ("1000 represents very high confidence"):
+
+| Score | Shown as | On the map |
+|---|---|---|
+| 800 or more | Location known | solid dot |
+| 500–799 | Likely location | dot with a light fill |
+| under 500 | Location debated | dashed ring, and the panel names the other suggestions |
+| no located identification | Location unknown | not drawn; still in the List view |
+
+- 57 entries in the source are places outside the Bible text (for example Adulis); they have no verses and are left out.
+- Route titles come from the UBS file names. The two files named only "David" take their titles from UBS's own `metadata.csv` (David's Kingdom 4 and 5). One file (`100.geojson`) has no name and is left out. Routes carry no verse references in the source, so the app does not invent any.
+- The map draws its own base from Natural Earth: no map tiles, no keys, no third-party requests.
+- `validate.mjs` blocks a build if a place shows a confidence band its score does not give, points at a verse that does not exist, or a place or route sits outside the Bible world.
+
 ## Known gaps
 
 Items 2 and 5 from Phase 1 are resolved for the new sources and the cross-reference count.

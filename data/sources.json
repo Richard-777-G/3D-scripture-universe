@@ -155,6 +155,40 @@
    ],
    "origin": "robertrouse/theographic-bible-metadata json/ (pinned in pipeline/sources.lock.json)",
    "shareAlike": true
+  },
+  {
+   "id": "openbible-geo",
+   "name": "OpenBible.info Bible Geocoding Data",
+   "url": "https://github.com/openbibleinfo/Bible-Geocoding-Data",
+   "licence": "CC BY 4.0",
+   "attribution": "Bible places, their verses and how confident scholars are about each location, from OpenBible.info Bible Geocoding Data (CC BY 4.0). Changes: reduced to each place’s best-supported location, other proposed locations and verse list, linked to the app’s verse numbering.",
+   "packs": [
+    "geo"
+   ],
+   "origin": "openbibleinfo/Bible-Geocoding-Data data/ancient.jsonl (pinned in pipeline/sources.lock.json)"
+  },
+  {
+   "id": "ubs-routes",
+   "name": "UBS Project MARBLE Bible Routes",
+   "url": "https://github.com/ubsicap/ubs-open-license/tree/main/ubs-bible-routes",
+   "licence": "CC BY-SA 4.0",
+   "attribution": "Bible journey routes © United Bible Societies 2023, created for UBS Project MARBLE by Dr Leen Ritmeyer, CC BY-SA 4.0. Changes: lines simplified and grouped by period of the Bible story; titles taken from the file names. The routes pack is shared under the same licence.",
+   "packs": [
+    "routes"
+   ],
+   "origin": "ubsicap/ubs-open-license ubs-bible-routes/GeoJsonRoutes (pinned in pipeline/sources.lock.json)",
+   "shareAlike": true
+  },
+  {
+   "id": "natural-earth",
+   "name": "Natural Earth (land, lakes, rivers)",
+   "url": "https://www.naturalearthdata.com/",
+   "licence": "Public domain",
+   "attribution": "Coastlines, lakes and rivers from Natural Earth (public domain), cut to the Bible world and simplified.",
+   "packs": [
+    "geobase"
+   ],
+   "origin": "nvkelso/natural-earth-vector geojson/ne_10m_* (pinned in pipeline/sources.lock.json)"
   }
  ]
 }

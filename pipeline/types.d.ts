@@ -17,3 +17,8 @@ declare module "*/pipeline/connections.mjs" {
   export function judge(ot: [number, number], nt: [number, number], texts: string[][], df: Map<string, number>): { tier: number; words: string[] };
   export function documentFrequency(verses: string[]): Map<string, number>;
 }
+declare module "*/pipeline/geo.mjs" {
+  export function routeTitle(file: string): { num: number; title: string };
+  export function clipRing(ring: [number, number][]): [number, number][];
+  export function band(score: number): "known" | "likely" | "debated";
+}

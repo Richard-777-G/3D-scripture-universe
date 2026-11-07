@@ -11,6 +11,7 @@ import { loadEvidenceCentre } from "./evidence-centre.mjs";
 import { buildConnections, commonWords, TIER } from "./connections.mjs";
 import { verseTable } from "./validate.mjs";
 import { loadStepBible } from "./stepbible.mjs";
+import { loadPlaces, loadRoutes, loadBase, ERA_ORDER, CONF } from "./geo.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
@@ -33,6 +34,15 @@ export function loadInputs() {
   for (const { book, words } of step.books) assets["w" + String(book + 1).padStart(2, "0")] = JSON.stringify(words);
   assets.lexh = JSON.stringify(step.lexh);
   assets.lexg = JSON.stringify(step.lexg);
+
+  // The map: OpenBible places with confidence, UBS MARBLE routes, Natural Earth base.
+  const geoPlaces = loadPlaces(core.books);
+  const geoRoutes = loadRoutes(json("pipeline/sources.lock.json").files);
+  const geo = { places: geoPlaces.data, routes: geoRoutes.data, eras: ERA_ORDER, conf: CONF };
+  // Separate packs so each carries one licence: places CC BY, routes CC BY-SA, base public domain.
+  assets.geo = JSON.stringify({ places: geo.places, conf: CONF });
+  assets.routes = JSON.stringify({ routes: geo.routes, eras: ERA_ORDER });
+  assets.geobase = JSON.stringify(loadBase());
 
   const kjv = raw("kjv.txt.gz").split("\n");
   const journeys = json("content/journeys.json");
@@ -58,6 +68,7 @@ export function loadInputs() {
     assets,
     openbible: openbible.data,
     theographic: theographic.data,
-    importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors, ...step.errors],
+    geo,
+    importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors, ...step.errors, ...geoPlaces.errors, ...geoRoutes.errors],
   };
 }
