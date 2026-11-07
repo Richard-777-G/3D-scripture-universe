@@ -17,12 +17,23 @@
    "name": "STEPBible Data (TAHOT, TAGNT, TBESH, TBESG)",
    "url": "https://github.com/STEPBible/STEPBible-Data",
    "licence": "CC BY 4.0",
-   "attribution": "Hebrew and Greek data from STEP Bible (www.stepbible.org)",
+   "attribution": "Hebrew and Greek words, their meaning in each verse, and short dictionary meanings from STEP Bible (www.stepbible.org), CC BY 4.0",
    "packs": [
     "words",
     "lex"
    ],
-   "origin": "v16 snapshot"
+   "origin": "STEPBible/STEPBible-Data at commit 5de0a47 (pinned with sha256 in pipeline/sources.lock.json)"
+  },
+  {
+   "id": "dodson",
+   "name": "Dodson Greek-English Lexicon",
+   "url": "https://github.com/biblicalhumanities/Dodson-Greek-Lexicon",
+   "licence": "Public domain (CC0)",
+   "attribution": "Plain-English Greek definitions from the Dodson Greek-English Lexicon (John Jeffrey Dodson), dedicated to the public domain under CC0.",
+   "packs": [
+    "lexg"
+   ],
+   "origin": "biblicalhumanities/Dodson-Greek-Lexicon dodson.csv at commit 74f7035 (pinned)"
   },
   {
    "id": "kjv",

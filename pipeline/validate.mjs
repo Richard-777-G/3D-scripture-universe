@@ -131,6 +131,24 @@ export function validateAll(input) {
       for (const w of list) { words++; if (w[3] && !L[w[3]]) noLex++; }
     }
   }
+  // Truth checks for the word study: right script, right dictionary, a traceable meaning.
+  const HEB = /[\u0590-\u05FF]/, GRK = /[\u0370-\u03FF\u1F00-\u1FFF]/;
+  for (const [k, prefix, name] of [["lexh", "H", "Hebrew"], ["lexg", "G", "Greek"]]) {
+    const wrong = Object.keys(lex[k]).filter((s) => !s.startsWith(prefix));
+    if (wrong.length) err(`${name} lexicon holds ${wrong.length} entries from the other language (e.g. ${wrong[0]})`);
+  }
+  let wrongScript = 0, noMeaning = 0;
+  for (let b = 0; b < 66; b++) {
+    const key = "w" + String(b + 1).padStart(2, "0");
+    if (!assets[key]) continue;
+    for (const list of Object.values(JSON.parse(assets[key]))) for (const w of list) {
+      const ok = b < 39 ? HEB.test(w[0]) && !GRK.test(w[0]) : GRK.test(w[0]) && !HEB.test(w[0]);
+      if (!ok) wrongScript++;
+      if (w.length >= 6 && !w[5] && !(lex[b < 39 ? "lexh" : "lexg"][w[3]] || [])[2]) noMeaning++;
+    }
+  }
+  if (wrongScript) err(`${wrongScript} words are in the wrong script for their Testament`);
+  if (noMeaning > 100) err(`${noMeaning} words have no meaning from STEPBible or the lexicon`);
   if (noLex / Math.max(words, 1) > 0.02) err(`${noLex} of ${words} words have no lexicon entry (over 2%)`);
   else if (noLex) warn(`${noLex} of ${words} words have no lexicon entry`);
 

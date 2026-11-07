@@ -103,5 +103,29 @@ describe("data validation", () => {
     const rev13v1 = 30909; // Revelation 13:1 in KJV numbering
     expect(lines[rev13v1]).toMatch(/^దానికోసం ఆ మహా సర్పం సముద్ర తీరంలో/);
   });
+
+  it("fails when a Greek word appears in a Hebrew book", () => {
+    const x = clone();
+    const w = JSON.parse(x.assets.w01);
+    w["1:1"][0][0] = "λόγος";
+    x.assets.w01 = JSON.stringify(w);
+    expect(validateAll(x).errors.join()).toMatch(/wrong script/);
+  });
+
+  it("fails when a Hebrew entry is filed in the Greek lexicon", () => {
+    const x = clone();
+    const g = JSON.parse(x.assets.lexg);
+    g.H0175 = ["Ἀαρών", "Aarōn", "Aaron", "", "N:N-M-P", 5];
+    x.assets.lexg = JSON.stringify(g);
+    expect(validateAll(x).errors.join()).toMatch(/Greek lexicon holds 1 entries from the other language/);
+  });
+
+  it("gives Genesis 1:1 the English used in the verse and a short meaning", () => {
+    const w = JSON.parse(input.assets.w01)["1:1"];
+    expect(w[1].slice(2)).toEqual(["he created", "H1254A", "HVqp3ms", "to create"].slice(0, 1).concat(w[1].slice(3)));
+    expect(w[1][2]).toBe("he created");
+    expect(w[1][5]).toBe("to create");
+    expect(JSON.parse(input.assets.lexg).G3056[3]).toMatch(/^a word/);
+  });
 });
 

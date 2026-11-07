@@ -8,8 +8,8 @@
 | Cross-references (wheel) | 42,732 OT↔NT rows with 3+ votes, shown as 40,099 threads | OpenBible.info (CC BY) |
 | Cross-references (database) | 344,794 links across the whole Bible, dated 2024-11-04 | OpenBible.info (CC BY) |
 | People, places, events | 3,067 people with 8,436 family links, 1,298 places with coordinates, 450 dated events | Theographic (CC BY-SA 4.0) |
-| Hebrew and Greek words | 441,550 words for every verse, with transliteration, gloss and Strong's number | STEPBible TAHOT, TAGNT |
-| Lexicons | 16,801 entries | STEPBible TBESH, TBESG |
+| Hebrew and Greek words | 447,095 words for every verse: original, transliteration, the English used in that verse, Strong's number, grammar and a short dictionary meaning | STEPBible TAHOT, TAGNT (pinned) |
+| Lexicons | 9,587 Hebrew and 10,451 Greek entries, each with a short meaning; Greek definitions in plain English | STEPBible TBESH, TBESG; Dodson Greek Lexicon (CC0) |
 | Journeys | 41 sourced OT→NT connections in 4 groups, 15 citations | Own content |
 | Story | 16 steps | Own content |
 | Evidence | 26 items, each with sources | Own content |
@@ -60,9 +60,9 @@ Known limits: matching is on English translations, so a quotation the New Testam
 Items 2 and 5 from Phase 1 are resolved for the new sources and the cross-reference count.
 
 1. **Two KJV editions are mixed.** v16 embedded a KJV text for about 20,000 verses and a second, slightly different KJV for the rest (for example "without form, and void" against "without form and void"). 5,043 verses differ between them. The packs keep v16's exact display (the first text where it exists, the second otherwise). Phase 2 should replace both with one pinned KJV source.
-2. **Upstream files for the v16 versions and STEPBible data were not recorded.** BSB, OpenBible and Theographic are now pinned. KJV, ASV, BBE, YLT, Darby, Webster, Telugu and the STEPBible words still come from the v16 snapshot. The next step is to pin them the same way.
+2. **Upstream files for the v16 versions and STEPBible data were not recorded.** BSB, OpenBible and Theographic are now pinned. KJV, ASV, BBE, YLT, Darby, Webster and the Telugu Old Version still come from the v16 snapshot; the STEPBible words and lexicons are now pinned upstream. The next step is to pin them the same way.
 3. **Empty verses.** ASV and BBE have 16 empty verses each, Darby 3, Telugu 1. Most are verses that modern critical texts leave out (for example Matthew 17:21). They should be checked against the source.
-4. **3,178 words (0.7%) have no lexicon entry.** Most are Strong's variants. They show without a definition.
+4. **Words without a dictionary entry:** 712 of 447,095 (0.16%), mostly Strong's variants; each still shows the English used in its verse and a short meaning.
 5. **The cross-reference count:** replaced by the evidence rule above.
 6. **Search behaviour (same as v16).**
    - Searching "virgin" returns verses (Luke 1:27, Matthew 1:23) but not the sourced Isaiah 7:14 journey.

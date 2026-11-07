@@ -158,7 +158,7 @@ mark{background:#f2d47a33;color:#fff3c4;border-radius:3px;padding:0 1px}
 .rv .par{display:block;margin:4px 0 2px;padding-left:10px;border-left:2px solid #3a4152;font:15px/1.6 'Source Serif 4',Georgia,serif;color:#cfc8b8}
 .rv .par.te,.rv.te{font-family:"Noto Sans Telugu","Nirmala UI","Gautami",Inter,sans-serif;line-height:1.85}
 .vt{display:flex;gap:4px;margin:6px 0}.vt button{flex:1;min-height:38px;border:1px solid var(--line);border-radius:9px;background:#0b0f18;color:var(--mute);font:600 12.5px Inter,system-ui,sans-serif}.vt button[aria-pressed="true"]{background:#1f2738;color:var(--ink);border-color:#3a4152}
-.ow{border-bottom:1px solid #222a38;padding:8px 0}.ow .o{font:600 22px/1.3 "SBL Hebrew","Ezra SIL","Times New Roman",'Source Serif 4',serif;color:#fff3c4}.ow .o.he{direction:rtl;text-align:right}
+.ow{border-bottom:1px solid #222a38;padding:8px 0}.ow .o{font:600 22px/1.3 'Source Serif 4',"Times New Roman",serif;color:#fff3c4}.ow .o.he{direction:rtl;font-family:"Noto Serif Hebrew","SBL Hebrew","Ezra SIL","Times New Roman",serif;font-size:25px}
 .ow .t{font:italic 13.5px Inter,system-ui,sans-serif;color:#9bc7ff;margin-left:6px}.ow .g{display:block;font:600 14px Inter,system-ui,sans-serif;color:var(--ink);margin-top:2px}
 .ow .s{font:600 11px Inter,system-ui,sans-serif;color:var(--mute);margin-left:6px}.ow details{margin-top:4px}.ow summary{cursor:pointer;color:#9bbcff;font:600 12.5px Inter,system-ui,sans-serif;min-height:30px;padding-top:4px}
 .ow details p{margin:4px 0 0;font:13.5px/1.55 Inter,system-ui,sans-serif;color:#cfc8b8}
@@ -196,7 +196,7 @@ mark{background:#f2d47a33;color:#fff3c4;border-radius:3px;padding:0 1px}
 .kw summary{list-style:none;cursor:pointer;padding:12px 40px 12px 12px;position:relative;font:700 13.5px Inter,system-ui,sans-serif;color:var(--ink);min-height:46px}
 .kw summary::-webkit-details-marker{display:none}.kw summary:after{content:"+";position:absolute;right:14px;top:9px;font:400 20px Inter,sans-serif;color:var(--gold)}.kw[open] summary:after{content:"\2212"}
 .kw summary small{display:block;font:500 12px Inter,system-ui,sans-serif;color:var(--mute);margin-top:2px}
-.kwi{padding:10px 12px;border-top:1px solid #222a38}.kwi .o{font:600 20px "SBL Hebrew","Times New Roman",'Source Serif 4',serif;color:#fff3c4}.kwi .o.he{direction:rtl}
+.kwi{padding:10px 12px;border-top:1px solid #222a38}.kwi .o{font:600 20px 'Source Serif 4',"Times New Roman",serif;color:#fff3c4}.kwi .o.he{direction:rtl;font-family:"Noto Serif Hebrew","SBL Hebrew","Times New Roman",serif;font-size:23px}
 .kwi .t{font:italic 13.5px Inter,system-ui,sans-serif;color:#9bc7ff;margin-left:6px}.kwi .mk{display:inline-block;min-width:20px;height:20px;border-radius:50%;background:#f2d47a;color:#05070d;font:700 11px/20px Inter,sans-serif;text-align:center;margin-right:8px;vertical-align:3px}
 .kwi .g{display:block;font:600 14px Inter,system-ui,sans-serif;margin-top:2px}.kwi p{margin:4px 0 6px;font:13.5px/1.55 Inter,system-ui,sans-serif;color:#cfc8b8}
 .kwi .vv{display:flex;flex-wrap:wrap;gap:6px}.kwi .vv button{min-height:32px;padding:0 10px;border-radius:99px;border:1px solid var(--line);background:#141a26;color:var(--ink);font:12.5px Inter,sans-serif}
@@ -233,3 +233,8 @@ mark{background:#f2d47a33;color:#fff3c4;border-radius:3px;padding:0 1px}
 #sc ul.credits{padding-left:18px}
 #sc ul.credits li{margin:0 0 12px;line-height:1.45}
 #sc ul.credits a{color:var(--gold)}
+/* v17 word study: the English used in this verse first, then a short meaning; Hebrew reads right to left */
+.owl.he{direction:rtl}.owl.he .ow{text-align:right}.owl.he .ow .t,.owl.he .ow .g,.owl.he .ow .m,.owl.he .ow details{direction:ltr;unicode-bidi:isolate}
+.ow .m{display:block;font:13.5px/1.45 Inter,system-ui,sans-serif;color:#cfc8b8;margin-top:2px}
+.ow details p,.kwi details p{white-space:pre-line}
+.kwn{padding:10px 12px;border-top:1px solid #222a38;font:13.5px/1.6 Inter,system-ui,sans-serif;color:#cfc8b8}.kwn b{color:var(--ink)}

@@ -10,6 +10,7 @@ import { loadBsb, loadOpenBible, loadTheographic, loadTeluguIrv } from "./normal
 import { loadEvidenceCentre } from "./evidence-centre.mjs";
 import { buildConnections, commonWords, TIER } from "./connections.mjs";
 import { verseTable } from "./validate.mjs";
+import { loadStepBible } from "./stepbible.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
@@ -26,6 +27,13 @@ export function loadInputs() {
   const irv = loadTeluguIrv(core.books);
   assets.v_bsb = bsb.data.join("\n");
   assets.v_irv = irv.data.join("\n");
+  // Hebrew and Greek words and lexicons straight from pinned STEPBible files
+  // (replacing the v16 snapshot), with Dodson's plain-English Greek definitions.
+  const step = loadStepBible();
+  for (const { book, words } of step.books) assets["w" + String(book + 1).padStart(2, "0")] = JSON.stringify(words);
+  assets.lexh = JSON.stringify(step.lexh);
+  assets.lexg = JSON.stringify(step.lexg);
+
   const kjv = raw("kjv.txt.gz").split("\n");
   const journeys = json("content/journeys.json");
 
@@ -50,6 +58,6 @@ export function loadInputs() {
     assets,
     openbible: openbible.data,
     theographic: theographic.data,
-    importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors],
+    importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors, ...step.errors],
   };
 }
