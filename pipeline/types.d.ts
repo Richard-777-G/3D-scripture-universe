@@ -22,3 +22,7 @@ declare module "*/pipeline/geo.mjs" {
   export function clipRing(ring: [number, number][]): [number, number][];
   export function band(score: number): "known" | "likely" | "debated";
 }
+declare module "*/pipeline/allconnections.mjs" {
+  export const LABEL: { sourced: number; wording: number; shared: number; tsk: number; openbible: number };
+  export function unpack(p: { f: number[]; t: number[]; n: number[]; v: number[]; l: number[] }): { a: number; s: number; e: number; v: number; l: number }[];
+}

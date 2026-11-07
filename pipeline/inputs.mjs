@@ -12,6 +12,7 @@ import { buildConnections, commonWords, TIER } from "./connections.mjs";
 import { verseTable } from "./validate.mjs";
 import { loadStepBible } from "./stepbible.mjs";
 import { loadPlaces, loadRoutes, loadBase, ERA_ORDER, CONF } from "./geo.mjs";
+import { labelAll } from "./allconnections.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
@@ -55,6 +56,25 @@ export function loadInputs() {
   core.aud = { evidence: conn.stats, v16Rows };
   core.cw = commonWords(conn.df);
 
+  // Every OpenBible link, labelled by what supports it (lazy-loaded packs).
+  const all = labelAll({ openbible: openbible.data, journeys, bookOf: verseTable(core.books).bookOf, texts: [kjv, bsb.data], df: conn.df });
+  assets.xon = JSON.stringify(all.xon);
+  assets.xin = JSON.stringify(all.xin);
+  // Every number the app shows comes from here, never typed by hand.
+  core.counts = {
+    best: core.xrefs.fv.length,
+    otnt: all.counts.otnt,
+    all: all.counts.all,
+    within: all.counts.within,
+    labels: all.counts.labels,
+    otntLabels: all.counts.otntLabels,
+    verses: kjv.length,
+    books: core.books.length,
+    places: geo.places.filter((p) => p.lat != null).length,
+    placesNamed: geo.places.length,
+    routes: geo.routes.length,
+  };
+
   return {
     core,
     kjv,
@@ -69,6 +89,7 @@ export function loadInputs() {
     openbible: openbible.data,
     theographic: theographic.data,
     geo,
+    allConnections: all,
     importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors, ...step.errors, ...geoPlaces.errors, ...geoRoutes.errors],
   };
 }

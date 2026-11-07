@@ -6,11 +6,13 @@
    "name": "OpenBible.info cross-references",
    "url": "https://www.openbible.info/labs/cross-references/",
    "licence": "CC BY",
-   "attribution": "Cross-references from OpenBible.info",
+   "attribution": "Cross-references from OpenBible.info. Changes: every link labelled by the evidence for it (same wording, shared distinctive words, sourced prophecy) alongside its OpenBible vote count.",
    "packs": [
-    "core"
+    "core",
+    "xin",
+    "xon"
    ],
-   "origin": "OpenBible.info file dated 2024-11-04 via scrollmapper/bible_databases (pinned in pipeline/sources.lock.json). The wheel shows every Old/New Testament link with 3 or more votes; the build checks this."
+   "origin": "OpenBible.info file dated 2024-11-04 via scrollmapper/bible_databases (pinned in pipeline/sources.lock.json). Every link is kept and labelled by what supports it; the wheel's default view shows the links the Bible text supports. The build checks both."
   },
   {
    "id": "stepbible",

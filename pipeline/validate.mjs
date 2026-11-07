@@ -5,6 +5,7 @@
  */
 import { validateEvidenceCentre } from "./evidence-centre.mjs";
 import { documentFrequency, judge, TIER } from "./connections.mjs";
+import { unpack, LABEL } from "./allconnections.mjs";
 
 export const TOTAL_VERSES = 31102;
 /** Versions that leave some verses empty on purpose (later manuscripts). */
@@ -173,6 +174,7 @@ export function validateAll(input) {
     if (unsourced) err(`${unsourced} links are neither OpenBible candidates nor sourced journey links`);
     if (wrong) err(`${wrong} links carry an evidence level the text does not support`);
     if (ob.from.length < 340000) err(`OpenBible has only ${ob.from.length} links`);
+    if (ob.unplaced) err(`OpenBible: ${ob.unplaced} links could not be placed on a verse`);
   }
 
   /* Theographic: family, places and participants must point at records that exist */
@@ -189,6 +191,43 @@ export function validateAll(input) {
     if (people.length < 3000 || places.length < 1200 || events.length < 400) err("Theographic: fewer records than expected");
     const noVerse = people.filter((p) => !p.verses.length).length;
     if (noVerse) warn(`Theographic: ${noVerse} people have no verses`);
+  }
+
+  /* All connections: every OpenBible row is kept, and every label is earned */
+  if (input.openbible && input.texts && assets.xon && assets.xin) {
+    const xon = unpack(JSON.parse(assets.xon)), xin = unpack(JSON.parse(assets.xin));
+    const ob = input.openbible;
+    if (xon.length + xin.length !== ob.from.length) err(`All connections: ${xon.length + xin.length} links kept, OpenBible has ${ob.from.length}`);
+    const key = (a, s, e) => `${a}|${s}|${e}`;
+    const obKeys = new Map();
+    for (let i = 0; i < ob.from.length; i++) obKeys.set(key(ob.from[i], ob.ts[i], ob.te[i]), ob.votes[i]);
+    const df = documentFrequency(input.texts.kjv), texts = [input.texts.kjv, input.texts.bsb];
+    let notOb = 0, badVotes = 0, badSide = 0, noOb = 0, wrongLabel = 0, tsk = 0;
+    const check = (rows, cross) => rows.forEach((r, i) => {
+      if (!obKeys.has(key(r.a, r.s, r.e))) notOb++;
+      else if (obKeys.get(key(r.a, r.s, r.e)) !== r.v) badVotes++;
+      if (((vt.bookOf[r.a] < 39) !== (vt.bookOf[r.s] < 39)) !== cross) badSide++;
+      if (!(r.l & LABEL.openbible)) noOb++;
+      if (r.l & LABEL.tsk) tsk++;
+      if (!cross && r.l & LABEL.sourced) wrongLabel++;
+      // Re-judge every link that claims wording evidence, and a sample of the rest.
+      if ((r.l & (LABEL.wording | LABEL.shared)) || i % 40 === 0) {
+        if (r.e - r.s > 6) { if (r.l & (LABEL.wording | LABEL.shared)) wrongLabel++; return; }
+        const [ot, nt] = cross && vt.bookOf[r.a] >= 39 ? [[r.s, r.e], [r.a, r.a]] : [[r.a, r.a], [r.s, r.e]];
+        const j = judge(ot, nt, texts, df);
+        if (!!(r.l & LABEL.wording) !== (j.tier >= 20) || !!(r.l & LABEL.shared) !== (j.words.length >= 2)) wrongLabel++;
+      }
+    });
+    check(xon, true);
+    check(xin, false);
+    if (notOb) err(`All connections: ${notOb} links are not in OpenBible`);
+    if (badVotes) err(`All connections: ${badVotes} links carry the wrong vote count`);
+    if (badSide) err(`All connections: ${badSide} links are in the wrong Testament pack`);
+    if (noOb) err(`All connections: ${noOb} links lost their OpenBible label`);
+    if (tsk) err(`All connections: ${tsk} links say "Listed in TSK" but no TSK source is imported`);
+    if (wrongLabel) err(`All connections: ${wrongLabel} links carry a label the text does not support`);
+    const c = core.counts;
+    if (!c || c.all !== ob.from.length || c.otnt !== xon.length || c.best !== X.fv.length) err("All connections: the counts the app shows do not match the data");
   }
 
   /* Map: every place and route is where the sources put it, and says how sure it is */

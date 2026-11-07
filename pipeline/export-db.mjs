@@ -81,11 +81,11 @@ table("verses", ["version_code", "verse_key", "text"], (function* () {
     for (let i = 0; i < lines.length; i++) if (lines[i].trim()) yield [code, keyOf(i), lines[i]];
   }
 })());
-// The full OpenBible set (about 345,000 links, both Testaments). The wheel's
-// 42,732 rows are the OT<->NT subset with 3+ votes; validate.mjs checks that.
-const OB = input.openbible;
-table("cross_refs", ["from_key", "to_start", "to_end", "votes", "source_id", "dataset_version"], (function* () {
-  for (let i = 0; i < OB.from.length; i++) yield [keyOf(OB.from[i]), keyOf(OB.ts[i]), keyOf(OB.te[i]), OB.votes[i], "openbible-xrefs", version];
+// The full OpenBible set (every link, both Testaments), each with its evidence
+// labels as bit flags (see pipeline/allconnections.mjs LABEL).
+const ALL = input.allConnections.rows;
+table("cross_refs", ["from_key", "to_start", "to_end", "votes", "evidence", "source_id", "dataset_version"], (function* () {
+  for (const r of ALL) yield [keyOf(r.a), keyOf(r.s), keyOf(r.e), r.v, r.l, "openbible-xrefs", version];
 })());
 
 const lexRows = [];

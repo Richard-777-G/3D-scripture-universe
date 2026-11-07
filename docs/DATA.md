@@ -55,6 +55,34 @@ Known limits: matching is on English translations, so a quotation the New Testam
 
 - **5 of 344,799 OpenBible links can't be placed** because they cite 3 John 1:15, which the KJV numbering doesn't have (it ends 3 John at verse 14). They are left out and reported.
 
+## Every connection, kept and labelled (since v17, Section D)
+
+All 344,799 OpenBible cross-references are kept: in the database (`cross_refs`, with an `evidence` column) and in two lazy-loaded packs.
+
+| Pack | Links | Loaded when |
+|---|---:|---|
+| `core` (wheel default, "Best evidence") | 4,278 | always |
+| `xon`: between the Old and New Testaments | 73,313 | someone picks "All Old ↔ New Testament" |
+| `xin`: inside one Testament | 271,486 | someone picks "All connections" |
+
+Each link carries one or more labels (bit flags in `pipeline/allconnections.mjs`):
+
+| Label | All links | Old ↔ New |
+|---|---:|---:|
+| Listed by OpenBible users (with its vote count) | 344,799 | 73,313 |
+| Shared distinctive words | 50,905 | 4,406 |
+| Same wording | 16,595 | 900 |
+| Sourced prophecy | 216 | 216 |
+| Listed in TSK | 0 (no approved source yet) | 0 |
+
+- The wording labels use the same test as the wheel (see above), on the KJV and the BSB. Links to passages longer than seven verses are not tested word by word and carry only the OpenBible label.
+- Five OpenBible rows use 3 John 1:15, a verse number modern Bibles have and the KJV does not (the KJV keeps those words in 3 John 1:14). They are mapped to 3 John 1:14, so nothing is dropped.
+- `validate.mjs` blocks a build if a link is dropped, its votes change, it lands in the wrong pack, it claims wording the text does not have, or it says "Listed in TSK" before a TSK source is imported.
+- Every count the app shows (`core.counts`, the page description, the story button) is generated from the packs. `tests/unit/counts.test.ts` fails if a count is typed into the interface by hand.
+
+### Treasury of Scripture Knowledge: not imported yet
+The best candidate found is CrossReferences-org/bible-cross-references (commit 671bbf7): 336,827 references in 63,663 anchor phrases, derived from TSK. It is licensed CC BY 4.0, not public domain, and its README says the set is lightly curated (references "added, split, merged, or removed", under 1%). It is not in the resource audit. The brief asks for a public-domain or CC0 copy, so it waits for Richard's decision. The CrossWire TSK module (public domain) is the other option, but crosswire.org cannot be reached from the build environment.
+
 ## The map (since v17)
 
 Three packs, each under one licence, loaded only when someone opens the map:
@@ -62,7 +90,7 @@ Three packs, each under one licence, loaded only when someone opens the map:
 | Pack | Source (pinned in `pipeline/sources.lock.json`) | Licence | What it holds |
 |---|---|---|---|
 | `geo` | OpenBible.info Bible Geocoding Data, `data/ancient.jsonl` | CC BY 4.0 | 1,285 places named in the Bible text (1,252 with a location), their verses, the best-supported location and up to four other proposals |
-| `routes` | UBS Project MARBLE Bible routes (Dr Leen Ritmeyer) | CC BY-SA 4.0 | 177 journey lines, grouped by period of the Bible story |
+| `routes` | UBS Project MARBLE Bible routes (Dr Leen Ritmeyer) | CC BY-SA 4.0 | 178 journey lines, grouped by period of the Bible story |
 | `geobase` | Natural Earth 1:10m land, lakes, rivers | Public domain | Coastlines and water cut to the Bible world (10°W–62°E, 8°N–47°N) |
 
 How sure a location is comes from OpenBible's own score out of 1000 for the top identification ("1000 represents very high confidence"):
@@ -75,7 +103,7 @@ How sure a location is comes from OpenBible's own score out of 1000 for the top 
 | no located identification | Location unknown | not drawn; still in the List view |
 
 - 57 entries in the source are places outside the Bible text (for example Adulis); they have no verses and are left out.
-- Route titles come from the UBS file names. The two files named only "David" take their titles from UBS's own `metadata.csv` (David's Kingdom 4 and 5). One file (`100.geojson`) has no name and is left out. Routes carry no verse references in the source, so the app does not invent any.
+- Route titles come from the UBS file names. The two files named only "David" take their titles from UBS's own `metadata.csv` (David's Kingdom 4 and 5). One file (`100.geojson`) has no name; UBS's metadata lists it under Solomon's Temple, and the app uses the file's own name only, so it is left out. Routes carry no verse references in the source, so the app does not invent any.
 - The map draws its own base from Natural Earth: no map tiles, no keys, no third-party requests.
 - `validate.mjs` blocks a build if a place shows a confidence band its score does not give, points at a verse that does not exist, or a place or route sits outside the Bible world.
 

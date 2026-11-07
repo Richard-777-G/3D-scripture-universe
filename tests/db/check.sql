@@ -41,10 +41,13 @@ insert into problems select 'telugu irv john 3:16', coalesce(min(text), 'missing
 
 insert into problems select 'full openbible loaded', count(*)::text from cross_refs having count(*) < 340000;
 
-insert into problems select 'wheel subset', count(*)::text
-  from cross_refs c
-  where c.votes >= 3 and ((c.from_key < 40000000) <> (c.to_start < 40000000))
-  having count(*) <> 42732;
+insert into problems select 'every link keeps its OpenBible label', count(*)::text
+  from cross_refs where evidence & 16 = 0 having count(*) > 0;
+
+insert into problems select 'Psalm 22:1 and Matthew 27:46 share wording', 'missing'
+  where not exists (select 1 from cross_refs
+    where evidence & 2 = 2 and ((from_key = 19022001 and to_start <= 40027046 and to_end >= 40027046)
+                             or (from_key = 40027046 and to_start <= 19022001 and to_end >= 19022001)));
 
 insert into problems select 'abraham', coalesce(string_agg(r.related_id, ','), 'missing')
   from person_relations r where r.person_id = 'abraham_58' and r.relation = 'child'
