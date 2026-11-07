@@ -1,6 +1,6 @@
 # Next-level brief: Scripture Universe for every age
 
-Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. Work through it in order: section A first, then B alongside stages 1–8. Each numbered stage is its own pull request (or a short series), merged only when green.
+Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. Order: C (redesign, design-first with Richard's approval) and D (all connections) are now top priority; A is done (PRs #8, #9); B continues alongside; then stages 1–8 inside the new design. Each numbered stage is its own pull request (or a short series), merged only when green.
 
 The goal: a 7-year-old, a busy adult, and an 80-year-old with poor eyesight can each open the app and use it without help. The data stays honest and sourced, and the 3D wheel stays the heart of the app.
 
@@ -16,6 +16,84 @@ The goal: a 7-year-old, a busy adult, and an 80-year-old with poor eyesight can 
 6. **Data honesty:** nothing enters `data/` unless it is pinned in the sources lock file with a checksum, its licence is recorded, and it is credited on the Credits screen. Use `docs/RESOURCE_AUDIT.md`: Tier 1 sources only, unless Richard approves another. Never import tiers 4–7. No invented testimonies, quotes, numbers or sources.
 7. **Performance budget:** first screen interactive in under 3 s on a mid-range Android over 4G. No new code on the home screen route over 50 KB gzipped. Lazy-load the map, the evidence data, the lexicons and JARVIS.
 8. **Secrets:** nothing secret in the front end, the repo or the logs. The Anthropic key lives only in Vercel environment variables.
+
+## C. Redesign: a real app, simple enough for a first-time 75-year-old (top priority, with D)
+
+Richard's verdict on 2026-11-07: the sections and dashboard look AI-generated, are hard to understand for a new user, and the map is a mess. He is right. These are the causes, checked in the code:
+
+- **The whole interface is one hand-built file.** `src/legacy/app.js` is 777 lines, with single lines up to 2,304 characters. It builds HTML as strings, has no components, no design tokens and no shared layout rules. Every screen invents its own look.
+- **The map has no base map.** `src/map/map.ts` draws Natural Earth coastlines locally with Leaflet, then puts up to 1,285 dots on top. There are no terrain, labels, roads, clustering or sense of place, so it reads as a cloud of dots.
+
+### C1. Technology (approved by Richard: "if it requires tech, do it")
+- **UI framework:** React 18 + TypeScript, with **React Aria Components** (Adobe's accessibility-first component library) for buttons, dialogs, tabs, lists, sliders and menus. Accessibility for elders and screen readers comes built in, not bolted on.
+- **Design tokens** as CSS variables for colour, type scale, spacing, radius and elevation, in Standard, Easy and Kids themes plus light and dark. No hard-coded colours or sizes in components.
+- **The 3D wheel** becomes one React component wrapping the existing three.js code, so its behaviour is unchanged.
+- **Map:** MapLibre GL JS with real vector tiles that need no API key. Use a Protomaps PMTiles extract of the Bible lands, served as a static file from this Vercel project, so it is free, fast, offline-capable and has no vendor lock-in. Include:
+  - labels in English and Telugu
+  - terrain shading
+  - place clustering that splits as you zoom
+  - a starting view on the Holy Land
+  - a tap opening a bottom sheet, not a tooltip
+  - the plain list view kept alongside
+- **Migrate screen by screen** (strangler pattern): each new screen replaces its legacy one only when it passes its tests and Richard approves the preview. The legacy screen stays until then. Nothing working is lost in between.
+- **Size limit:** framework plus components under 120 KB gzipped on first load. Everything else is lazy-loaded.
+
+### C2. Design first, code second
+1. **Design system:** write `docs/DESIGN.md`, using `website-design:web-design-system`, `design-skills:design-systems` and `frontend-design`. Study 3–4 real, well-regarded reading and Bible apps for patterns (no copying their branding), and record the type scale, colours, spacing, components, icon set and motion rules.
+2. **Clickable prototype:** build one on a preview branch, never merged, of these screens in Standard and Easy mode, at phone and desktop size:
+   - Home
+   - Read
+   - Connections
+   - Map
+   - Evidence
+   - Story
+3. **Approval gate:** send Richard the preview link and screenshots, then **wait for his approval**. Only then start migrating.
+
+### C3. Information architecture: what a new user sees
+- **Home:** a calm screen with a greeting and the four things people come for, as big labelled cards with an icon, a title and one plain sentence each:
+  1. **Read the Bible**
+  2. **Follow the story** (the 16 steps)
+  3. **See how it connects** (the wheel)
+  4. **Places & evidence**
+
+  Below them sit "Continue where you left off" and a verse of the day. The 3D wheel is a destination, not the first screen.
+- **Navigation:** a bottom bar on phones and a side bar on desktop, with five labelled tabs (icon **and** word): Home · Read · Story · Connections · Places. Evidence lives inside Places and inside every verse. Search is always reachable from the top bar.
+- **One job per screen.** Every screen has one main action and a visible Back button. There are no floating panels over the 3D view on phones, and no hidden gestures.
+- **Plain words everywhere.** Use "Connected verses", not "cross-references", and "Original language", not "lexicon". Reading age 9 in Easy mode. Use `zizi-skills:plain-language` and `design-skills:ux-writing`.
+- **Sizes:** base text 18 px (22 px in Easy mode), line height 1.6, and tap targets at least 48 px (56 px in Easy mode).
+
+### C4. Usability test before each screen ships
+Write these as Playwright tasks, and also as a checklist Richard can run with an older family member. A first-time user must finish each in under 30 seconds without help:
+1. Open John 3:16.
+2. Make the text bigger.
+3. Hear it read aloud.
+4. See what it connects to in the Old Testament.
+5. Find Bethlehem on the map.
+6. Start the story.
+7. Get back to Home.
+
+Report the time and any place they got stuck. Use `ux-ui-audit:ux-ui-audit`, the `fairmind-design` accessibility agents and `design-skills:design-critique` on every screen.
+
+## D. Keep every connection in the database, and show them honestly
+
+Richard wants every connection the Bible's reference tradition records, not a cut-down set. "63,000+" is the well-known figure from Chris Harrison's 2008 visualisation of the cross-references (63,779). The data the app already has is larger: OpenBible.info lists **344,799** cross-references across the whole Bible, **73,313** of them between the Old and New Testaments.
+
+- **D1. Store everything.**
+  - **OpenBible:** keep all 344,799 rows in the database and in lazy-loaded packs: OT↔NT, OT↔OT and NT↔NT. Nothing is deleted.
+  - **TSK:** add the *Treasury of Scripture Knowledge* (1836, public domain) as a second source. First find a digitised copy whose licence is verified as public domain or CC0, pin it with a checksum, and map it to the app's verse numbering. Report the exact count and the source, then merge it with OpenBible, recording which source(s) list each link. Do not import an unverified file.
+- **D2. Label every link with what supports it:**
+  - **Sourced prophecy**
+  - **Quotation / same wording**
+  - **Shared distinctive words**
+  - **Listed in TSK**
+  - **Listed by OpenBible users** (with its vote count)
+
+  A link can carry several labels. Nothing is presented as stronger than its evidence.
+- **D3. Show all of them, filtered by evidence.**
+  - **Connections screen:** a clear filter with "Best evidence" (the current 4,278 text-supported links, the default), "All in Old ↔ New Testament" and "All connections", each showing its live count from the data.
+  - **Wheel:** draws whichever set is chosen. Use merged or instanced geometry so 70,000+ threads stay smooth on a mid-range phone, falling back to the strongest links when the phone is slow.
+  - **Reader:** shows every connected verse for the open verse, grouped by label.
+- **D4. Numbers come from the data.** Every count in the interface, the meta description, the intro, the help text and the store listings is generated at build time from the packs. A test fails if any hard-coded count is found.
 
 ## A. Fix wrong connections and word meanings (do this before anything else)
 

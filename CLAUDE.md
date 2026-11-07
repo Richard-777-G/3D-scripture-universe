@@ -3,7 +3,7 @@
 A 3D Bible app showing how the Old Testament points to Jesus in the New Testament. Live at https://scripture-universe.vercel.app. Vercel deploys `main` automatically; every PR gets a preview link.
 
 ## Read first
-- Section A of the brief (wrong connections and word meanings) comes before everything else.
+- Sections C (redesign: real app UI, simple for elders, design approved by Richard before code) and D (keep and label every connection) of the brief are top priority. Section A is done.
 - `docs/NEXT_LEVEL_BRIEF.md` — the current spec and build order (all-ages modes, Evidence Centre, map, word study, search, JARVIS, offline/stores). Section 0 rules apply to every PR.
 - `docs/RESOURCE_AUDIT.md` — which outside data sources may be used (Tier 1 only without asking).
 - `docs/DATA.md`, `docs/EVIDENCE_CENTRE.md`, `docs/JARVIS.md` — data pipeline, evidence rules, JARVIS design.
