@@ -109,7 +109,9 @@ export function loadOpenBible(books) {
     if (!line) continue;
     const [f, t, v] = line.split("\t");
     const [t0, t1 = t0] = (t || "").split("-");
-    const a = fromOsis(f), s = fromOsis(t0), e = fromOsis(t1);
+    // Modern Bibles split 3 John 14 into verses 14 and 15; the KJV keeps both in 14.
+    const kjvNum = (r) => (r === "3John.1.15" ? "3John.1.14" : r);
+    const a = fromOsis(kjvNum(f)), s = fromOsis(kjvNum(t0)), e = fromOsis(kjvNum(t1));
     if (a < 0 || s < 0 || e < 0 || s > e || !/^-?\d+$/.test(v)) {
       if (bad++ < 10) errors.push(`OpenBible line ${k + 1}: cannot place "${line}"`);
       continue;
