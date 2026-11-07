@@ -9,7 +9,7 @@ export const LABEL = {
   sourced: 1,   // a curated prophecy link with published citations (content/journeys.json)
   wording: 2,   // same wording: the passages share key words in the same order
   shared: 4,    // at least two distinctive (rare) words in both passages
-  tsk: 8,       // listed in the Treasury of Scripture Knowledge (not imported yet: needs an approved source)
+  tsk: 8,       // listed in the Treasury of Scripture Knowledge (CrossWire module, public domain)
   openbible: 16, // listed by OpenBible.info users (with its vote count)
 };
 export const LABEL_NAMES = {
@@ -27,7 +27,7 @@ import { judge } from "./connections.mjs";
  * bookOf: verse -> book, texts: [kjv, bsb], df: document frequency.
  * Returns two packs (OT↔NT and within one Testament) plus counts.
  */
-export function labelAll({ openbible, journeys, bookOf, texts, df }) {
+export function labelAll({ openbible, journeys, bookOf, texts, df, tsk = [] }) {
   const ob = openbible;
   // Sourced journey pairs as [otStart, otEnd, ntStart, ntEnd].
   const pairs = [];
@@ -35,10 +35,25 @@ export function labelAll({ openbible, journeys, bookOf, texts, df }) {
   const sourcedAt = (a, s, e) => pairs.some(([o0, o1, n0, n1]) =>
     (a >= o0 && a <= o1 && s <= n1 && e >= n0) || (a >= n0 && a <= n1 && s <= o1 && e >= o0));
 
+  // One row per OpenBible link; a TSK link that matches one (either direction,
+  // overlapping verses) adds the TSK label to it, and any other TSK link becomes its own row.
+  const base = [];
+  for (let i = 0; i < ob.from.length; i++) base.push({ a: ob.from[i], s: ob.ts[i], e: ob.te[i], v: ob.votes[i], l: LABEL.openbible });
+  const byFrom = new Map();
+  base.forEach((r, i) => { if (!byFrom.has(r.a)) byFrom.set(r.a, []); byFrom.get(r.a).push(i); });
+  let tskMatched = 0, tskOnly = 0;
+  for (const t of tsk) {
+    let hit = false;
+    for (const i of byFrom.get(t.a) || []) { const r = base[i]; if (r.s <= t.e && r.e >= t.s) { r.l |= LABEL.tsk; hit = true; } }
+    if (t.e - t.s <= 200) for (let x = t.s; x <= t.e; x++) for (const i of byFrom.get(x) || []) { const r = base[i]; if (r.s <= t.a && r.e >= t.a) { r.l |= LABEL.tsk; hit = true; } }
+    if (hit) tskMatched++;
+    else { base.push({ a: t.a, s: t.s, e: t.e, v: 0, l: LABEL.tsk }); tskOnly++; }
+  }
+
   const rows = [];
-  for (let i = 0; i < ob.from.length; i++) {
-    const a = ob.from[i], s = ob.ts[i], e = ob.te[i];
-    let l = LABEL.openbible;
+  for (const b of base) {
+    const { a, s, e } = b;
+    let l = b.l;
     const cross = (bookOf[a] < 39) !== (bookOf[s] < 39);
     if (cross && sourcedAt(a, s, e)) l |= LABEL.sourced;
     if (e - s <= 6) {
@@ -49,7 +64,7 @@ export function labelAll({ openbible, journeys, bookOf, texts, df }) {
       if (j.tier >= 20) l |= LABEL.wording;
       if (j.words.length >= 2) l |= LABEL.shared;
     }
-    rows.push({ a, s, e, v: ob.votes[i], l, cross });
+    rows.push({ a, s, e, v: b.v, l, cross });
   }
   rows.sort((x, y) => x.a - y.a || x.s - y.s || x.e - y.e);
 
@@ -64,6 +79,7 @@ export function labelAll({ openbible, journeys, bookOf, texts, df }) {
   const count = (list, bit) => list.filter((r) => r.l & bit).length;
   const counts = {
     all: rows.length,
+    tsk: { links: tsk.length, matchedOpenBible: tskMatched, newLinks: tskOnly },
     otnt: cross.length,
     within: within.length,
     labels: Object.fromEntries(Object.entries(LABEL).map(([k, b]) => [k, count(rows, b)])),

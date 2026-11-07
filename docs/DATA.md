@@ -57,31 +57,41 @@ Known limits: matching is on English translations, so a quotation the New Testam
 
 ## Every connection, kept and labelled (since v17, Section D)
 
-All 344,799 OpenBible cross-references are kept: in the database (`cross_refs`, with an `evidence` column) and in two lazy-loaded packs.
+Two sources, merged so each link appears once:
+
+- **OpenBible.info:** all 344,799 cross-references are kept.
+- **Treasury of Scripture Knowledge (TSK):** from the CrossWire SWORD module TSK 1.4 (about 1880). Its `.conf` file states `DistributionLicense=Public Domain`; it is pinned with checksums.
+  - The parser reads 381,901 references, giving 377,502 distinct verse-to-verse links.
+  - Left out: 1,700 references that point to the verse itself, the chapter outlines (they only list the chapter's own sections), and 11 reference parts with typos in the source that cannot be read safely.
+  - 376,673 TSK links match an OpenBible link, joining the same verses in either direction. Those OpenBible links gain the "Listed in TSK" label.
+  - 829 TSK links are not in OpenBible. They are added as their own rows, with no votes.
 
 | Pack | Links | Loaded when |
 |---|---:|---|
 | `core` (wheel default, "Best evidence") | 4,278 | always |
-| `xon`: between the Old and New Testaments | 73,313 | someone picks "All Old ↔ New Testament" |
-| `xin`: inside one Testament | 271,486 | someone picks "All connections" |
+| `xon`: between the Old and New Testaments | 73,376 | someone picks "All Old ↔ New Testament" |
+| `xin`: inside one Testament | 272,252 | someone picks "All connections" |
+| **All connections** | **345,628** | |
 
-Each link carries one or more labels (bit flags in `pipeline/allconnections.mjs`):
+Each link carries one or more labels (bit flags in `pipeline/allconnections.mjs`; the `evidence` column in `cross_refs`):
 
 | Label | All links | Old ↔ New |
 |---|---:|---:|
 | Listed by OpenBible users (with its vote count) | 344,799 | 73,313 |
-| Shared distinctive words | 50,905 | 4,406 |
-| Same wording | 16,595 | 900 |
+| Listed in TSK | 335,844 | 72,734 |
+| Shared distinctive words | 51,150 | 4,407 |
+| Same wording | 16,725 | 900 |
 | Sourced prophecy | 216 | 216 |
-| Listed in TSK | 0 (no approved source yet) | 0 |
 
-- The wording labels use the same test as the wheel (see above), on the KJV and the BSB. Links to passages longer than seven verses are not tested word by word and carry only the OpenBible label.
-- Five OpenBible rows use 3 John 1:15, a verse number modern Bibles have and the KJV does not (the KJV keeps those words in 3 John 1:14). They are mapped to 3 John 1:14, so nothing is dropped.
-- `validate.mjs` blocks a build if a link is dropped, its votes change, it lands in the wrong pack, it claims wording the text does not have, or it says "Listed in TSK" before a TSK source is imported.
-- Every count the app shows (`core.counts`, the page description, the story button) is generated from the packs. `tests/unit/counts.test.ts` fails if a count is typed into the interface by hand.
-
-### Treasury of Scripture Knowledge: not imported yet
-The best candidate found is CrossReferences-org/bible-cross-references (commit 671bbf7): 336,827 references in 63,663 anchor phrases, derived from TSK. It is licensed CC BY 4.0, not public domain, and its README says the set is lightly curated (references "added, split, merged, or removed", under 1%). It is not in the resource audit. The brief asks for a public-domain or CC0 copy, so it waits for Richard's decision. The CrossWire TSK module (public domain) is the other option, but crosswire.org cannot be reached from the build environment.
+- **Wording labels.** These use the same test as the wheel (see above), on the KJV and the BSB. Links to passages longer than seven verses are not tested word by word.
+- **3 John 1:15.** Five OpenBible rows use this verse number, which modern Bibles have and the KJV does not; the KJV keeps those words in 3 John 1:14. The rows are mapped to 3 John 1:14, so nothing is dropped.
+- **What blocks a build.** `validate.mjs` stops the build if:
+  - an OpenBible link is dropped or its votes change
+  - a row comes from neither source
+  - a link says "Listed in TSK" and TSK does not list it
+  - a link claims wording the text does not have
+  - a link sits in the wrong pack
+- **Counts.** Every count the app shows (`core.counts`, the page description, the story button) is generated from the packs. `tests/unit/counts.test.ts` fails if a count is typed into the interface by hand.
 
 ## The map (since v17)
 

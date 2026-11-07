@@ -13,6 +13,7 @@ import { verseTable } from "./validate.mjs";
 import { loadStepBible } from "./stepbible.mjs";
 import { loadPlaces, loadRoutes, loadBase, ERA_ORDER, CONF } from "./geo.mjs";
 import { labelAll } from "./allconnections.mjs";
+import { loadTsk } from "./tsk.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
@@ -57,7 +58,8 @@ export function loadInputs() {
   core.cw = commonWords(conn.df);
 
   // Every OpenBible link, labelled by what supports it (lazy-loaded packs).
-  const all = labelAll({ openbible: openbible.data, journeys, bookOf: verseTable(core.books).bookOf, texts: [kjv, bsb.data], df: conn.df });
+  const tsk = loadTsk(core.books);
+  const all = labelAll({ openbible: openbible.data, journeys, bookOf: verseTable(core.books).bookOf, texts: [kjv, bsb.data], df: conn.df, tsk: tsk.links });
   assets.xon = JSON.stringify(all.xon);
   assets.xin = JSON.stringify(all.xin);
   // Every number the app shows comes from here, never typed by hand.
@@ -65,6 +67,8 @@ export function loadInputs() {
     best: core.xrefs.fv.length,
     otnt: all.counts.otnt,
     all: all.counts.all,
+    openbible: openbible.data.from.length,
+    tsk: { ...all.counts.tsk, references: tsk.stats.refs },
     within: all.counts.within,
     labels: all.counts.labels,
     otntLabels: all.counts.otntLabels,
@@ -90,6 +94,7 @@ export function loadInputs() {
     theographic: theographic.data,
     geo,
     allConnections: all,
-    importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors, ...step.errors, ...geoPlaces.errors, ...geoRoutes.errors],
+    tsk,
+    importErrors: [...bsb.errors, ...irv.errors, ...openbible.errors, ...theographic.errors, ...step.errors, ...geoPlaces.errors, ...geoRoutes.errors, ...tsk.errors],
   };
 }

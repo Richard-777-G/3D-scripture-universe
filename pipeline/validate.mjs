@@ -193,22 +193,29 @@ export function validateAll(input) {
     if (noVerse) warn(`Theographic: ${noVerse} people have no verses`);
   }
 
-  /* All connections: every OpenBible row is kept, and every label is earned */
+  /* All connections: every OpenBible row is kept, every TSK link is present, and every label is earned */
   if (input.openbible && input.texts && assets.xon && assets.xin) {
     const xon = unpack(JSON.parse(assets.xon)), xin = unpack(JSON.parse(assets.xin));
-    const ob = input.openbible;
-    if (xon.length + xin.length !== ob.from.length) err(`All connections: ${xon.length + xin.length} links kept, OpenBible has ${ob.from.length}`);
+    const ob = input.openbible, tskLinks = (input.tsk && input.tsk.links) || [];
     const key = (a, s, e) => `${a}|${s}|${e}`;
     const obKeys = new Map();
     for (let i = 0; i < ob.from.length; i++) obKeys.set(key(ob.from[i], ob.ts[i], ob.te[i]), ob.votes[i]);
+    const tskKeys = new Set(tskLinks.map((t) => key(t.a, t.s, t.e)));
+    const tskFrom = new Map();
+    for (const t of tskLinks) { if (!tskFrom.has(t.a)) tskFrom.set(t.a, []); tskFrom.get(t.a).push(t); }
+    // A row is "listed in TSK" when a TSK link joins the same verses, in either direction.
+    const inTsk = (r) => (tskFrom.get(r.a) || []).some((t) => t.s <= r.e && t.e >= r.s) ||
+      (r.e - r.s <= 200 && Array.from({ length: r.e - r.s + 1 }, (_, k) => r.s + k).some((x) => (tskFrom.get(x) || []).some((t) => t.s <= r.a && t.e >= r.a)));
     const df = documentFrequency(input.texts.kjv), texts = [input.texts.kjv, input.texts.bsb];
-    let notOb = 0, badVotes = 0, badSide = 0, noOb = 0, wrongLabel = 0, tsk = 0;
+    let obRows = 0, notOb = 0, badVotes = 0, badSide = 0, notTsk = 0, wrongLabel = 0, tskWrong = 0, tskSeen = 0;
     const check = (rows, cross) => rows.forEach((r, i) => {
-      if (!obKeys.has(key(r.a, r.s, r.e))) notOb++;
-      else if (obKeys.get(key(r.a, r.s, r.e)) !== r.v) badVotes++;
+      if (r.l & LABEL.openbible) {
+        obRows++;
+        if (!obKeys.has(key(r.a, r.s, r.e))) notOb++;
+        else if (obKeys.get(key(r.a, r.s, r.e)) !== r.v) badVotes++;
+      } else if (!(r.l & LABEL.tsk) || r.v !== 0 || !tskKeys.has(key(r.a, r.s, r.e))) notTsk++;
+      if (r.l & LABEL.tsk) { tskSeen++; if ((i % 25 === 0 || !(r.l & LABEL.openbible)) && !inTsk(r)) tskWrong++; }
       if (((vt.bookOf[r.a] < 39) !== (vt.bookOf[r.s] < 39)) !== cross) badSide++;
-      if (!(r.l & LABEL.openbible)) noOb++;
-      if (r.l & LABEL.tsk) tsk++;
       if (!cross && r.l & LABEL.sourced) wrongLabel++;
       // Re-judge every link that claims wording evidence, and a sample of the rest.
       if ((r.l & (LABEL.wording | LABEL.shared)) || i % 40 === 0) {
@@ -220,14 +227,16 @@ export function validateAll(input) {
     });
     check(xon, true);
     check(xin, false);
+    if (obRows !== ob.from.length) err(`All connections: ${obRows} links kept, OpenBible has ${ob.from.length}`);
     if (notOb) err(`All connections: ${notOb} links are not in OpenBible`);
     if (badVotes) err(`All connections: ${badVotes} links carry the wrong vote count`);
+    if (notTsk) err(`All connections: ${notTsk} links are in neither OpenBible nor TSK`);
     if (badSide) err(`All connections: ${badSide} links are in the wrong Testament pack`);
-    if (noOb) err(`All connections: ${noOb} links lost their OpenBible label`);
-    if (tsk) err(`All connections: ${tsk} links say "Listed in TSK" but no TSK source is imported`);
+    if (!tskLinks.length && tskSeen) err(`All connections: ${tskSeen} links say "Listed in TSK" but no TSK source is imported`);
+    else if (tskWrong) err(`All connections: ${tskWrong} links say "Listed in TSK" but TSK does not list them`);
     if (wrongLabel) err(`All connections: ${wrongLabel} links carry a label the text does not support`);
     const c = core.counts;
-    if (!c || c.all !== ob.from.length || c.otnt !== xon.length || c.best !== X.fv.length) err("All connections: the counts the app shows do not match the data");
+    if (!c || c.all !== xon.length + xin.length || c.otnt !== xon.length || c.openbible !== ob.from.length || c.best !== X.fv.length) err("All connections: the counts the app shows do not match the data");
   }
 
   /* Map: every place and route is where the sources put it, and says how sure it is */

@@ -1442,6 +1442,62 @@
    "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
    "path": "ubs-bible-routes/GeoJsonRoutes/205. Paul's Voyage to Rome.geojson",
    "sha256": "8638311bfdacaf0c282d2cc3267b65a6876521a79c2a4fd5f3de3f160f1e3ffc"
+  },
+  {
+   "id": "tsk",
+   "manual": true,
+   "version": "1.4",
+   "path": "tsk.conf",
+   "url": "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/TSK.zip (CrossWire SWORD module TSK 1.4, SwordVersionDate 2001-12-15, DistributionLicense=Public Domain)",
+   "sha256": "890f645dc4e2409e40e2e17afbe126a06cc1a99e9dfd709ec7c34f34df7e85cd"
+  },
+  {
+   "id": "tsk",
+   "manual": true,
+   "version": "1.4",
+   "path": "ot.bzs",
+   "url": "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/TSK.zip (CrossWire SWORD module TSK 1.4, SwordVersionDate 2001-12-15, DistributionLicense=Public Domain)",
+   "sha256": "800c66394af10942031e3e0361132f5f05567bba576faad59911923460659183"
+  },
+  {
+   "id": "tsk",
+   "manual": true,
+   "version": "1.4",
+   "path": "ot.bzv",
+   "url": "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/TSK.zip (CrossWire SWORD module TSK 1.4, SwordVersionDate 2001-12-15, DistributionLicense=Public Domain)",
+   "sha256": "d1f88bfe9886c4e47c46ad6277cf36bee788aa7df0435a458d726a582ece5163"
+  },
+  {
+   "id": "tsk",
+   "manual": true,
+   "version": "1.4",
+   "path": "ot.bzz",
+   "url": "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/TSK.zip (CrossWire SWORD module TSK 1.4, SwordVersionDate 2001-12-15, DistributionLicense=Public Domain)",
+   "sha256": "cb791465a50cb3ee39c9670cb651f8791fbad71c6b91ac0bf2edecdd54e5087c"
+  },
+  {
+   "id": "tsk",
+   "manual": true,
+   "version": "1.4",
+   "path": "nt.bzs",
+   "url": "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/TSK.zip (CrossWire SWORD module TSK 1.4, SwordVersionDate 2001-12-15, DistributionLicense=Public Domain)",
+   "sha256": "59f4d88497e9dede33ca08cd21e2ab1977f163ff1892752fc3857ac1ef1edc42"
+  },
+  {
+   "id": "tsk",
+   "manual": true,
+   "version": "1.4",
+   "path": "nt.bzv",
+   "url": "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/TSK.zip (CrossWire SWORD module TSK 1.4, SwordVersionDate 2001-12-15, DistributionLicense=Public Domain)",
+   "sha256": "ca5b049cca456b537320c8e12d6aeac1dd18ad89e5646ea6cd6a0a42d236cb9c"
+  },
+  {
+   "id": "tsk",
+   "manual": true,
+   "version": "1.4",
+   "path": "nt.bzz",
+   "url": "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/TSK.zip (CrossWire SWORD module TSK 1.4, SwordVersionDate 2001-12-15, DistributionLicense=Public Domain)",
+   "sha256": "3a75a13ff3b2348cbe2009399dae6cd8fcf9cab9c429e1296ee72d469d145c25"
   }
  ]
 }
