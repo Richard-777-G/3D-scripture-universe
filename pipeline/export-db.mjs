@@ -81,11 +81,11 @@ table("verses", ["version_code", "verse_key", "text"], (function* () {
     for (let i = 0; i < lines.length; i++) if (lines[i].trim()) yield [code, keyOf(i), lines[i]];
   }
 })());
-// The full OpenBible set (every link, both Testaments), each with its evidence
+// Every OpenBible link plus the TSK links OpenBible lacks, each with its evidence
 // labels as bit flags (see pipeline/allconnections.mjs LABEL).
 const ALL = input.allConnections.rows;
 table("cross_refs", ["from_key", "to_start", "to_end", "votes", "evidence", "source_id", "dataset_version"], (function* () {
-  for (const r of ALL) yield [keyOf(r.a), keyOf(r.s), keyOf(r.e), r.v, r.l, "openbible-xrefs", version];
+  for (const r of ALL) yield [keyOf(r.a), keyOf(r.s), keyOf(r.e), r.v, r.l, r.l & 16 ? "openbible-xrefs" : "tsk", version];
 })());
 
 const lexRows = [];

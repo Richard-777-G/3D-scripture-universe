@@ -15,6 +15,18 @@
    "origin": "OpenBible.info file dated 2024-11-04 via scrollmapper/bible_databases (pinned in pipeline/sources.lock.json). Every link is kept and labelled by what supports it; the wheel's default view shows the links the Bible text supports. The build checks both."
   },
   {
+   "id": "tsk",
+   "name": "Treasury of Scripture Knowledge (CrossWire module TSK 1.4)",
+   "url": "https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=TSK",
+   "licence": "Public domain",
+   "attribution": "Cross-references from the Treasury of Scripture Knowledge (about 1880, by Canne, Browne, Blayney, Scott and others), from the CrossWire Bible Society's public-domain SWORD module. Changes: references read into the app's KJV verse numbering; chapter outlines and 1,700 self-references left out.",
+   "packs": [
+    "xon",
+    "xin"
+   ],
+   "origin": "CrossWire SWORD module TSK 1.4 (SwordVersionDate 2001-12-15, DistributionLicense=Public Domain), pinned with checksums in pipeline/sources.lock.json"
+  },
+  {
    "id": "stepbible",
    "name": "STEPBible Data (TAHOT, TAGNT, TBESH, TBESG)",
    "url": "https://github.com/STEPBible/STEPBible-Data",

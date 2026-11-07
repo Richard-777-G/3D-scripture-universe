@@ -67,13 +67,14 @@ function readTestament(dir, t) {
 /**
  * @param dir         folder holding ot.bz? and nt.bz?
  * @param kjvOsis     the 31,102 KJV verse refs in order ("Gen.1.1" ...)
+ * @param versificationFile  a JSON file path, or the versification object itself
  * @param mergeInto   module verses that KJV numbering folds into a neighbour: { "Rev.12.18": ["Rev.13.1", "before"] }
  */
-export function readZText(dir, versificationFile, kjvOsis, mergeInto = {}) {
-  const versification = JSON.parse(fs.readFileSync(path.join(ROOT, versificationFile), "utf8"));
+export function readZText(dir, versificationFile, kjvOsis, mergeInto = {}, { raw = false } = {}) {
+  const versification = typeof versificationFile === "string" ? JSON.parse(fs.readFileSync(path.join(ROOT, versificationFile), "utf8")) : versificationFile;
   const slots = verseSlots(versification);
   const read = { ot: readTestament(dir, "ot"), nt: readTestament(dir, "nt") };
-  const text = (ref) => { const s = slots.get(ref); return s ? osisToText(read[s[0]](s[1])) : null; };
+  const text = (ref) => { const s = slots.get(ref); if (!s) return null; const t = read[s[0]](s[1]); return raw ? t : osisToText(t); };
   const errors = [];
   const lines = kjvOsis.map((ref) => {
     const t = text(ref);

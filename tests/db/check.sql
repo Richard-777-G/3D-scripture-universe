@@ -41,8 +41,15 @@ insert into problems select 'telugu irv john 3:16', coalesce(min(text), 'missing
 
 insert into problems select 'full openbible loaded', count(*)::text from cross_refs having count(*) < 340000;
 
-insert into problems select 'every link keeps its OpenBible label', count(*)::text
-  from cross_refs where evidence & 16 = 0 having count(*) > 0;
+insert into problems select 'every link comes from OpenBible or TSK', count(*)::text
+  from cross_refs where evidence & 24 = 0 having count(*) > 0;
+
+insert into problems select 'all OpenBible links kept', count(*)::text
+  from cross_refs where source_id = 'openbible-xrefs' having count(*) <> 344799;
+
+insert into problems select 'TSK lists John 3:16 to Romans 5:8', 'missing'
+  where not exists (select 1 from cross_refs where evidence & 8 = 8
+    and from_key = 43003016 and to_start <= 45005008 and to_end >= 45005008);
 
 insert into problems select 'Psalm 22:1 and Matthew 27:46 share wording', 'missing'
   where not exists (select 1 from cross_refs
