@@ -1,0 +1,51 @@
+/* Design tokens from docs/DESIGN.md. Components use these names, never raw values. */
+:root {
+  --font-ui: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-he: "Noto Serif Hebrew", "SBL Hebrew", serif;
+  --font-te: "Noto Sans Telugu", sans-serif;
+
+  --t-xs: 0.78rem; --t-sm: 0.89rem; --t-base: 1rem; --t-md: 1.125rem; --t-lg: 1.33rem; --t-xl: 1.6rem; --t-2xl: 2rem;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-full: 999px;
+  --tap: 48px;
+  --e1: 0 1px 2px rgb(0 0 0 / .06), 0 2px 8px rgb(0 0 0 / .05);
+  --e2: 0 8px 32px rgb(0 0 0 / .18);
+  --dur: 180ms;
+
+  /* Paper (light, default) */
+  --bg: #fbf8f2; --surface: #ffffff; --surface-2: #f3eee4; --line: #ddd5c6;
+  --ink: #1d1b17; --ink-2: #4f4a40;
+  --action: #1f4f8f; --on-action: #ffffff; --accent: #875a0c;
+  --ot: #2a6db3; --nt: #b07c12;
+  --ok: #2e7d4f; --warn: #9a5b00; --bad: #b3261e;
+  --lbl-shared: #0f766e; --lbl-tsk: #6b4fa0;
+  color-scheme: light;
+}
+:root[data-theme="night"] {
+  --bg: #0f1218; --surface: #171b23; --surface-2: #1f2430; --line: #2e3442;
+  --ink: #f3efe6; --ink-2: #c4bdae;
+  --action: #9cc2ff; --on-action: #0b1626; --accent: #f2d47a;
+  --ot: #5fb6ff; --nt: #f2d47a;
+  --ok: #7fd6a0; --warn: #ffc46b; --bad: #ff8a80;
+  --lbl-shared: #5eead4; --lbl-tsk: #c4b5fd;
+  --e1: none; --e2: 0 8px 32px rgb(0 0 0 / .5);
+  color-scheme: dark;
+}
+:root[data-theme="contrast"] {
+  --bg: #ffffff; --surface: #ffffff; --surface-2: #f0f0f0; --line: #000000;
+  --ink: #000000; --ink-2: #1a1a1a;
+  --action: #0b3d91; --on-action: #ffffff; --accent: #6b4300;
+  --ot: #0b3d91; --nt: #6b4300;
+  --ok: #0a5c2c; --warn: #6b3e00; --bad: #8c0000;
+  --lbl-shared: #00544e; --lbl-tsk: #4b2a85;
+  --e1: none; --e2: 0 0 0 2px #000;
+  color-scheme: light;
+}
+
+/* Reading modes: root size drives every rem; tap targets grow too. */
+html { font-size: calc(18px * var(--zoom, 1)); }
+html[data-mode="easy"] { font-size: calc(22px * var(--zoom, 1)); --tap: 56px; }
+html[data-mode="kids"] { font-size: calc(20px * var(--zoom, 1)); --tap: 56px; }
+
+@media (prefers-reduced-motion: reduce) { :root { --dur: 0ms; } }
