@@ -50,10 +50,17 @@ describe("data validation", () => {
     expect(validateAll(x).errors.join()).toMatch(/Telugu/);
   });
 
-  it("fails when the wheel's links stop matching OpenBible", () => {
+  it("fails when a link claims more evidence than the text has", () => {
     const x = clone();
-    x.core.xrefs.vo[0] += 1;
-    expect(validateAll(x).errors.join()).toMatch(/wheel links differ from OpenBible/);
+    const i = x.core.xrefs.vo.findIndex((v: number) => v === 10);
+    x.core.xrefs.vo[i] = 20;
+    expect(validateAll(x).errors.join()).toMatch(/evidence level the text does not support/);
+  });
+
+  it("fails when a link is not an OpenBible candidate or a sourced journey link", () => {
+    const x = clone();
+    x.core.xrefs.fv[0] = 0; x.core.xrefs.fe[0] = 0; x.core.xrefs.ts[0] = 23145; x.core.xrefs.te[0] = 23145;
+    expect(validateAll(x).errors.join()).toMatch(/neither OpenBible candidates nor sourced journey links/);
   });
 
   it("fails when a person's family link points at nobody", () => {
@@ -74,14 +81,12 @@ describe("data validation", () => {
     expect(abraham.verses.some((v: number) => v < 1533)).toBe(true);
   });
 
-  it("explains the cross-reference counts: 42,732 rows and 40,099 threads", () => {
-    const X = input.core.xrefs, seen = new Set<string>();
-    for (let i = 0; i < X.fv.length; i++) {
-      const d = X.d[i];
-      seen.add([d ? X.ts[i] : X.fv[i], d ? X.te[i] : X.fv[i], d ? X.fv[i] : X.ts[i], d ? X.fv[i] : X.te[i]].join("|"));
-    }
-    expect(X.fv.length).toBe(42732);
-    expect(seen.size).toBe(40099);
+  it("shows far fewer links than v16 did, all with textual evidence", () => {
+    const X = input.core.xrefs;
+    expect(input.core.aud.v16Rows).toBe(42732);
+    expect(X.fv.length).toBeGreaterThan(3000);
+    expect(X.fv.length).toBeLessThan(10000);
+    expect(new Set(X.vo)).toEqual(new Set([10, 20, 30]));
   });
 
   it("imports the Telugu IRV in full, in KJV numbering", () => {

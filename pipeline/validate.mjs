@@ -4,6 +4,7 @@
  * that only references things that exist, and a licence for every pack.
  */
 import { validateEvidenceCentre } from "./evidence-centre.mjs";
+import { documentFrequency, judge, TIER } from "./connections.mjs";
 
 export const TOTAL_VERSES = 31102;
 /** Versions that leave some verses empty on purpose (later manuscripts). */
@@ -52,6 +53,7 @@ export function validateAll(input) {
   /* cross-references: every link points at a real verse, OT on one end and NT on the other */
   const X = core.xrefs, n = X.fv.length;
   for (const k of ["ts", "te", "vo", "d"]) if (X[k].length !== n) err(`xrefs.${k} has ${X[k].length} rows, expected ${n}`);
+  if (X.fe && X.fe.length !== n) err(`xrefs.fe has ${X.fe.length} rows, expected ${n}`);
   let badX = 0;
   for (let i = 0; i < n; i++) {
     const ok = inRange(X.fv[i]) && inRange(X.ts[i]) && inRange(X.te[i]) && X.ts[i] <= X.te[i] &&
@@ -132,16 +134,26 @@ export function validateAll(input) {
   if (noLex / Math.max(words, 1) > 0.02) err(`${noLex} of ${words} words have no lexicon entry (over 2%)`);
   else if (noLex) warn(`${noLex} of ${words} words have no lexicon entry`);
 
-  /* provenance: the wheel's links must be exactly OpenBible's OT<->NT links with 3+ votes */
-  if (input.openbible) {
-    const ob = input.openbible, want = new Map();
+  /* provenance: every link the app shows is an OpenBible candidate or a sourced journey
+     link, and re-judging it against the text gives the same evidence level. */
+  if (input.openbible && input.texts) {
+    const ob = input.openbible, cand = new Set();
     for (let i = 0; i < ob.from.length; i++) {
-      const a = vt.bookOf[ob.from[i]] < 39, b = vt.bookOf[ob.ts[i]] < 39;
-      if (a !== b && ob.votes[i] >= core.th[0]) want.set(ob.from[i] + "|" + ob.ts[i] + "|" + ob.te[i], ob.votes[i]);
+      const a = vt.bookOf[ob.from[i]] < 39;
+      if (a === vt.bookOf[ob.ts[i]] < 39) continue;
+      cand.add(a ? `${ob.from[i]}|${ob.from[i]}|${ob.ts[i]}|${ob.te[i]}` : `${ob.ts[i]}|${ob.te[i]}|${ob.from[i]}|${ob.from[i]}`);
     }
-    let mismatch = 0;
-    for (let i = 0; i < n; i++) if (want.get(X.fv[i] + "|" + X.ts[i] + "|" + X.te[i]) !== X.vo[i]) mismatch++;
-    if (mismatch || want.size !== n) err(`wheel links differ from OpenBible: ${mismatch} rows not found, ${want.size} expected, ${n} present`);
+    const journeyPairs = new Set(journeys.items.flatMap((it) => it.ot.flatMap((o) => it.nt.map((n) => `${o.s}|${o.e}|${n.s}|${n.e}`))));
+    const df = documentFrequency(input.texts.kjv), texts = [input.texts.kjv, input.texts.bsb];
+    let unsourced = 0, wrong = 0;
+    for (let i = 0; i < n; i++) {
+      const fe = X.fe ? X.fe[i] : X.fv[i], k = `${X.fv[i]}|${fe}|${X.ts[i]}|${X.te[i]}`;
+      if (X.vo[i] === TIER.sourced) { if (!journeyPairs.has(k)) unsourced++; continue; }
+      if (!cand.has(k)) { unsourced++; continue; }
+      if (judge([X.fv[i], fe], [X.ts[i], X.te[i]], texts, df).tier !== X.vo[i]) wrong++;
+    }
+    if (unsourced) err(`${unsourced} links are neither OpenBible candidates nor sourced journey links`);
+    if (wrong) err(`${wrong} links carry an evidence level the text does not support`);
     if (ob.from.length < 340000) err(`OpenBible has only ${ob.from.length} links`);
   }
 

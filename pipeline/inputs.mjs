@@ -8,6 +8,8 @@ import path from "node:path";
 import zlib from "node:zlib";
 import { loadBsb, loadOpenBible, loadTheographic, loadTeluguIrv } from "./normalize.mjs";
 import { loadEvidenceCentre } from "./evidence-centre.mjs";
+import { buildConnections, commonWords, TIER } from "./connections.mjs";
+import { verseTable } from "./validate.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const raw = (rel) => zlib.gunzipSync(fs.readFileSync(path.join(ROOT, "data/raw/v16", rel))).toString("utf8");
@@ -24,11 +26,22 @@ export function loadInputs() {
   const irv = loadTeluguIrv(core.books);
   assets.v_bsb = bsb.data.join("\n");
   assets.v_irv = irv.data.join("\n");
+  const kjv = raw("kjv.txt.gz").split("\n");
+  const journeys = json("content/journeys.json");
+
+  // The wheel's links: OpenBible candidates the text supports, plus sourced journey links.
+  const conn = buildConnections({ openbible: openbible.data, journeys, bookOf: verseTable(core.books).bookOf, texts: [kjv, bsb.data] });
+  const v16Rows = core.xrefs.fv.length;
+  core.xrefs = conn.connections;
+  core.th = [TIER.wording, TIER.wording, TIER.quotation, TIER.sourced];
+  core.aud = { evidence: conn.stats, v16Rows };
+  core.cw = commonWords(conn.df);
 
   return {
     core,
-    kjv: raw("kjv.txt.gz").split("\n"),
-    journeys: json("content/journeys.json"),
+    kjv,
+    journeys,
+    texts: { kjv, bsb: bsb.data },
     story: json("content/story.json"),
     evidence: json("content/evidence.json"),
     qa: json("content/qa.json"),
