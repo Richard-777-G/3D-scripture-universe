@@ -191,6 +191,27 @@ export function validateAll(input) {
     if (noVerse) warn(`Theographic: ${noVerse} people have no verses`);
   }
 
+  /* Map: every place and route is where the sources put it, and says how sure it is */
+  if (input.geo) {
+    const { places, routes, conf } = input.geo;
+    const inBox = (lat, lon) => lat > 0 && lat < 55 && lon > -15 && lon < 70;
+    let badPos = 0, badBand = 0, badVerse = 0;
+    for (const p of places) {
+      if (p.lat != null && !inBox(p.lat, p.lon)) badPos++;
+      const b = p.s == null ? "unknown" : p.s >= conf.known ? "known" : p.s >= conf.likely ? "likely" : "debated";
+      if (b !== p.b) badBand++;
+      for (const v of p.v) if (!(v >= 0 && v < TOTAL_VERSES)) badVerse++;
+    }
+    if (badPos) err(`Map: ${badPos} places sit outside the Bible world`);
+    if (badBand) err(`Map: ${badBand} places show a confidence the source does not give`);
+    if (badVerse) err(`Map: ${badVerse} place verse references are not real verses`);
+    const noVerse = places.filter((p) => !p.v.length).length;
+    if (noVerse > 10) err(`Map: ${noVerse} places have no verses`);
+    let badRoute = 0;
+    for (const r of routes) for (const part of r.c) for (const [lat, lon] of part) if (!inBox(lat, lon)) badRoute++;
+    if (badRoute) err(`Map: ${badRoute} route points sit outside the Bible world`);
+  }
+
   /* Evidence Centre drafts and pillars */
   if (input.evidenceCentre) {
     const r = validateEvidenceCentre(input.evidenceCentre, { books: core.books, evidence });

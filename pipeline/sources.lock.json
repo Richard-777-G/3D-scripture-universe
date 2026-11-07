@@ -161,6 +161,1287 @@
    "commit": "74f70358d4acfaf2f980bf2feb58ab7115cbbcbc",
    "path": "dodson.csv",
    "sha256": "46951bf82c40ed35caa8557db190a828b744e305e9619d9451ea5690a90d7101"
+  },
+  {
+   "id": "openbible-geo",
+   "repo": "openbibleinfo/Bible-Geocoding-Data",
+   "commit": "7eb18a5ee62f27b9b93bd6689ea272d76dd23b8f",
+   "path": "data/ancient.jsonl",
+   "sha256": "b8187aa4737e8517ccc090f765d2be11da4c548cd2a59d3cdcb62e952cb8c0f2"
+  },
+  {
+   "id": "naturalearth",
+   "repo": "nvkelso/natural-earth-vector",
+   "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+   "path": "geojson/ne_10m_land.geojson",
+   "sha256": "1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416"
+  },
+  {
+   "id": "naturalearth",
+   "repo": "nvkelso/natural-earth-vector",
+   "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+   "path": "geojson/ne_10m_lakes.geojson",
+   "sha256": "2d036f53dedec578001c5c30c2959ee7d4eebc1306900fa4367c49929ec8f2d9"
+  },
+  {
+   "id": "naturalearth",
+   "repo": "nvkelso/natural-earth-vector",
+   "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+   "path": "geojson/ne_10m_rivers_lake_centerlines.geojson",
+   "sha256": "bb854a900ecbd3b408df46d5e16e3e0f974ba55993f9d8b5c26e855273c0905a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/001. Abram's Journey to Haran.geojson",
+   "sha256": "62e66291be03f483b72b5ff485671c24a95b5e08640f91610bea353889b66440"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/002. Abram's Journey to Damascus.geojson",
+   "sha256": "b2720d661772eedd0d138b3f539b0957da1e9bfc9d0afa6680ba4efda8948629"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/003. Abram's Journey to Shechem.geojson",
+   "sha256": "4fdafe7bbf2e59bb8c52bc15da80ed1468d3a0ffe6ea686645dcdea549d67494"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/004. Abram's Journey from the Negev to Egypt.geojson",
+   "sha256": "e66c1e1132adb5a489cbb44a4e4c036085633a1aae92ba6563854985e26f7a50"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/005. Abram's Journey to Egypt.geojson",
+   "sha256": "cdee9cfdf4b36cd8b4e28f28be152ddc9e91bd16d426d0a226f8abc2c612b549"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/007. Mesopotamian Invasion.geojson",
+   "sha256": "e840596d230d1f00488e83b248602259bfc1ddd13bad9be3cd73854b8c5f0cd5"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/008. Battle in the Siddim Valley.geojson",
+   "sha256": "949b83839db84e107d00270b0e6386f73cda1d0e63e48f33e76d20f48a9ba6e6"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/009. Sack of Sodom.geojson",
+   "sha256": "05c48aef5cbf775b8581f5c59149e825deb21509456bbe8622d35fade7f349ae"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/012. Abram's Journey to Salem.geojson",
+   "sha256": "0ac302106235a098531a86567a5c312553fe869ba7fb9317f0f6858a9154977f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/013. Abram meets Melchizedek.geojson",
+   "sha256": "e9111401aa8e994403bffecd673ce3f24a9d2880dcb1403e7d1d603dba3bc102"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/015. GEN 16 Hagar.geojson",
+   "sha256": "027418a510e88772676d12991b0e7488d511dde3b206e64d8aa740eabb8187fc"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/016. GEN 18 Angels to Sodom.geojson",
+   "sha256": "305285c8946f1226fb09317907e261249a7a8f1a30761a1b131771836b2bae4f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/017. GEN 19 Lot to Zoar.geojson",
+   "sha256": "0e970bc08efb5a9510108e225efd69b3c719ae723e3687a18ef69e4e32c0d9cb"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/018. GEN 20 Hebron to Gerar.geojson",
+   "sha256": "a44f949938b17da7cee455b2d03b4c63626d6dea0627ebd0e6a340beea0745c7"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/019. GEN 22 Gerar to Moriah.geojson",
+   "sha256": "925838d8a7a4fc24b781d94babfffc368f36208b818f561155e381fc874bed0a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/020. GEN 22 Land of Moriah.geojson",
+   "sha256": "c878ebd965e3d9b04e082a50a074508109510ad7f08b0c0664d7471a888aab8f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/021. GEN 22 Moriah to Beersheba.geojson",
+   "sha256": "773558154ffe4a04c71b19363e7942bf970e58949db14857f9933c2ec27ea094"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/023. Beersheba to Haran.geojson",
+   "sha256": "fbe79db7b1c8c09abac73463a63a7fa2f6781f521bcd25d98a8a2167d329b548"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/024. From Beersheba to Isaac.geojson",
+   "sha256": "13ace61a72675c98440476053a9db5dc5c90e2c0cfb295a3fce93777637db426"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/025. Isaac to Gerar.geojson",
+   "sha256": "f35189a46a3d88c185da20d3640b7af7352a1db35dd84477b544619aee53302e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/026. Isaac to Beersheba.geojson",
+   "sha256": "c08bc3a592a3cd88822aa33d3319bfd613655c2f9819aa9aa9c5ba3fb097160a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/027. Jacob to Bethel.geojson",
+   "sha256": "4bdec667cf4feb3eaab697cbe8b8651b7d8ca38ecf0994e570e8a76a4ae9b866"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/028. Haran to Gilead.geojson",
+   "sha256": "2b6669f35f03bdc5b5e936b00eb1506663449e2b3a01770215cf9cf679656c4d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/029. Mizpah to Bethel.geojson",
+   "sha256": "5e507447a64312ead928f9e068c467bbc2c49587a9f9b65c12975a51157f6ed1"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/031. Joseph to Dothan.geojson",
+   "sha256": "8a11a02bc26152748f3a413de61e6a7d2290e7c16fb67ed4e67aba442f3ed134"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/033. Judah to Timnah.geojson",
+   "sha256": "f39cd107d84ffce03f9f05b648b671a87710f63a2f326ff612ae754ef3787f31"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/034. Joseph's brothers to Egypt.geojson",
+   "sha256": "69e0cb7238dabc0797bdc8e412f2293e2e8b0439dfc90d6d7bb3c8243eb2a2e5"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/035. Jacob to Goshen.geojson",
+   "sha256": "71093a98c83b0ae7b72f832d28bc75c27e24e7085ea6b1d53052155d75387ab1"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/036. Jacob to Pharaoh.geojson",
+   "sha256": "83d82c7a6ffe2f9672beaf3316102a8f165fb568396826f87100fd03990733fd"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/037. Burial of Jacob.geojson",
+   "sha256": "f1de58689612d7c29f73fcd27d9d4ad4c8bf361d277349e545ddc052c0213d96"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/039. Moses to Midian.geojson",
+   "sha256": "6ffcff2549a607b66d1c784d9f9fc4d56b2139c796118d1567bd465ec08fa029"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/040. Moses to Horeb.geojson",
+   "sha256": "e993c46398667a3939ac991cf218cb4f4286d8d335d49e2677fd2ca5df81b839"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/041. Aaron to Horeb.geojson",
+   "sha256": "d919f8dc5ee6c5ed0c74156d992be6954e912376a6b7c43fc5cb78c2150d5113"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/042. Exodus Route1.geojson",
+   "sha256": "d68d124ffbe2071c9a1c953f2cfabfa15ccc4b6977f2424416064ca5de390e98"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/043. Exodus Route2.geojson",
+   "sha256": "9cb4b6bb4993c7943aaf13405ee3ec4f5a52bcbd354ffdc65be2d5d61ae7822e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/044. Spies.geojson",
+   "sha256": "d18676265210b5757e9bf34b5fe55cf9eec99634471a000f9f7f706948682212"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/046. 38 years wandering.geojson",
+   "sha256": "2455ee04d1dc3eba9b26c9521a130fdf2691bb85a9fc1c1be168138b7dc2e07f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/047. Transjordan.geojson",
+   "sha256": "7677719df70c0a05f21c25a4aecc2fe0ad9cd78fac6104a92ba10b5f72ab0c5d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/048. Sihon and Og battle.geojson",
+   "sha256": "1b5a0e69a729592024dfd4f992b7f4f161212eddad923a5a0d2f3a35bad48a69"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/049. Balaam's Journey.geojson",
+   "sha256": "017421679c88c084926bd91ec090a3729017719fcc04b0c1331573e87cfbee7a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/050. Balaam's prophecies.geojson",
+   "sha256": "1a4d7a785608d20dce8318cb59011aa7e6408ea07bcce1fdc2da938c733f8bc6"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/053. Spies to Jericho.geojson",
+   "sha256": "61adba76cbfaf69c6647d26fa00b4a3446ce8c2ed8d4a1df9627fa8349045516"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/054. Crossing the Jordan.geojson",
+   "sha256": "11de300da53d393ae7849d725803a5b92734404a5d3421840433c0887009570a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/055. Capture of Jericho.geojson",
+   "sha256": "1a912c8eb581039c53da302e1e016090d936643553c0e19cf2b0080b31411a45"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/056. Conquest of Ai.geojson",
+   "sha256": "a489ed2bcba4fbb9b79fc9296a1747fc8ed6def3186f9465be71ac91a8704cea"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/057. Blessings and Curses.geojson",
+   "sha256": "f9853519982302aaba7b597ba56914f0d2f2838fb199ccf0481541228dccee02"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/059. Deception of The Gibeonites.geojson",
+   "sha256": "2a6bbea91d1ab2158840265e45b8aa7cbceafd050a316dc348dc3484cfa54774"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/060. Israelitas go the Gibeonites.geojson",
+   "sha256": "a3027576b2b1e2487c2fd15e8cf69aa0d5954e20a1833bdac96f2d234de37e98"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/061. Battle against Gibeon.geojson",
+   "sha256": "e7d058a6b0e85eaed95c4066e065ab2c2405c8919f81381a0c617ea25522b7b9"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/062. Southern campaign.geojson",
+   "sha256": "5d84a5866eca06959740d8da390cc8ac202a86d919e4850c3b4ab7ba1fa0fc2c"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/063. King of Hazor.geojson",
+   "sha256": "362eeab619f487eec0a9614ed4044a63d579bd5fc2a26c61650840be398fd233"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/064. Nothern Campaign.geojson",
+   "sha256": "fc8432e036ef69c0d496598423e8abf8c0a85a07449fc7cd233300a0866a304d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/066. Judah's Conquest.geojson",
+   "sha256": "32183927b1b9dee2d27bf78d7808d333d9de7581c1661782fa309da2fdcf1005"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/067. Ehud's battle.geojson",
+   "sha256": "32fd6f571c5c328f46a539931352f3b42daa5a0b866f425287274f5690d36e64"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/068. Deborah.geojson",
+   "sha256": "5459dc9eda22c419970fd3d2a1cfe639172633002c2bd16781ee3499ab423e5d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/069. Gideon.geojson",
+   "sha256": "4e7d61ba858a75551f8e1d437bc5685abb6f5b2be021aa9810973d7fc579aec8"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/070. Abimelech.geojson",
+   "sha256": "6f9079f3cf9488624ee1cb2fa56426ee38320e5a752cb1abd2eb0521552f83e4"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/071. Jephthah.geojson",
+   "sha256": "a22feb4c9b15d720e7511d89809cf9ffbb90969d5ba7ebb47840b9b5e6ac1947"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/072. Samson.geojson",
+   "sha256": "b8f1fd4096d4cb39743dfc3eb499079eeddaf585b409a4f32e64ed8ae953338c"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/073. Dan Migration.geojson",
+   "sha256": "c76b2834253440776bd69f6826744e20040ad63dff038177fbe0a5624157a43e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/074. Benjamites.geojson",
+   "sha256": "5cd91fc112353e59a90c30c7067f57135a71d1b06c36a8857fc4200210a09681"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/075. Ruth.geojson",
+   "sha256": "ed4b6b0607acde87280d9e703cca396507df2da4355e937c76a48656ed62269b"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/076. Hannah.geojson",
+   "sha256": "8b6a4e27024c6d2299eeaaf8e7c006251ffcf4da6ff97e2f4ed0e0938afa69d4"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/077. Battle at Aphek.geojson",
+   "sha256": "0cebcabaac0fb5bed0d849cfb08527bad5e484dc081a64aa66097e939bc7ff9d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/078. Ark Journeys.geojson",
+   "sha256": "d13b48d9e322819bd31e1a788dd93db684ab24e2627a1ad44c85556d845b8e19"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/079. Mizpah battle.geojson",
+   "sha256": "7301907413c0b6a65a978371ded97c84f6bbd96e7990009ea900c7942c3b7c41"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/080. Samuel's Circuit.geojson",
+   "sha256": "6ec05f14edbd512fcdd33076a2088e56ba62d45f47dceeaca347a62e893bdc3f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/081. Saul's donkey.geojson",
+   "sha256": "0c0b6a5ae5c5d0c3f8a489a59df965e35390bc0ec81fadfb01e08ec159ceefbf"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/082. Jabesh battle.geojson",
+   "sha256": "35f793e85d7151890cebab30ad172d9a6470267332739b087866041e14d975c4"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/083. Michmash battle_1.geojson",
+   "sha256": "a20be218eb3032b90c6d4ec24cac06c59b29529b5696f752c1373e4155e46a0e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/084. Michmash battle_2.geojson",
+   "sha256": "d8e381c4ca9770fc5f232ce6e396ffa7f7fa731bab6094b755e9d1a0873d93c3"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/085. David and Goliath.geojson",
+   "sha256": "9490f00f45250dcb945c86de558e01d0d193a980571773ae99fe47f9a0628e17"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/086. David's wanderings_1.geojson",
+   "sha256": "24570b8bf5f0ebc1412d0d15f7001538a5fba18a54ceed71c07c9d575fc62e8f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/087. David's wanderings_2.geojson",
+   "sha256": "bb05b406c0223788795ccf2746556483fd58b60fcdc77cb26d3eaac858dcac9e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/088. David's wanderings_3.geojson",
+   "sha256": "13337dbdc040fb3a421c18d0354269f0c7c60c310ceaba177509a913ae688024"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/089. David's wandering_4.geojson",
+   "sha256": "56ddae782314c6f93871b47ceb0617c99e2bb24ae6a011aa4203f4122d6e5385"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/090. David's Kingdom_1.geojson",
+   "sha256": "2a5f99c4a7a3845cfa9cdb08d873837b7625a2ea6d1f0af413861fa5b2426f47"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/091. David's Kingdom_2.geojson",
+   "sha256": "1ba4b9aa9eedd445f13f5ed8d619f03f2fdfff8f6e1142458ac503528e9c3f9e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/092. David's Kingdom_3.geojson",
+   "sha256": "2d521b54d061e760ad40e81221cf91bc75c4a4a577b4dba4cc2a6c928213967f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/093. David.geojson",
+   "sha256": "1d65489d83680fc1cff53443676fe11495db7cd27c983b50f8726663b148c559"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/094. David.geojson",
+   "sha256": "19750a2737cd5d20d06d26dcc11b2794a09a901be5753f0f960954dd25f1a33d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/095. David's Kingdom_6.geojson",
+   "sha256": "d4e10b31299f284993c831a4a72fac997ea7c56c4dc9a456bd64a2886fb6d663"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/096. David's Kingdom_7.geojson",
+   "sha256": "aa272655266951ad3b7c70e48e5c0a196f1ed50b1bde792716a6fa0800ed6d23"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/097. David's Kingdom_8.geojson",
+   "sha256": "d0715d7d9cd1e1d693a6626e4285544e60f3aad7c5c7909361af98a39d1313fc"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/099. Solomon's Jerusalem.geojson",
+   "sha256": "df8c3e68ada360cc2ad60645985dd191e2fa23e26046829289d0da1fa45a9dbb"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/100. Solomon's Temple_1.geojson",
+   "sha256": "8db52aeeba85a6216b4fbceb98dac253c67ba991b4d7a96e90c7c784f302da74"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/100.geojson",
+   "sha256": "8db52aeeba85a6216b4fbceb98dac253c67ba991b4d7a96e90c7c784f302da74"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/101. Solomon's Temple_2.geojson",
+   "sha256": "c76d3523cd7c79537b646757b9e9431b788ff584fb470a958f7bd9166d582093"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/102. Solomon's Kingdom.geojson",
+   "sha256": "7ba752992882c5ed1010c171725b8a21cf90dffcb50c015ffb46f4ad7175dcbb"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/103. Ophir.geojson",
+   "sha256": "575e5adbe8fc189034e9de0ccc84c0f3957eb396cb32f0e3d2dcff2606c2825f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/104. Queen of Sheba.geojson",
+   "sha256": "fbc03ecc13f52ab91c2353cea84008f5e49329507b9aad312de60c109e7e51e6"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/105. Solomon's enemies.geojson",
+   "sha256": "f99bc1d037d4c15cd21dd5fde492df985b7446a2139e3853fb00376b4f2646cc"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/106. Jeroboam anointed.geojson",
+   "sha256": "e46f4b78fc518408a24925745da4dfc4559612c649c0e7a8b846f0931e3e2b39"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/107a. Rehoboam to Shechem.geojson",
+   "sha256": "392bfac47679056d137395500818d6d350e4b23247e678dbe23fa3e0457c65cb"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/107b. Rehoboam to Shechem.geojson",
+   "sha256": "4ecd004e53ec88ab73b3b94886419b3cf6756bb5e371a26b5f9b91aebf0fd0b3"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/108. Jeroboams wife.geojson",
+   "sha256": "251e62ccec0e61472bd238e00cac4d3e84da338b4665c0a32fd994caae9ff7c5"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/110. Shishak.geojson",
+   "sha256": "dd98479ab2939359db13827dd354cd6c9c4e632ea90db1d0659c8d528d5673c3"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/111. Baasha invasion.geojson",
+   "sha256": "33ee35f81a1cbc6ddb57862e5b4964225bc8b5f7303097bc01f9b32b21c4a84c"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/112.Zerah the Ethiopian.geojson",
+   "sha256": "b92b38b2c3d0a5278bcdbcc3a3ff5c91804452c5d1352b56f6ebd3ae74140dca"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/114. Ministry of Elijah.geojson",
+   "sha256": "2684c3f633f96dd37aedb1886777079f29485d0b720c80995eefb33aace6f148"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/115. Elijah on Mount Carmel.geojson",
+   "sha256": "be799ab843c0b92046156c492f0f241c9da3e811cb51b8943456233eb56e745e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/116. Elijah to Sinai.geojson",
+   "sha256": "e23623fac3e220e5610d12b6346725ff116fde862aecf86899093e4ede1df001"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/117. Elijah and Elisha.geojson",
+   "sha256": "9bfbe78e477042c6b1c6983f1742d9fe4a033091d65c59aba805f84e011426f5"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/118. Siege of Samaria.geojson",
+   "sha256": "9ca266bf7da0cdde2e726361ebcd7e879d5b35bf4072b692c43ca29a63b2916b"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/119. Naboth's vineyard.geojson",
+   "sha256": "369f81a4ad903c83e3a9161594a1cb1cc8fae350e6b8e36701be63b5ec33ed50"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/120. Wars with Syria.geojson",
+   "sha256": "bf4a6cae44c2a0eade31b5225063865453d19adc4bcad9d432632baef6577e6a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/121. Ministry of Elijah (contd.).geojson",
+   "sha256": "5db3c872af5544e6be1bc1027a757c1f040e83ad26331a05ab00845061f0b733"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/122. Ministry of Elisha.geojson",
+   "sha256": "0ddc0d3bf8398f0e8da16c42bdc975d56335d4d232b76e725dac1d63c568c454"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/123. Moabite Incursion.geojson",
+   "sha256": "956daa8398d0603e77ffa6e7e72c3e2c1ea59f844b20ee486dfcba4335af11f2"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/124. Moabite Rebellion.geojson",
+   "sha256": "0412b5ae667e22732d05610e8fe785ec51ce1214fa10a1ba60d8d39d31ba06da"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/125. Moab's Revolt.geojson",
+   "sha256": "88237cad2db4418c25182beec851bdb866f09cab470395206c077a9a745f3cb3"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/126. Ministry of Elisha_cont.geojson",
+   "sha256": "e39ea403eed4015356a362acffe7e06392ca6d2619ebfae7d646f5dcfc8e1955"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/127. Naaman.geojson",
+   "sha256": "7d703b96d41b5def66a2a4eafbcfc74240148b765578f2538cb5d3335b0f3adf"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/128. Ministry of Elisha_cont.geojson",
+   "sha256": "cfaffa48886248258099d1f5213bed297d8451e3e0a36f4b09415556660d6fd6"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/129. Benhadad.geojson",
+   "sha256": "1fbbcc933fb80a7d0a90afef9b238e271451bf66acdc3177c53ef11f62aa03f1"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/130. Elisha and Hazael.geojson",
+   "sha256": "81a833f75f0fd0ae754832bb909e301f04d8417d539d7b63421b6766fcb750c3"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/131. Wars with Edom and Syria.geojson",
+   "sha256": "31c5a85e22226a9f31ea8feff579bb9aef9aa139c42388771b314b6a6b3f0105"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/132. Jehu.geojson",
+   "sha256": "edafab5181b5c46727ee4ea5eb03fa5e76fe3042edd369c4ac25257b1b15196d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/133. War with Hazael.geojson",
+   "sha256": "226cd6fd39b9692bea7be6ba6eab74f1ef5c035f719b58c52a9281cf6cb0dc88"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/134. Jehoash to Elisha.geojson",
+   "sha256": "4ab223a6e543f65ca70e9e68b076a4e0362b44bff9e454e4c2047420a9216494"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/135. Amaziah.geojson",
+   "sha256": "708d25b50742e450ee6d87d9995a6f1d3bfe51127b89ca3dd3765012df3c1ffc"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/136. Uzziah.geojson",
+   "sha256": "31751fa48b99a38e43dc28fc95ca63907433085f27a53166f64e79bfc21bd1b9"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/137. Jeroboam.geojson",
+   "sha256": "d841b96ae1b0ea37192612f3258dca2af7ce1d544190ef194e2538feb0952be7"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/138. Tiglath Pileser.geojson",
+   "sha256": "5475e25e9c7d0b07051b25ecf518f07e606e7e08c32556321c14ed137954596a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/139. Rezin and Pekah.geojson",
+   "sha256": "3c5a2a4c374d0ea1e6fc618cca427b71a27f39c2b099511196cebd7bcd3d0f2e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/140. Fall of Samaria.geojson",
+   "sha256": "f9df83e1c73c10fb8caf5bc67bd399fc6399a1a921a984935e1b500ff285f6a8"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/141. Deportation to Assyria.geojson",
+   "sha256": "a2218b6449eb42af10e832618af08e49f7a8c24055c8f85fed0deefcb48c1dbe"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/142. Sargon.geojson",
+   "sha256": "e39a09eb1e4cd9e4f0ec60fd9df42bb353fad125a6b72b482d270a79df158075"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/143. Hezekiah.geojson",
+   "sha256": "c9a1aae44d5f7c83661b8ebe0e87da79ebdad14629eb77b8f3bc725e7f5070df"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/144. Sennacherib.geojson",
+   "sha256": "02435b6fbf94ea9b15ae31b04622d812315630c8c0c2ba50de93a64e897c0dea"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/145. Sennacheribs defeat.geojson",
+   "sha256": "16af1a2c9b360387aa0423e2006806516a286bea094f4e909a3ca2f29a0e74a8"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/146. Babylon to Jerusalem.geojson",
+   "sha256": "0cb4666d4202d63c406622b6439d6948f4b28a101e805a2324b75f3748dc048a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/147. Josiah.geojson",
+   "sha256": "d1b36a735a5ff6771458214f58ec7b0c0ff2302784034288509f0de7800cd2c9"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/148. Neco.geojson",
+   "sha256": "685fd5067ad35c3d0069d25cfcbeb0f2c5fe8645bfc9b80161332f89d0a3b81e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/149. Jehoiakim.geojson",
+   "sha256": "196c8a4d97301fa08fabca1426c661a3f2d60dfd3b4a9752c793756160eacf10"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/150. Nebuchadnezzar.geojson",
+   "sha256": "6128174ab68e48646aa49fdbcc2b95f7e47a4ba1506e7dff56307993f2482514"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/151. Babylonian Exile.geojson",
+   "sha256": "1474c1ebe07bffbc802ed1431300a12f5a40c4430a476ef8547f7ee7779b93be"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/151. Gedaliah.geojson",
+   "sha256": "43dfad985372edb8bc2851c2e37f5ced28582cd16fb6b43f69348098f7863dfb"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/152. Nazareth to Hebron.geojson",
+   "sha256": "ff6a4b099d10507e1efd07033bc15bbddb1c9f8a778691a53ac682a9390d05e7"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/153. Going to Egypt.geojson",
+   "sha256": "e46aed31d4533e6813f399e0f07d999c43d5ed619ebe1b5e870065553aeb0a68"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/153. Nazareth to Bethlehem.geojson",
+   "sha256": "58dbed8530cbe329fc0e594efb197429fba6495b796b010a4a3f2adbf751ba33"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/154. Royal Road.geojson",
+   "sha256": "b2d90b590c5ea7e4a7bd6bf979f88e906818a79c018f805a97dcd4ab8b9d641d"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/155. Jonah.geojson",
+   "sha256": "8fe0ba5d21d5754df05ee3ed644e1dba5f0086ce913b98da6daa75ae9d500f15"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/155a. Bethlehem to Egypt.geojson",
+   "sha256": "1c2f21c18d9d86d8d69bc9a4ac59786223c399744ce6df6671cd5f93a142bede"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/155b. Bethlehem-Egypt-Nazareth.geojson",
+   "sha256": "b8a90f36909c20b353b3dacd64a285f87150648526a58ef76dc543fc56791c00"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/158. Bethabara and Aenon.geojson",
+   "sha256": "1a2a084878e0380e262774305de6686b3347f65e1e160b015afac756fb1ccbf5"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/160. Herod imprisons John the baptist.geojson",
+   "sha256": "7e8cd860840c1abdb891c2b3771300ff1ea22bc56a0ef0ee595a2416b7fc36ea"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/161. First miracle in Cana.geojson",
+   "sha256": "826e9cd6d462120405ca2c707edeadf70b72b78444a7f1524b00a5481ce34198"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/162. Jesus to Samaria.geojson",
+   "sha256": "faf89bd94c9fcb9c073050043e98cfef38ec328ef549d07383791177b77004ab"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/163. Samaria to Nazareth.geojson",
+   "sha256": "609a2a33084f307152b0aa72e3062c28007311450de5e1e3a37d1dca334f79a2"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/164. Second miracle in Cana.geojson",
+   "sha256": "fe6e4023b1a6dd58ce5e41a5361c14fe04b198bf20e2b53ecf85a6d369b09d8e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/165. Nazareth to Capernaum.geojson",
+   "sha256": "85f311c0617455a1102526c552c2687da8869eb373ec4e577d405593ac6cafe0"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/166. Fishermen disciples.geojson",
+   "sha256": "ffc9b7e4d4c1c420f80f0675e1ba0bb1e00bc32be1f86499e4a353cc1438b066"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/168. Preaching in the synagogues of Galilee.geojson",
+   "sha256": "7b83b0b87bb607094f0166f4e4b6bb144c3b96cbee08990a1acfb196aeb28e89"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/169. Capernaum to Jerusalem.geojson",
+   "sha256": "347062286e41615259808f8257243efeccee878604552308626c90d3b8abbda1"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/170. Nain.geojson",
+   "sha256": "2aa781cc90b992da03532a8c78a3b669005b6dac17c31544f7074f1ea6fc4039"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/170a. Tyre_Sidon.geojson",
+   "sha256": "10b79df8ceeb0cd836cea0932c585609840af89bb17ab1bdffb8eb5280062884"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/170b. Storm.geojson",
+   "sha256": "9f46cb5d13320db940d490623c4e7eddc74aa4481090dc794f403c175dd53958"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/172. Transfiguration.geojson",
+   "sha256": "6dc1266973b74ae7c8e631fbfba7048f6ee3060e7ba652b0663ca15b3bce8053"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/174. Capernaum to Jerusalem.geojson",
+   "sha256": "fca35cf1ab6c180ce013d219fb1f5b3d23616fb51b0fd87afd6d2c1d59594a8e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/176. Dedication.geojson",
+   "sha256": "28473073f2d98ecfeaf685f051816501056e7b38e364afe9758a25a4aeecfd9e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/177. Raising Lazarus.geojson",
+   "sha256": "dd6f88fabce04893189d9701abfba89bbb99936a637848f7076e5a1500d702ab"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/178. Ephraim.geojson",
+   "sha256": "d3b41d954b8c33decb90836b108c5a618e5bf8f388a09084bc855b5808f929ff"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/179. Last Journey to Jerusalem.geojson",
+   "sha256": "567d3d5430c3b7a981ddb48212728841932b7729b3e88a63744eaf9d6cba465b"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/192. Road to Emmaus.geojson",
+   "sha256": "7712c8ea9f1922741f06f382fe1c1ef4e7a27b72be650b75167037971f78feca"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/193. Ascension in Bethany.geojson",
+   "sha256": "e38d52eabd0350a0639cad46031c6c05a6b12d47e15fbf77bba78103f431c76a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/197. Philip in Samaria.geojson",
+   "sha256": "ab6f4fafe1c2c8e7ed735135094fc4036f83c2ee8f35f0aa86e8f2cc46e7cfbb"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/198. Philip and the Ethiopian Eunuch.geojson",
+   "sha256": "d18a3aa8ea3414f23ef410ef2a03960566073e2e0510258d961dc645c91cec2e"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/199. Saul on the Road to Damascus.geojson",
+   "sha256": "0684a2de1a9fe4a4106cef332092a2bdaa4726064eda1e8734696ad6f1c2c3fa"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/199a. Paul to Arabia and back to Damascus..geojson",
+   "sha256": "2cb9dbe10a46c98ffde86199ebb53e8f939af8b2dd40f6d02a7295a0d649d39a"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/199b. Paul to Jerusalem and Caesarea.geojson",
+   "sha256": "1014c2142d87f820047c0bbf2fd53ba22c8b946f014aabe20b8d4bb9e2277538"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/199b. Paul to Tarsus.geojson",
+   "sha256": "2719f41659581041978f81f60f9cec8dc6b4cdecf932152b5b347688a01636eb"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/200. Paul’s journey from Tarsus to Antioch.geojson",
+   "sha256": "518b36fbff1ff9089c2f794f1fa4685d4066c4141dc2f394d8616fece5e06417"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/201. Peter in the Coastal Plain.geojson",
+   "sha256": "b59289e476fe0dc3d5422eafd3d7299e6fb5f47d7d6d060f4d0ccd317eab962f"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/202. First Missionary Journey.geojson",
+   "sha256": "77c916ed9b2699f6e9916e5572f46cbd91e2d717f65a74dfa2607206182535c8"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/202a. Journey from Antioch to Jerusalem.geojson",
+   "sha256": "fea87191cc57b7f058326aff2b00812f250ea4645ee792b065eeb7230f8030af"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/203. Second Missionary Journey.geojson",
+   "sha256": "5fc66feea1ae80e00661d61733225484da9e6701f83cce2a288d01727c08054b"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/204. Third Missionary Journey.geojson",
+   "sha256": "846e23c8d6798712dd529f68d8fb291c3d26c73f9065fb937eed14f0c027757c"
+  },
+  {
+   "id": "ubs-routes",
+   "repo": "ubsicap/ubs-open-license",
+   "commit": "a15a96cfaa4ca18a6c0339016645ba1e534db3c8",
+   "path": "ubs-bible-routes/GeoJsonRoutes/205. Paul's Voyage to Rome.geojson",
+   "sha256": "8638311bfdacaf0c282d2cc3267b65a6876521a79c2a4fd5f3de3f160f1e3ffc"
   }
  ]
 }
