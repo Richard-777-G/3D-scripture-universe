@@ -17,6 +17,27 @@ The goal: a 7-year-old, a busy adult, and an 80-year-old with poor eyesight can 
 7. **Performance budget:** first screen interactive in under 3 s on a mid-range Android over 4G. No new code on the home screen route over 50 KB gzipped. Lazy-load the map, the evidence data, the lexicons and JARVIS.
 8. **Secrets:** nothing secret in the front end, the repo or the logs. The Anthropic key lives only in Vercel environment variables.
 
+## S. Safety net: the wheel, threads and current app must never break (applies to C and everything after)
+
+**Restore point.** Production commit `8e54aac` (PR #13, deployment `dpl_FpE82jN9LCtT2SD2scZsgpyC1Yr7`, 8 Nov 2026) is the last known-good version with all 344,799 connections. It stays available in Vercel as a rollback candidate. Do not delete it. Anyone can go back to it in one click: Vercel → scripture-universe → Deployments → that row → Promote / Instant Rollback.
+
+**Rules**
+
+1. **The old app stays the live app until a replacement screen is proven better.** The redesign is built beside it (strangler pattern), under its own address such as `/prototype/` and later `/app/`. The current wheel, threads, reader, Story, Evidence, Map and Credits keep their addresses and code. A screen is switched over one at a time, and the old one is kept for one release behind a switch (`?ui=classic` or a setting) so it can be turned back on without a deploy.
+2. **No wheel code is touched by the redesign.** `src/legacy/*`, the three.js scene, the thread/connection builder and `pipeline/*` are read-only for any UI PR. If a UI change needs one, it goes in its own small PR with its own wheel tests.
+3. **The prototype branch (`proto/redesign`) is never merged as it stands.** It changes shared build settings (es2022 target, a second build entry, JSX) and adds about 25 MB of map tiles. Its pieces come in as separate small PRs, each green, and the tiles are served from storage, not bundled into every deploy.
+4. **A wheel test that fails the build.** Add `tests/e2e/wheel-safety.spec.ts`, run in CI on every PR. At 360 px and at 1280 px it must check that:
+   - the 3D canvas draws (read pixels: not blank, not one flat colour), with no WebGL error;
+   - the book ring shows 66 books and the thread count shown comes from the data, not a typed number;
+   - tapping a book, then a chapter, then a verse opens the reader with its connections, and the three Best-evidence / All Old↔New / All filters each show their live count;
+   - orbiting, zooming and tapping a thread work (frame rate stays above 20 fps on the CI browser);
+   - there are zero console errors and zero failed network requests.
+5. **Existing tests are the floor.** The 194 v16 comparisons, unit tests, `npm run validate` and the database check must pass unchanged. A test may only be changed on purpose, in the same PR, with the reason written in the description.
+6. **Data is never edited by hand and never lost.** Packs are rebuilt from the pinned sources only. The count of connections kept (344,799) and of Best evidence (from the data) is asserted in a test so a change can't silently drop links.
+7. **Every PR is checked on its Vercel preview before merge** (wheel, every tab, the reader, Credits and the new screen, at 360 px and desktop, zero console errors), then production is checked again after merge. If production looks wrong: roll back first, fix second.
+8. **Branch protection (Richard's one-time setting).** On `main`: require a pull request, require the `test` and `database` checks, and do not allow direct pushes. Turn on "Automatically delete head branches".
+9. **Switch-over order** for the redesign, so the wheel is touched last: Home and navigation → Read → Connections list → Places (map) → Evidence → Story → the wheel's surrounding panels. The 3D wheel itself keeps its engine; only the controls around it change, and only after the safety test above has been green for a week.
+
 ## C. Redesign: a real app, simple enough for a first-time 75-year-old (top priority, with D)
 
 Richard's verdict on 2026-11-07: the sections and dashboard look AI-generated, are hard to understand for a new user, and the map is a mess. He is right. These are the causes, checked in the code:
