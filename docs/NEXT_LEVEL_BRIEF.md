@@ -45,10 +45,12 @@ Richard's verdict on 2026-11-07: the sections and dashboard look AI-generated, a
 - **The whole interface is one hand-built file.** `src/legacy/app.js` is 777 lines, with single lines up to 2,304 characters. It builds HTML as strings, has no components, no design tokens and no shared layout rules. Every screen invents its own look.
 - **The map has no base map.** `src/map/map.ts` draws Natural Earth coastlines locally with Leaflet, then puts up to 1,285 dots on top. There are no terrain, labels, roads, clustering or sense of place, so it reads as a cloud of dots.
 
+> **Correction, 8 Nov 2026 (Richard's decision, overrides anything below that disagrees).** The separate redesign prototype (`proto/redesign`, PR #14) was rejected and removed: it replaced the 3D wheel with a flat app. **The 3D wheel and its threads are the heart of Scripture Universe and stay the first thing people see.** There is no second app and no prototype branch. The existing app is upgraded in place, one section per PR, into a real software product (consistent design system, proper front end, back end and database), usable by kids, young people, adults and elders. Every PR must show the wheel still working.
+
 ### C1. Technology (approved by Richard: "if it requires tech, do it")
 - **UI framework:** React 18 + TypeScript, with **React Aria Components** (Adobe's accessibility-first component library) for buttons, dialogs, tabs, lists, sliders and menus. Accessibility for elders and screen readers comes built in, not bolted on.
 - **Design tokens** as CSS variables for colour, type scale, spacing, radius and elevation, in Standard, Easy and Kids themes plus light and dark. No hard-coded colours or sizes in components.
-- **The 3D wheel** becomes one React component wrapping the existing three.js code, so its behaviour is unchanged.
+- **The 3D wheel** keeps its existing three.js code and stays the main screen. Only the controls and panels around it are rebuilt, and only after `wheel-safety.spec.ts` (Section S) is green.
 - **Map:** MapLibre GL JS with real vector tiles that need no API key. Use a Protomaps PMTiles extract of the Bible lands, served as a static file from this Vercel project, so it is free, fast, offline-capable and has no vendor lock-in. Include:
   - labels in English and Telugu
   - terrain shading
@@ -59,16 +61,10 @@ Richard's verdict on 2026-11-07: the sections and dashboard look AI-generated, a
 - **Migrate screen by screen** (strangler pattern): each new screen replaces its legacy one only when it passes its tests and Richard approves the preview. The legacy screen stays until then. Nothing working is lost in between.
 - **Size limit:** framework plus components under 120 KB gzipped on first load. Everything else is lazy-loaded.
 
-### C2. Design first, code second
-1. **Design system:** write `docs/DESIGN.md`, using `website-design:web-design-system`, `design-skills:design-systems` and `frontend-design`. Study 3–4 real, well-regarded reading and Bible apps for patterns (no copying their branding), and record the type scale, colours, spacing, components, icon set and motion rules.
-2. **Clickable prototype:** build one on a preview branch, never merged, of these screens in Standard and Easy mode, at phone and desktop size:
-   - Home
-   - Read
-   - Connections
-   - Map
-   - Evidence
-   - Story
-3. **Approval gate:** send Richard the preview link and screenshots, then **wait for his approval**. Only then start migrating.
+### C2. Design first, then upgrade the live app in place
+1. **Design system:** write `docs/DESIGN.md` (using `website-design:web-design-system`, `design-skills:design-systems`, `frontend-design`): type scale, colours, spacing, components, icons, motion, Standard / Easy / Kids modes. Base it on how the current app already looks, so the wheel and the new panels feel like one product.
+2. **Upgrade one section per PR, on the real app:** Reader, Connections panel, Story, Evidence, Map, Search, Library, Home/intro, Settings. Each PR is judged on its Vercel preview of the real app, with the wheel visible, at 360 px and desktop.
+3. **Approval gate per section:** send Richard the preview link and screenshots and wait for his yes before merging a section. No throw-away prototypes and no separate `/prototype/` app.
 
 ### C3. Information architecture: what a new user sees
 - **Home:** a calm screen with a greeting and the four things people come for, as big labelled cards with an icon, a title and one plain sentence each:
@@ -77,7 +73,7 @@ Richard's verdict on 2026-11-07: the sections and dashboard look AI-generated, a
   3. **See how it connects** (the wheel)
   4. **Places & evidence**
 
-  Below them sit "Continue where you left off" and a verse of the day. The 3D wheel is a destination, not the first screen.
+  Below them sit "Continue where you left off" and a verse of the day. The 3D wheel stays the main screen behind these cards, always one tap away, and is what people see first on desktop.
 - **Navigation:** a bottom bar on phones and a side bar on desktop, with five labelled tabs (icon **and** word): Home · Read · Story · Connections · Places. Evidence lives inside Places and inside every verse. Search is always reachable from the top bar.
 - **One job per screen.** Every screen has one main action and a visible Back button. There are no floating panels over the 3D view on phones, and no hidden gestures.
 - **Plain words everywhere.** Use "Connected verses", not "cross-references", and "Original language", not "lexicon". Reading age 9 in Easy mode. Use `zizi-skills:plain-language` and `design-skills:ux-writing`.
