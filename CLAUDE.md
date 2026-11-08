@@ -25,6 +25,7 @@ A 3D Bible app showing how the Old Testament points to Jesus in the New Testamen
 6. Secrets only in Vercel environment variables (`ANTHROPIC_API_KEY` for `/api/jarvis`). Never in code, repo, logs or the browser.
 7. Ask Richard before anything paid, deleting data, or using a source outside Tier 1.
 8. Report to Richard in plain English: what changed, the live link, what he needs to click or decide.
+9. Safety net (Section S of the brief): the wheel, threads and current screens stay live and untouched until a replacement is proven; `src/legacy/*`, the three.js scene and `pipeline/*` are read-only for UI work; never merge `proto/redesign` as it stands; `tests/e2e/wheel-safety.spec.ts` must pass on every PR; restore point is production commit `8e54aac`.
 
 ## Skills to use (Richard's account has these plugins; use them when the task fits)
 - Plan and ship: `agent-engineering:plan-change`, `deliver-change`, `review-change`, `verify-change`; `zizi-skills:git-sync`; `zizi-skills:planning`.
