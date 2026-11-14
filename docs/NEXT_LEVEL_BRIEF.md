@@ -107,7 +107,7 @@ Richard wants every connection the Bible's reference tradition records, not a cu
 
   A link can carry several labels. Nothing is presented as stronger than its evidence.
 - **D3. Show all of them, filtered by evidence.**
-  - **Connections screen:** a clear filter with "Best evidence" (the current 4,278 text-supported links, the default), "All in Old ↔ New Testament" and "All connections", each showing its live count from the data.
+  - **Connections screen:** a clear filter with "Best evidence" (the text-supported links, 1,911 after the common-word fix, the default), "All in Old ↔ New Testament" and "All connections", each showing its live count from the data.
   - **Wheel:** draws whichever set is chosen. Use merged or instanced geometry so 70,000+ threads stay smooth on a mid-range phone, falling back to the strongest links when the phone is slow.
   - **Reader:** shows every connected verse for the open verse, grouped by label.
 - **D4. Numbers come from the data.** Every count in the interface, the meta description, the intro, the help text and the store listings is generated at build time from the packs. A test fails if any hard-coded count is found.

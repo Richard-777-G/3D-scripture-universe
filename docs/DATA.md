@@ -45,11 +45,11 @@ Reader votes no longer decide anything. A link is shown only when the text suppo
 | Label in the app | Rule | Count |
 |---|---|---|
 | Sourced prophecy link | One of the curated journey links in `content/journeys.json`, each with published citations | 95 passage pairs |
-| Same wording | The New Testament repeats words from the Old Testament passage (KJV or BSB): 4+ key words in the same order covering half the passage, or 3+ when the New Testament says it is quoting ("it is written", "spoken by the prophet") | 900 |
-| Shared words | Both passages use at least two distinctive words (words found in 150 KJV verses or fewer) | 3,910 |
-| Not shown | Listed by OpenBible.info but the passages share no distinctive wording | 67,013 |
+| Same wording | The New Testament repeats words from the Old Testament passage (KJV or BSB): 4+ key words in the same order covering half the passage, or 3+ when the New Testament says it is quoting ("it is written", "spoken by the prophet") | 968 |
+| Shared words | Both passages use at least two distinctive words in the same translation. A word is distinctive when it is in 100 verses or fewer in every translation checked (KJV and BSB). All forms of a word count as one word ("praise", "praised", "praiseth"; "saviour", "savior"), so words that run through the whole Bible such as praise, bless, worship, grace and prayer never count | 1,174 |
+| Not shown | Listed by OpenBible.info but the passages share no distinctive wording | 69,681 |
 
-Candidates are all 73,313 Old↔New Testament links in the OpenBible.info list, whatever their vote count; 1,490 that span more than 7 verses are skipped because whole-passage links can't be checked word by word. After merging duplicates the wheel shows 4,278 links (v16 showed 42,732). The build re-checks every link against the text and fails if one is not supported.
+Candidates are all 73,313 Old↔New Testament links in the OpenBible.info list, whatever their vote count; 1,490 that span more than 7 verses are skipped because whole-passage links can't be checked word by word. After merging duplicates the wheel shows 1,911 links (v16 showed 42,732; the first text-based rule showed 4,278, before common words of worship were excluded). The build re-checks every link against the text and fails if one is not supported.
 
 Known limits: matching is on English translations, so a quotation the New Testament makes from the Greek Septuagint in different words (for example John 19:36 and Exodus 12:46) is found only if it is also a sourced journey link. Original-language matching is planned with the STEPBible and MACULA data.
 
@@ -68,7 +68,7 @@ Two sources, merged so each link appears once:
 
 | Pack | Links | Loaded when |
 |---|---:|---|
-| `core` (wheel default, "Best evidence") | 4,278 | always |
+| `core` (wheel default, "Best evidence") | 1,911 | always |
 | `xon`: between the Old and New Testaments | 73,376 | someone picks "All Old ↔ New Testament" |
 | `xin`: inside one Testament | 272,252 | someone picks "All connections" |
 | **All connections** | **345,628** | |
@@ -79,8 +79,8 @@ Each link carries one or more labels (bit flags in `pipeline/allconnections.mjs`
 |---|---:|---:|
 | Listed by OpenBible users (with its vote count) | 344,799 | 73,313 |
 | Listed in TSK | 335,844 | 72,734 |
-| Shared distinctive words | 51,150 | 4,407 |
-| Same wording | 16,725 | 900 |
+| Shared distinctive words | 21,316 | 1,428 |
+| Same wording | 17,409 | 968 |
 | Sourced prophecy | 216 | 216 |
 
 - **Wording labels.** These use the same test as the wheel (see above), on the KJV and the BSB. Links to passages longer than seven verses are not tested word by word.

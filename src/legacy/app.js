@@ -500,12 +500,16 @@ function evTick(now){if(uiMode!=="evidence")return;EVM.forEach((m,k)=>{m.sp.scal
 
 /* ---------- v8: story, explore home, panel chrome, shared words, AI explain, intro ---------- */
 let storyK=0,storyTab="verses";
-/* Common words never count as a link (stop words plus words in more than 150 KJV verses),
+/* Common words never count as a link (stop words plus words in more than 100 verses of any translation checked),
    matching pipeline/connections.mjs, so highlighting shows only distinctive shared words. */
 const STOPW=new Set(D.cw||[]);
 const wds=t=>(t.toLowerCase().match(/[a-z']+/g)||[]).filter(w=>w.length>1);
 const IRRW={broken:"break",brake:"break",spake:"speak",spoken:"speak",gave:"give",given:"give",born:"bear",bare:"bear",begat:"beget",slain:"slay",slew:"slay",written:"write",wrote:"write",saw:"see",seen:"see",knew:"know",known:"know",took:"take",taken:"take"};
-const stem=w=>IRRW[w]||w.replace(/(eth|est|ing|ed|es|s)$/,"");
+/* Same rule as stem() in pipeline/connections.mjs: "praise", "praised" and "praiseth" are one word; "sing" is never cut to a stub. */
+const KEEPEST=new Set("priest harvest forest tempest honest earnest manifest request interest conquest molest arrest contest protest suggest behest".split(" "));
+const stem=w=>{if(IRRW[w])return IRRW[w];let s=w.replace(/'s?$/,"");const ok=x=>x.length>=3&&/[aeiouy]/.test(x),cut=n=>ok(s.slice(0,-n))?s.slice(0,-n):s;
+ if(s.length>4&&s.endsWith("ies"))s=s.slice(0,-3)+"y";else if(s.length>5&&/(eth|ing)$/.test(s))s=cut(3);else if(s.length>5&&s.endsWith("est")&&!KEEPEST.has(s))s=cut(3);else if(s.length>4&&/(ed|es)$/.test(s))s=cut(2);else if(s.length>3&&s.endsWith("s")&&!s.endsWith("ss"))s=cut(1);
+ if(s.length>3&&/([b-df-hj-np-tv-z])\1$/.test(s)&&!/(ll|ss)$/.test(s))s=s.slice(0,-1);if(s.length>3&&s.endsWith("e")&&!s.endsWith("ee"))s=s.slice(0,-1);if(s.length>5&&s.endsWith("our"))s=s.slice(0,-3)+"or";return s};
 const keyWord=w=>!STOPW.has(w)&&!STOPW.has(stem(w));
 function textOf(s,e,cap){let t=[];for(let v=s;v<=Math.min(e,s+(cap||5)-1);v++)t.push(VT.get(v)||"");return t.join(" ")}
 function whyOf(a1,a2,b1,b2){const r=ROW.get(a1+"|"+a2+"|"+b1+"|"+b2),set=new Set(),words=[];

@@ -16,6 +16,9 @@ declare module "*/pipeline/connections.mjs" {
   export const TIER: { sourced: number; quotation: number; wording: number };
   export function judge(ot: [number, number], nt: [number, number], texts: string[][], df: Map<string, number>): { tier: number; words: string[] };
   export function documentFrequency(verses: string[]): Map<string, number>;
+  export function wordFrequency(texts: string[][]): Map<string, number>;
+  export function stem(w: string): string;
+  export const DISTINCTIVE_MAX_VERSES: number;
 }
 declare module "*/pipeline/geo.mjs" {
   export function routeTitle(file: string): { num: number; title: string };

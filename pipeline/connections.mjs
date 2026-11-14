@@ -6,7 +6,8 @@
  *   quotation  the New Testament passage repeats the Old Testament wording:
  *              key words shared in the same order, either a long close match or a
  *              shorter one where the New Testament says it is quoting ("it is written")
- *   wording    the passages share at least two distinctive words (words rare in the Bible)
+ *   wording    the passages share at least two distinctive words in the same translation
+ *              (words rare in every translation checked; "saviour" and "savior" are one word)
  *
  * A candidate link that has none of these is not shown. Candidates come from the
  * OpenBible.info cross-reference list (every vote count), so no link is invented here.
@@ -29,13 +30,39 @@ const IRREGULAR = {
   known: "know", took: "take", taken: "take",
 };
 
-export const stem = (w) => IRREGULAR[w] || w.replace(/(eth|est|ing|ed|es|s)$/, "");
+// Words ending in -est that are not superlatives or "thou knowest" forms.
+const KEEP_EST = new Set("priest harvest forest tempest honest earnest manifest request interest conquest molest arrest contest protest suggest behest".split(" "));
+const usable = (s) => s.length >= 3 && /[aeiouy]/.test(s);
+
+/**
+ * Reduce a word to one form, so "praise", "praised", "praises" and "praiseth" count as
+ * the same word, and so do "saviour" and "savior". A word is never cut down to a stub
+ * ("sing" stays "sing", "bless" stays "bless").
+ */
+export const stem = (w) => {
+  if (IRREGULAR[w]) return IRREGULAR[w];
+  let s = w.replace(/'s?$/, "");
+  const cut = (n) => (usable(s.slice(0, -n)) ? s.slice(0, -n) : s);
+  if (s.length > 4 && s.endsWith("ies")) s = s.slice(0, -3) + "y";
+  else if (s.length > 5 && /(eth|ing)$/.test(s)) s = cut(3);
+  else if (s.length > 5 && s.endsWith("est") && !KEEP_EST.has(s)) s = cut(3);
+  else if (s.length > 4 && /(ed|es)$/.test(s)) s = cut(2);
+  else if (s.length > 3 && s.endsWith("s") && !s.endsWith("ss")) s = cut(1);
+  if (s.length > 3 && /([b-df-hj-np-tv-z])\1$/.test(s) && !/(ll|ss)$/.test(s)) s = s.slice(0, -1); // "runn" -> "run"
+  if (s.length > 3 && s.endsWith("e") && !s.endsWith("ee")) s = s.slice(0, -1); // "praise" and "prais(ed)" agree
+  if (s.length > 5 && s.endsWith("our")) s = s.slice(0, -3) + "or"; // British and American spelling agree
+  return s;
+};
 export const tokens = (text) => (text || "").toLowerCase().replace(/[^a-z\s']/g, " ").split(/\s+/).filter((w) => w.length > 1);
 export const contentStems = (text) => tokens(text).filter((w) => !STOP.has(w)).map(stem);
 export const isStopWord = (w) => STOP.has(w);
 
-/** A word is distinctive if it appears in at most this many KJV verses. */
-export const DISTINCTIVE_MAX_VERSES = 150;
+/**
+ * A word is distinctive if it appears in at most this many verses (about 1 verse in 300)
+ * in every translation checked. Words of worship and doctrine that run through the whole
+ * Bible (praise, bless, worship, prayer, grace, believe) are far above this and never count.
+ */
+export const DISTINCTIVE_MAX_VERSES = 100;
 const QUOTE_FORMULA = /it is written|was written|were written|spoken by|spoken of|spake by|was spoken|fulfilled|the scripture|scripture saith|scriptures|as he saith|he saith|saith the lord|as it is said|in the prophets|by the prophet|the prophet|moses said|moses wrote|david saith|david himself|esaias|isaiah said|isaiah says|jeremy|jeremiah the prophet/i;
 
 /** Longest common subsequence length of two token arrays. */
@@ -52,7 +79,7 @@ function lcs(a, b) {
   return row[b.length];
 }
 
-/** How many KJV verses each content stem appears in. */
+/** How many verses of one translation each word (reduced to one form) appears in. */
 export function documentFrequency(verses) {
   const df = new Map();
   for (const v of verses) for (const w of new Set(contentStems(v))) df.set(w, (df.get(w) || 0) + 1);
@@ -60,15 +87,29 @@ export function documentFrequency(verses) {
 }
 
 /**
+ * The frequency used to decide what is distinctive: for each word, the highest count in
+ * any translation. A modern word such as "show" is rare in the KJV ("shew") but common
+ * in the BSB, so it is common.
+ */
+export function wordFrequency(texts) {
+  const out = new Map();
+  for (const T of texts) for (const [w, n] of documentFrequency(T)) if (n > (out.get(w) || 0)) out.set(w, n);
+  return out;
+}
+
+/**
  * Judge one Old Testament range against one New Testament range.
  * texts: one or more translations, each an array of verse strings by position.
- * Returns { tier, words } where words are the distinctive words both passages use.
+ * df: wordFrequency(texts).
+ * Returns { tier, words } where words are the distinctive words both passages use in
+ * one translation (the translation where they share the most).
  */
 export function judge(ot, nt, texts, df) {
   const join = (T, [s, e]) => T.slice(s, e + 1).join(" ");
   let best = { l: 0, cov: 0 }, formula = false;
-  const shared = new Map(); // stem -> a display word
+  let words = [];
   for (const T of texts) {
+    const shared = new Map(); // word form -> the word as written
     const A = contentStems(join(T, ot)), N = contentStems(join(T, nt));
     const l = lcs(A, N), cov = l / Math.max(1, Math.min(new Set(A).size, new Set(N).size));
     if (l > best.l || (l === best.l && cov > best.cov)) best = { l, cov };
@@ -79,9 +120,9 @@ export function judge(ot, nt, texts, df) {
       const s = stem(w);
       if (!STOP.has(w) && inN.has(s) && (df.get(s) || 0) <= DISTINCTIVE_MAX_VERSES && !shared.has(s)) shared.set(s, w);
     }
+    if (shared.size > words.length) words = [...shared.values()];
   }
   const quotation = (best.l >= 4 && best.cov >= 0.5) || (best.l >= 3 && best.cov >= 0.4 && formula);
-  const words = [...shared.values()];
   return { tier: quotation ? TIER.quotation : words.length >= 2 ? TIER.wording : 0, words };
 }
 
@@ -92,7 +133,7 @@ export function judge(ot, nt, texts, df) {
  * shared words per row.
  */
 export function buildConnections({ openbible, journeys, bookOf, texts }) {
-  const df = documentFrequency(texts[0]);
+  const df = wordFrequency(texts);
   const rows = new Map(); // "ot0|ot1|nt0|nt1" -> row
   const put = (ot, nt, tier, words) => {
     const k = `${ot[0]}|${ot[1]}|${nt[0]}|${nt[1]}`;

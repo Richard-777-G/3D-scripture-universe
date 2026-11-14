@@ -84,7 +84,8 @@ describe("data validation", () => {
   it("shows far fewer links than v16 did, all with textual evidence", () => {
     const X = input.core.xrefs;
     expect(input.core.aud.v16Rows).toBe(42732);
-    expect(X.fv.length).toBeGreaterThan(3000);
+    // Lowered from 3000 when common words (praise, bless, worship) stopped counting as distinctive.
+    expect(X.fv.length).toBeGreaterThan(1500);
     expect(X.fv.length).toBeLessThan(10000);
     expect(new Set(X.vo)).toEqual(new Set([10, 20, 30]));
   });
