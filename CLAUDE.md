@@ -3,6 +3,7 @@
 A 3D Bible app showing how the Old Testament points to Jesus in the New Testament. Live at https://scripture-universe.vercel.app. Vercel deploys `main` automatically; every PR gets a preview link.
 
 ## Read first
+- **Section U of the brief (the Universe) is the current direction and build order (U7); it overrides anything else that disagrees.** The wheel floats in space at the centre; Earth, Time, Evidence Hall, People, Story, Watch and Library are worlds around it, each also reachable from a plain menu and a no-3D Simple view. Media rules in U5 have no exceptions.
 - Sections C (redesign: real app UI, simple for elders, design approved by Richard before code) and D (keep and label every connection) of the brief are top priority. Section A is done.
 - `docs/NEXT_LEVEL_BRIEF.md` — the current spec and build order (all-ages modes, Evidence Centre, map, word study, search, JARVIS, offline/stores). Section 0 rules apply to every PR.
 - `docs/RESOURCE_AUDIT.md` — which outside data sources may be used (Tier 1 only without asking).
