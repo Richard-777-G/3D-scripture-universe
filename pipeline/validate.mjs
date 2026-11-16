@@ -4,7 +4,7 @@
  * that only references things that exist, and a licence for every pack.
  */
 import { validateEvidenceCentre } from "./evidence-centre.mjs";
-import { documentFrequency, judge, TIER } from "./connections.mjs";
+import { wordFrequency, judge, TIER } from "./connections.mjs";
 import { unpack, LABEL } from "./allconnections.mjs";
 
 export const TOTAL_VERSES = 31102;
@@ -163,7 +163,7 @@ export function validateAll(input) {
       cand.add(a ? `${ob.from[i]}|${ob.from[i]}|${ob.ts[i]}|${ob.te[i]}` : `${ob.ts[i]}|${ob.te[i]}|${ob.from[i]}|${ob.from[i]}`);
     }
     const journeyPairs = new Set(journeys.items.flatMap((it) => it.ot.flatMap((o) => it.nt.map((n) => `${o.s}|${o.e}|${n.s}|${n.e}`))));
-    const df = documentFrequency(input.texts.kjv), texts = [input.texts.kjv, input.texts.bsb];
+    const texts = [input.texts.kjv, input.texts.bsb], df = wordFrequency(texts);
     let unsourced = 0, wrong = 0;
     for (let i = 0; i < n; i++) {
       const fe = X.fe ? X.fe[i] : X.fv[i], k = `${X.fv[i]}|${fe}|${X.ts[i]}|${X.te[i]}`;
@@ -206,7 +206,7 @@ export function validateAll(input) {
     // A row is "listed in TSK" when a TSK link joins the same verses, in either direction.
     const inTsk = (r) => (tskFrom.get(r.a) || []).some((t) => t.s <= r.e && t.e >= r.s) ||
       (r.e - r.s <= 200 && Array.from({ length: r.e - r.s + 1 }, (_, k) => r.s + k).some((x) => (tskFrom.get(x) || []).some((t) => t.s <= r.a && t.e >= r.a)));
-    const df = documentFrequency(input.texts.kjv), texts = [input.texts.kjv, input.texts.bsb];
+    const texts = [input.texts.kjv, input.texts.bsb], df = wordFrequency(texts);
     let obRows = 0, notOb = 0, badVotes = 0, badSide = 0, notTsk = 0, wrongLabel = 0, tskWrong = 0, tskSeen = 0;
     const check = (rows, cross) => rows.forEach((r, i) => {
       if (r.l & LABEL.openbible) {

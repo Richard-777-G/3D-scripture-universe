@@ -34,7 +34,8 @@ test.describe("landing", () => {
 
   test("draws only links backed by the text (quotation, shared wording, sourced)", async ({ app }) => {
     const r = await uni(app, (U) => ({ L: U.L, curves: U.curves, total: Array.from(U.M() as Float32Array).reduce((a, b) => a + b, 0) }));
-    expect(r.L).toBeGreaterThan(3000);
+    // Lowered from 3000 when common words (praise, bless, worship) stopped counting as distinctive.
+    expect(r.L).toBeGreaterThan(1500);
     expect(r.L).toBeLessThan(10_000);
     expect(r.total).toBe(r.L);
   });
