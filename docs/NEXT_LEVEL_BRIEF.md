@@ -1,10 +1,87 @@
 # Next-level brief: Scripture Universe for every age
 
-Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. Order: C (redesign, design-first with Richard's approval) and D (all connections) are now top priority; A is done (PRs #8, #9); B continues alongside; then stages 1–8 inside the new design. Each numbered stage is its own pull request (or a short series), merged only when green.
+Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. **Section U (the Universe, 16 Nov 2026) is now the direction and its order (U7) comes first; it overrides anything below that disagrees.** Earlier order: C (redesign, design-first with Richard's approval) and D (all connections) are now top priority; A is done (PRs #8, #9); B continues alongside; then stages 1–8 inside the new design. Each numbered stage is its own pull request (or a short series), merged only when green.
 
 The goal: a 7-year-old, a busy adult, and an 80-year-old with poor eyesight can each open the app and use it without help. The data stays honest and sourced, and the 3D wheel stays the heart of the app.
 
 ---
+
+## U. The Universe (Richard, 16 Nov 2026; overrides anything else in this brief that disagrees)
+
+> **The idea.** The Bible wheel floats in space, and that space is the app. A 3D universe is built around the wheel, and every part of the Bible's world is a place you can fly to. The wheel stays at the centre, unchanged, and stays the first thing people see.
+
+### U1. The worlds
+Each world is a 3D object in the scene, and a full screen when opened.
+
+1. **The Wheel** (exists): books, threads, connections.
+2. **Earth:** a real 3D globe of the Bible lands, **replacing the current dot map completely**.
+   - It has terrain, labelled regions, and places grouped until you zoom in.
+   - Journeys are drawn as paths you can play.
+   - Tapping a place shows its verses, how sure scholars are, photos, what stands there today (church, ruin, museum), and videos.
+3. **Time:** one river of history from Genesis to today. It covers Bible events, kingdoms and empires, the early church, councils and creeds, translations, and the church through the centuries. Every entry links to its verses, places and evidence.
+4. **Evidence Hall:** a gallery you walk through, holding manuscripts, inscriptions, archaeology and museum objects. Each item has:
+   - what it is
+   - what it shows
+   - what it does not show
+   - its sources
+   - an image, or a labelled link to the museum
+5. **People:** a constellation of Bible people and family lines (the people data is already in the packs).
+6. **Story:** the 16 steps as a lit path through the scene.
+7. **Watch:** videos and documentaries, grouped by book, place and topic.
+8. **Library and Word study:** the reader, Hebrew and Greek words, creeds and confessions.
+
+**Everything links to everything.** A verse opens its place on Earth, its moment in Time, its evidence and its videos.
+
+### U2. The look
+- Keep and deepen today's style: deep space, glowing threads, living light, depth, slow motion.
+- Make it **an original world of our own**. Do not copy the designs, creatures or imagery of any film or game.
+- Use cinematic camera moves between worlds.
+- Sound is optional and off by default.
+- Panels and menus follow `docs/DESIGN.md`, with **both Night and Light themes**. Everything must look fresh, clean, professional and official.
+
+### U3. It must still be simple
+- Every world is also reachable from a plain labelled menu. Nobody has to fly.
+- Easy mode and Kids mode. Big buttons with a word and an icon. Text 18 px or larger.
+- A **Simple view** with no 3D, for old phones and screen readers.
+- A guided tour that plays by itself and hands over on any tap.
+- 30 fps on a mid-range Android: load each world only when visited, and lower the quality automatically on weak devices.
+
+### U4. Full stack, real engineering
+- **Front end:** components and design tokens from `docs/DESIGN.md`. Real loading, empty, error and offline states. No placeholder text anywhere.
+- **Back end:** Postgres (the Supabase schema in the repo) holds every verse, link, place, person, event, evidence item and media record, with an API the app reads. Server functions run on Vercel. Search works across everything.
+- **Content pipeline:** every item is pinned, checksummed, licensed and credited, as now.
+- **Tests on every PR:** unit, browser, wheel safety, accessibility and a performance budget.
+- **App stores:** an installable app (PWA), then the Android wrapper and store listing. Prepare these; do not publish.
+
+### U5. Media rules (no exceptions)
+- **Images:** only public-domain or openly licensed files (for example Wikimedia Commons, or museum open-access collections), each with its licence and credit recorded. Anything else is shown as a labelled link to the owner's page.
+- **Videos:** embed from the owner's official channel only where the owner allows embedding, and record the source. Never download or re-host a video. Never invent a thumbnail.
+- **No AI-generated pictures** presented as historical evidence, places or artefacts.
+- **Nothing invented:** no quotes, numbers, sources, testimonies or connections.
+
+### U6. Rules that still apply
+- Section 0 and Section S of this brief.
+- One feature per PR, small and green.
+- The wheel code and the pipeline are read-only for design work.
+- Check the Vercel preview at 360 px and on desktop, with zero console errors, before a merge; confirm production after.
+- Ask Richard before anything paid, deleting data, or using a source outside Tier 1.
+
+### U7. Order
+Each STOP waits for Richard's yes.
+
+1. This Section U docs PR.
+2. Finish the design system (PR #19) with Richard's answer: **both Night and Light themes, a fresher, cleaner, more official look.** Then the reader and connections panel. **STOP.**
+3. The scene itself: the wheel at the centre with the worlds around it, the plain menu, camera flights and Simple view. Empty worlds show an honest "coming soon". **STOP.**
+4. Earth. **STOP.**
+5. Time. **STOP.**
+6. Evidence Hall, with real images and links. **STOP.**
+7. Watch. **STOP.**
+8. People, Story path, Library and creeds.
+9. The database and API behind all of it, then search across everything.
+10. Easy and Kids modes, Telugu, an accessibility pass and a weak-phone pass.
+11. PWA, Android wrapper and store listing.
+
+**For each world, first write a one-page plan:** what data and media it uses, from which licensed source, and what it will not have. Show Richard the plan before building.
 
 ## 0. Rules that apply to every PR
 
