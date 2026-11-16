@@ -98,14 +98,14 @@ for (const vp of [{ name: "phone 360", width: 360, height: 780 }, { name: "deskt
         expect(await uni(app, (U) => U.sel)).toBe(22);
       }).toPass({ timeout: 20_000 });
       await expect(app.locator("#pc")).toContainText("Isaiah");
-      // 2. Tap chapter 53 in the book's chapter list: the wheel shows that chapter's threads.
-      // (The chip's spoken name currently runs the chapter and its count together, "5316";
-      // that is fixed with the Connections panel, so tap it by its chapter here.)
+      // The "drag to rotate" hint gives way to the book labels, so nothing overlaps.
+      await expect(app.locator("#hint")).toHaveCSS("opacity", "0");
+      // 2. Tap chapter 53 in the book's chapter list by its spoken name: the wheel shows that chapter's threads.
       const g = await uni(app, (U) => U.chs.findIndex((c: any) => c.b === 22 && c.c === 53));
-      await app.locator(`#pc [data-g="${g}"]`).click();
+      await app.locator("#pc").getByRole("button", { name: /^Chapter 53, \d[\d,]* connections?$/ }).click();
       expect(await uni(app, (U) => U.selChap)).toBe(g);
-      // 3. Open that chapter in the reader and tap verse 7 (quoted in Acts 8:32).
-      await uni(app, (U) => U.openReader(22, 53));
+      // 3. "Read Isaiah 53" opens it in the reader; tap verse 7 (quoted in Acts 8:32).
+      await app.locator("#pc").getByRole("button", { name: "Read Isaiah 53" }).click();
       await expect(app.locator("#pc")).toContainText("Isaiah 53");
       await app.locator('#pc [data-rv]').nth(6).click();
       await expect(app.locator("#pc")).toContainText("Acts 8");

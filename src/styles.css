@@ -238,3 +238,4 @@ mark{background:#f2d47a33;color:#fff3c4;border-radius:3px;padding:0 1px}
 .ow .m{display:block;font:13.5px/1.45 Inter,system-ui,sans-serif;color:#cfc8b8;margin-top:2px}
 .ow details p,.kwi details p{white-space:pre-line}
 .kwn{padding:10px 12px;border-top:1px solid #222a38;font:13.5px/1.6 Inter,system-ui,sans-serif;color:#cfc8b8}.kwn b{color:var(--ink)}
+.readch{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin:10px 0 6px;font-weight:600}
