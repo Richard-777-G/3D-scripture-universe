@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig, type Plugin } from "vite";
+import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -19,7 +20,7 @@ function countsFromData(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [countsFromData()],
+  plugins: [countsFromData(), react()],
   build: {
     target: "es2020",
     chunkSizeWarningLimit: 800,
