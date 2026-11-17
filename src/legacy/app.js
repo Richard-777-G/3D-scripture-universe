@@ -117,11 +117,13 @@ const meshes=books.map(b=>{const g=new THREE.BoxGeometry(0.9,b.h,b.depth);g.tran
   mats=[new THREE.MeshBasicMaterial({map:st}),new THREE.MeshBasicMaterial({map:st}),pg(),pg(),new THREE.MeshBasicMaterial({map:ct}),new THREE.MeshBasicMaterial({map:ct})];
  const m=new THREE.Mesh(g,mats);m.userData.baseCols=mats.map(x=>x.color.clone());m.position.copy(b.pos);m.rotation.y=-b.a+Math.PI/2;
  const e=new THREE.LineSegments(new THREE.EdgesGeometry(g),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.55}));m.add(e);m.userData.edge=e;group.add(m);return m});
+/* Section V console: Exploded view and X-ray state (additive; untouched until the console calls UNI.explode / UNI.xray) */
+let sxK=0,sxR=false,sxD=0,sxS=1,sxP0=null,sxC0=null,sxCL=null;const sxRings=[];
 /* a point on the inner cover of book bi: u across (-0.5..0.5), v up (0..1); threads and chapter marks sit on the book itself */
 function faceP(bi,u,v){const b=books[bi],s=meshes[bi]?meshes[bi].scale.x:1,c=Math.cos(b.a),sn=Math.sin(b.a),d=b.depth/2*s+0.02;return new THREE.Vector3(b.pos.x-c*d+sn*u*0.9*s,b.pos.y+v*b.h*s,b.pos.z-sn*d-c*u*0.9*s)}
 function ringLine(y,col){const pts=[];for(let k=0;k<=160;k++){const a=k/160*Math.PI*2;pts.push(new THREE.Vector3(R*Math.cos(a)*1.03,y,R*Math.sin(a)*1.03))}
- const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:col,transparent:true,opacity:.85,blending:THREE.AdditiveBlending}));group.add(l);
- const d=new THREE.Mesh(new THREE.RingGeometry(R*0.2,R*1.03,64),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.05,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending}));d.rotation.x=-Math.PI/2;d.position.y=y-0.01;group.add(d)}
+ const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:col,transparent:true,opacity:.85,blending:THREE.AdditiveBlending}));group.add(l);sxRings.push({o:l,y0:0,ot:y<1,flat:false});
+ const d=new THREE.Mesh(new THREE.RingGeometry(R*0.2,R*1.03,64),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.05,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending}));d.rotation.x=-Math.PI/2;d.position.y=y-0.01;group.add(d);sxRings.push({o:d,y0:y-0.01,ot:y<1,flat:true})}
 ringLine(-0.02,0x25b7ff);ringLine(H-0.02,0xff8a1f);
 {const n=1400,p=new Float32Array(n*3);let s=7;const r=()=>(s=(s*16807)%2147483647)/2147483647;for(let i=0;i<n;i++){const u=r()*2-1,t=r()*Math.PI*2,rad=45+r()*40,w=Math.sqrt(1-u*u);p[i*3]=rad*w*Math.cos(t);p[i*3+1]=H/2+rad*u;p[i*3+2]=rad*w*Math.sin(t)}
  const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(p,3));scene.add(new THREE.Points(g,new THREE.PointsMaterial({color:0x8899bb,size:0.18,transparent:true,opacity:.6,depthWrite:false})))}
@@ -139,7 +141,7 @@ const INFO=[[0,"Moses","Creation, the flood, and the stories of Abraham, Isaac, 
 /* ---------- threads ---------- */
 let lines=null,curves=[],base=null,SEG=24,drawn=0,cps=null,cmaxG=1;
 const rng=(()=>{let s=12345;return()=>(s=(s*16807)%2147483647)/2147483647})();
-function buildThreads(){
+function buildThreads(){const sxk=sxK;if(sxk)sxExplode(0);
  if(lines){group.remove(lines);lines.geometry.dispose();lines.material.dispose();lines=null}
  counts();curves=[];let cmax=1;for(let k=0;k<M.length;k++)if(M[k]>cmax)cmax=M[k];cmaxG=cmax;
  for(let o=0;o<39;o++)for(let n=0;n<27;n++){const c=M[o*27+n];if(!c)continue;const copies=c>=cmax*.5?4:c>=cmax*.15?3:c>=cmax*.04?2:1,I=0.1+0.9*Math.sqrt(c/cmax);for(let k=0;k<copies;k++)curves.push({o,n:n+39,I:I/Math.sqrt(copies)*0.95,j:k,c})}
@@ -154,7 +156,7 @@ function buildThreads(){
     const vi=(ci*SEG*2+s*2+e)*3;pos[vi]=pt.x;pos[vi+1]=pt.y;pos[vi+2]=pt.z;
     const m=0.35+0.65*t;base[vi]=(c0.r*(1-t)+c1.r*t)*cv.I*m;base[vi+1]=(c0.g*(1-t)+c1.g*t)*cv.I*m;base[vi+2]=(c0.b*(1-t)+c1.b*t)*cv.I*m}}});
  const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("color",new THREE.BufferAttribute(new Float32Array(base),3));
- lines=new THREE.LineSegments(g,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));lines.frustumCulled=false;group.add(lines);drawn=curves.length;applyLook()}
+ lines=new THREE.LineSegments(g,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));lines.frustumCulled=false;group.add(lines);drawn=curves.length;applyLook();if(sxk)sxExplode(sxk)}
 function applyLook(){
  if(lines){const arr=lines.geometry.attributes.color.array,per=SEG*6;curves.forEach((cv,ci)=>{let f=1;
   if(jState)f=0.03;else if(selPair)f=(cv.o===selPair.o&&cv.n===selPair.n)?0.35:0.025;else if(selBook!==null)f=(cv.o===selBook||cv.n===selBook)?0.3:0.03;
@@ -304,7 +306,7 @@ function updateLabels(){const w=SW,h=SH,cand=[],BAD=[];
   d.style.opacity=selMode?(c.f<-0.2?"0.9":"1"):Math.min(1,(c.f-0.3)/0.35).toFixed(2);
   d.style.transform=`translate(${pl[0].toFixed(1)}px,${pl[1].toFixed(1)}px) translate(-50%,-100%)`});
  relaxBadges(BAD,taken,w,h);
- ringT.forEach(r=>{if(selBook!==null){r.d.style.display="none";return}const up=r.y>1,sg=up?-1:1;tmp.set(sg*Math.cos(th)*(R+3.4),up?H+3.6:-2.0,sg*Math.sin(th)*(R+3.4)).project(cam);const ry=Math.max(76,Math.min(h-16,(-tmp.y*.5+.5)*h)),rx=Math.max(70,Math.min(w-70,(tmp.x*.5+.5)*w));r.d.style.transform=`translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) translate(-50%,-50%)`;r.d.style.display=(labNT&&jState)?"none":"block";r.d.style.opacity=labelsOn?1:.7});
+ ringT.forEach(r=>{if(selBook!==null){r.d.style.display="none";return}const up=r.y>1,sg=up?-1:1;tmp.set(sg*Math.cos(th)*(R*sxS+3.4),up?H+3.6+sxD:-2.0-sxD,sg*Math.sin(th)*(R*sxS+3.4)).project(cam);const ry=Math.max(76,Math.min(h-16,(-tmp.y*.5+.5)*h)),rx=Math.max(70,Math.min(w-70,(tmp.x*.5+.5)*w));r.d.style.transform=`translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) translate(-50%,-50%)`;r.d.style.display=(labNT&&jState)?"none":"block";r.d.style.opacity=labelsOn?1:.7});
  if(selChap!==null){const m=chMeta.find(x=>x.g===selChap);if(m){tmp.copy(m.pos).project(cam);chLab.style.display="block";chLab.textContent=labOT||chapName(selChap);chLab.style.transform=`translate(${((tmp.x*.5+.5)*w).toFixed(1)}px,${((-tmp.y*.5+.5)*h).toFixed(1)}px) translate(-50%,-140%)`}else chLab.style.display="none"}else chLab.style.display="none"}
 /* ---------- panel ---------- */
 function cardsFor(f,max,feat){const t=T(),idx=[];for(let i=0;i<L;i++)if(vo[i]>=t&&f(i))idx.push(i);idx.sort((a,b)=>vo[b]-vo[a]||a-b);
@@ -780,4 +782,24 @@ function frame(now){if(sheetState==="full"&&!panelMin&&$("panel").classList.cont
 new ResizeObserver(()=>{resize();if(!ptrs.size&&selBook===null)rad=Math.max(rad,fit())}).observe(stage);
 resize();rad=fit();if(!reduce){intro={t:0,r0:fit()*1.7,r1:fit()};rad=intro.r0;el=0.15}buildThreads();syncTools();requestAnimationFrame(frame);
 {let seen=false;try{seen=localStorage.getItem("su_intro_v1")==="1"}catch(e){}uiMode="none";panelHidden=true;sheetState="peek";startLanding();renderSheet();syncTools()}
-window.UNI={/* Section V console: read and set the camera (turn, height, distance); additive, used by ?ui=lab */get view(){return{th,el,rad}},setView:o=>{if(o.th!=null)th=o.th;if(o.el!=null)el=Math.max(-0.6,Math.min(1.45,o.el));if(o.rad!=null)rad=Math.max(14,Math.min(100,o.rad));tTh=null;tRad=null;intro=null;lastTouch=performance.now()},credits,openMap:openMapV,mapState:()=>import("../map/map.ts").then(m=>m.mapState()),chapConn,openRefPicker,keyWords,openVpk,closeVpk,rotate:a=>{th+=a;tTh=null},get el(){return el},get rdVer(){return rdVer},get VTX(){return VTX},get WCACHE(){return WCACHE},get LEX(){return LEX},get CONN(){return CONN},labs:()=>labs.map(d=>d.style.display!=="none"?d.textContent:null).filter(Boolean),openReader,navBack,get navDepth(){return navStack.length},get fullReady(){return !!FULL},vtext,get panelHidden(){return panelHidden},closeIntro,openIntro,storyGo,get storyK(){return storyK},faceP,whyOf,EVD,pick,get uiMode(){return uiMode},get jState(){return jState},get sheet(){return sheetState},get panelMin(){return panelMin},setMin,get lastHits(){return lastHits},JI,J,goStep,openJourney,runSearch:search,promptFor,setSheet,jCount:()=>jCur.length,refQuery,selectChapter,get selChap(){return selChap},chMeta:()=>chMeta,chCur:()=>chCur,get capped(){return chCapped},chapScreen:g=>{const m=chMeta.find(x=>x.g===g);if(!m)return null;tmp.copy(m.pos).project(cam);return{x:(tmp.x*.5+.5)*SW,y:(-tmp.y*.5+.5)*SH}},chs,thumb,INFO,get particles(){return pOn?pCount:0},get perf(){return !pOn},halo,get intro(){return intro},get tRad(){return tRad},surprise,covers,meshes,books,screenOf,get sel(){return selBook},get pair(){return selPair},get labelsOn(){return labelsOn},get th(){return th},get rad(){return rad},get curves(){return curves.length},info:renderer.info,get frames(){return frames},cntBook,M:()=>M,T,L,select,clearSel,tap,facing}}
+/* Section V console. Exploded view: the two rings move apart (books keep their size and
+   shape, threads stay attached and are drawn the same way, re-evaluated through moved control
+   points). X-ray: book covers turn see-through so the threads inside show. k=0 / off = as before. */
+function sxExplode(k){k=Math.max(0,Math.min(1,+k||0));if(k===sxK&&sxP0)return;
+ if(!sxP0)sxP0=books.map(b=>b.pos.clone());
+ if(lines&&cps&&sxCL!==lines){sxC0=cps.slice();sxCL=lines}
+ sxK=k;sxD=H*0.34*k;sxS=1+0.14*k;
+ books.forEach((b,i)=>{const q=sxP0[i];b.pos.set(q.x*sxS,q.y+(b.ot?-sxD:sxD),q.z*sxS);meshes[i].position.copy(b.pos)});
+ sxRings.forEach(r=>{r.o.position.y=r.y0+(r.ot?-sxD:sxD);if(r.flat)r.o.scale.set(sxS,sxS,1);else r.o.scale.set(sxS,1,sxS)});
+ EVM.forEach(m=>{const b=books[m.i];m.sp.position.set(b.pos.x,b.pos.y+b.h+0.75,b.pos.z)});
+ if(selBook!==null){const b=books[selBook];halo.position.set(b.pos.x,b.pos.y+b.h*.5,b.pos.z);pulse.position.set(b.pos.x,b.pos.y+0.03,b.pos.z)}
+ if(lines&&sxC0&&sxC0.length===cps.length){const pos=lines.geometry.attributes.position.array,c=sxC0;
+  curves.forEach((cv,ci)=>{const o=ci*12,qa=sxP0[cv.o],qb=sxP0[cv.n],ax=qa.x*(sxS-1),az=qa.z*(sxS-1),bx=qb.x*(sxS-1),bz=qb.z*(sxS-1);
+   const P=[c[o]+ax,c[o+1]-sxD,c[o+2]+az,c[o+3]*sxS,c[o+4]-sxD*0.5,c[o+5]*sxS,c[o+6]*sxS,c[o+7]+sxD*0.5,c[o+8]*sxS,c[o+9]+bx,c[o+10]+sxD,c[o+11]+bz];
+   cps.set(P,o);
+   for(let s=0;s<SEG;s++)for(let e=0;e<2;e++){const t=(s+e)/SEG,u=1-t,w0=u*u*u,w1=3*u*u*t,w2=3*u*t*t,w3=t*t*t,vi=(ci*SEG*2+s*2+e)*3;
+    pos[vi]=w0*P[0]+w1*P[3]+w2*P[6]+w3*P[9];pos[vi+1]=w0*P[1]+w1*P[4]+w2*P[7]+w3*P[10];pos[vi+2]=w0*P[2]+w1*P[5]+w2*P[8]+w3*P[11]}});
+  lines.geometry.attributes.position.needsUpdate=true}
+ if(selBook!==null||jState)applyLook()}
+function sxXray(on){sxR=!!on;meshes.forEach(m=>m.material.forEach(mt=>{if(mt.transparent!==sxR){mt.transparent=sxR;mt.depthWrite=!sxR;mt.needsUpdate=true}mt.opacity=sxR?0.14:1}))}
+window.UNI={/* Section V console: read and set the camera (turn, height, distance); additive, used by ?ui=lab */get view(){return{th,el,rad}},explode:k=>sxExplode(k),get exploded(){return sxK},xray:on=>sxXray(on),get xrayOn(){return sxR},setView:o=>{if(o.th!=null)th=o.th;if(o.el!=null)el=Math.max(-0.6,Math.min(1.45,o.el));if(o.rad!=null)rad=Math.max(14,Math.min(100,o.rad));tTh=null;tRad=null;intro=null;lastTouch=performance.now()},credits,openMap:openMapV,mapState:()=>import("../map/map.ts").then(m=>m.mapState()),chapConn,openRefPicker,keyWords,openVpk,closeVpk,rotate:a=>{th+=a;tTh=null},get el(){return el},get rdVer(){return rdVer},get VTX(){return VTX},get WCACHE(){return WCACHE},get LEX(){return LEX},get CONN(){return CONN},labs:()=>labs.map(d=>d.style.display!=="none"?d.textContent:null).filter(Boolean),openReader,navBack,get navDepth(){return navStack.length},get fullReady(){return !!FULL},vtext,get panelHidden(){return panelHidden},closeIntro,openIntro,storyGo,get storyK(){return storyK},faceP,whyOf,EVD,pick,get uiMode(){return uiMode},get jState(){return jState},get sheet(){return sheetState},get panelMin(){return panelMin},setMin,get lastHits(){return lastHits},JI,J,goStep,openJourney,runSearch:search,promptFor,setSheet,jCount:()=>jCur.length,refQuery,selectChapter,get selChap(){return selChap},chMeta:()=>chMeta,chCur:()=>chCur,get capped(){return chCapped},chapScreen:g=>{const m=chMeta.find(x=>x.g===g);if(!m)return null;tmp.copy(m.pos).project(cam);return{x:(tmp.x*.5+.5)*SW,y:(-tmp.y*.5+.5)*SH}},chs,thumb,INFO,get particles(){return pOn?pCount:0},get perf(){return !pOn},halo,get intro(){return intro},get tRad(){return tRad},surprise,covers,meshes,books,screenOf,get sel(){return selBook},get pair(){return selPair},get labelsOn(){return labelsOn},get th(){return th},get rad(){return rad},get curves(){return curves.length},info:renderer.info,get frames(){return frames},cntBook,M:()=>M,T,L,select,clearSel,tap,facing}}
