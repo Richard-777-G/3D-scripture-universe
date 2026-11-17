@@ -157,3 +157,43 @@ test.describe("new reader · behaviour", () => {
     await expect(app.locator("#rp")).toHaveCount(0);
   });
 });
+
+test.describe("new reader · never opens on an empty tab", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("John 3:16 has no Best links, so it opens on Old ↔ New and says so; every tab shows its count @phone", async ({ app }) => {
+    await expect.poll(() => uni(app, (U) => U.intro)).toBeFalsy();
+    await uni(app, (U) => U.openReader(42, 3));
+    await expect(app.locator("#rp-title")).toHaveText("John 3");
+    // The data decides: John 3:16 has no Best-evidence link.
+    await expect(app.locator("#rp .rp-verse").nth(15)).not.toContainText(/\d+$/);
+    await app.locator("#rp .rp-verse").nth(15).click();
+    await expect(app.locator("#rp-title")).toHaveText("John 3:16");
+    const seg = app.locator("#rp .r-seg-b");
+    await expect(seg.nth(1)).toHaveAttribute("data-selected", "true");
+    await expect(seg.nth(0).locator(".r-seg-c")).toHaveText("0");
+    const n = (await seg.nth(1).locator(".r-seg-c").innerText()).trim();
+    expect(Number(n.replace(/,/g, ""))).toBeGreaterThan(0);
+    await expect(app.locator("#rp")).toContainText(`No best-evidence links for this verse. Showing all ${n} Old ↔ New links.`);
+    await expect(app.locator("#rp .r-group").first()).toBeVisible();
+    await expect(app.locator("#rp")).not.toContainText("No connected verses are recorded");
+    // The All tab shows its count too, at least as many as Old ↔ New.
+    await expect(seg.nth(2).locator(".r-seg-c")).toHaveText(/\d/, { timeout: 30_000 });
+    expect(Number((await seg.nth(2).locator(".r-seg-c").innerText()).replace(/,/g, ""))).toBeGreaterThanOrEqual(Number(n.replace(/,/g, "")));
+    // Choosing Best by hand clears the note and shows the plain empty message with a way on.
+    await seg.nth(0).click();
+    await expect(app.locator("#rp")).not.toContainText("Showing all");
+    await expect(app.locator("#rp")).toContainText("No connected verses are recorded for this verse in this set.");
+    expect(await layoutProblems(app)).toEqual([]);
+  });
+
+  test("a verse with Best links still opens on Best, and All shows its count", async ({ app }) => {
+    await expect.poll(() => uni(app, (U) => U.intro)).toBeFalsy();
+    await uni(app, (U) => U.openReader(22, 53));
+    await app.locator("#rp .rp-verse").nth(6).click();
+    const seg = app.locator("#rp .r-seg-b");
+    await expect(seg.nth(0)).toHaveAttribute("data-selected", "true");
+    await expect(seg.nth(2).locator(".r-seg-c")).toHaveText(/\d/, { timeout: 30_000 });
+    await expect(app.locator("#rp")).not.toContainText("No best-evidence links");
+  });
+});

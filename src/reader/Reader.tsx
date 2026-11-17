@@ -336,16 +336,65 @@ function VerseSheet(props: {
   onSpeak(): void;
 }) {
   const { data, host, v, lines } = props;
-  const [set, setSet] = useState<LinkSet>("best");
-  const [links, setLinks] = useState<Link[] | null>(data.best(v));
-  const [state, setState] = useState<"ok" | "loading" | "failed">("ok");
-  const [counts, setCounts] = useState<Partial<Record<LinkSet, number>>>({ best: data.best(v).length });
+  const bestNow = data.best(v);
+  // Never open on an empty tab: with no Best links, the sheet waits for the next set that has some.
+  const [set, setSet] = useState<LinkSet | null>(bestNow.length ? "best" : null);
+  const [autoNote, setAutoNote] = useState("");
+  const [links, setLinks] = useState<Link[] | null>(bestNow.length ? bestNow : null);
+  const [state, setState] = useState<"ok" | "loading" | "failed">(bestNow.length ? "ok" : "loading");
+  const [counts, setCounts] = useState<Partial<Record<LinkSet, number>>>({ best: bestNow.length });
   const [copied, setCopied] = useState<"" | "yes" | "no">("");
   const [retry, setRetry] = useState(0);
   const ot = data.bookOf(v) < 39;
 
-  // Load the chosen set; the Old <-> New count is fetched in the background so it shows at once.
+  // Every tab shows its count: Old <-> New and All load in the background.
   useEffect(() => {
+    let live = true;
+    data
+      .links(v, "otnt")
+      .then((l) => {
+        if (live) setCounts((c) => ({ ...c, otnt: l.length }));
+        return data.links(v, "all");
+      })
+      .then((l) => live && setCounts((c) => ({ ...c, all: l.length })))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [data, v]);
+
+  // With no Best links, open on Old <-> New, then All, and say so plainly.
+  useEffect(() => {
+    if (set !== null) return;
+    let live = true;
+    (async () => {
+      try {
+        for (const k of ["otnt", "all"] as const) {
+          const l = await data.links(v, k);
+          if (!live) return;
+          if (l.length) {
+            setAutoNote(
+              k === "otnt"
+                ? `No best-evidence links for this verse. Showing all ${plural(l.length, "Old ↔ New link")}.`
+                : `No best-evidence or Old ↔ New links for this verse. Showing all ${plural(l.length, "link")}.`,
+            );
+            setSet(k);
+            return;
+          }
+        }
+        if (live) setSet("best");
+      } catch {
+        if (live) setState("failed");
+      }
+    })();
+    return () => {
+      live = false;
+    };
+  }, [data, v, set, retry]);
+
+  // Load the chosen set.
+  useEffect(() => {
+    if (set === null) return;
     let live = true;
     if (set === "best") {
       setLinks(data.best(v));
@@ -366,14 +415,6 @@ function VerseSheet(props: {
       live = false;
     };
   }, [data, v, set, retry]);
-  useEffect(() => {
-    let live = true;
-    data.links(v, "otnt").then((l) => live && setCounts((c) => ({ ...c, otnt: l.length })), () => {});
-    if (data.ready("all")) data.links(v, "all").then((l) => live && setCounts((c) => ({ ...c, all: l.length })), () => {});
-    return () => {
-      live = false;
-    };
-  }, [data, v]);
 
   async function copy() {
     try {
@@ -425,8 +466,11 @@ function VerseSheet(props: {
             aria-label="Which connections to show"
             selectionMode="single"
             disallowEmptySelection
-            selectedKeys={[set]}
-            onSelectionChange={(k) => setSet([...k][0] as LinkSet)}
+            selectedKeys={set ? [set] : []}
+            onSelectionChange={(k) => {
+              setAutoNote("");
+              setSet([...k][0] as LinkSet);
+            }}
           >
             {(["best", "otnt", "all"] as LinkSet[]).map((k) => (
               <ToggleButton key={k} id={k} className="r-seg-b" aria-label={counts[k] !== undefined ? `${setName(k)}, ${plural(counts[k]!, "verse")}` : setName(k)}>
@@ -437,8 +481,11 @@ function VerseSheet(props: {
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
+          {autoNote && state === "ok" && <Notice>{autoNote}</Notice>}
           <p className="rp-hint">
-            {set === "best"
+            {set === null
+              ? "Finding the connected verses…"
+              : set === "best"
               ? "Links the wheel draws: sourced prophecies, and passages whose words match."
               : set === "otnt"
                 ? "Every listed link between this verse and the other Testament, labelled by what supports it."
@@ -453,7 +500,16 @@ function VerseSheet(props: {
               </Button>
             </Notice>
           )}
-          {state === "ok" && links && <Groups data={data} host={host} links={links} lines={lines} set={set} onWider={set !== "all" ? () => setSet(set === "best" ? "otnt" : "all") : undefined} />}
+          {state === "ok" && links && set && (
+            <Groups
+              data={data}
+              host={host}
+              links={links}
+              lines={lines}
+              set={set}
+              onWider={set !== "all" ? () => setSet(set === "best" ? "otnt" : "all") : undefined}
+            />
+          )}
         </TabPanel>
         <TabPanel id="words" className="r-tabpanel">
           <Words data={data} v={v} ot={ot} />
