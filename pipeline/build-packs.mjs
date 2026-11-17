@@ -47,6 +47,19 @@ for (const k of ["journeys", "story", "evidence", "qa"]) put(k, "json", JSON.str
 put("sources", "json", JSON.stringify(input.sources.datasets));
 put("evidence-centre", "json", JSON.stringify(input.evidenceCentre));
 for (const [k, text] of Object.entries(input.assets)) put(k, k.startsWith("v_") ? "txt" : "json", text);
+// The map's painted relief (Natural Earth I, public domain), made by pipeline/relief.py and
+// checked against the checksum recorded beside it.
+{
+  const meta = JSON.parse(fs.readFileSync(path.join(ROOT, "data/raw/relief/bible-world.json"), "utf8"));
+  const jpg = fs.readFileSync(path.join(ROOT, "data/raw/relief/bible-world.jpg"));
+  const got = crypto.createHash("sha256").update(jpg).digest("hex");
+  if (got !== meta.sha256) {
+    console.error(`relief image sha256 mismatch: expected ${meta.sha256}, got ${got}. Run pipeline/relief.py again.`);
+    process.exit(1);
+  }
+  put("relief", "jpg", jpg);
+  put("reliefmeta", "json", JSON.stringify({ bounds: meta.bounds, size: meta.size, source: meta.source.name, version: meta.source.version }));
+}
 // Theographic people, places and events (loaded on demand by later features)
 for (const k of ["people", "places", "events"]) put(k, "json", JSON.stringify(input.theographic[k]));
 

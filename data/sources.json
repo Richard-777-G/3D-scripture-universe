@@ -203,6 +203,18 @@
     "geobase"
    ],
    "origin": "nvkelso/natural-earth-vector geojson/ne_10m_* (pinned in pipeline/sources.lock.json)"
+  },
+  {
+   "id": "natural-earth-relief",
+   "name": "Natural Earth I with Shaded Relief, Water and Drainages",
+   "url": "https://www.naturalearthdata.com/downloads/10m-raster-data/10m-natural-earth-1/",
+   "licence": "Public domain",
+   "attribution": "The painted map of mountains, deserts, rivers and seas is Natural Earth I (version 2.0.0, public domain, naturalearthdata.com), cut to the Bible world.",
+   "packs": [
+    "relief",
+    "reliefmeta"
+   ],
+   "origin": "naciscdn.org NE1_HR_LC_SR_W_DR.zip, sha256 8841d081…adeb56, cut and re-projected by pipeline/relief.py"
   }
  ]
 }
