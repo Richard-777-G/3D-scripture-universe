@@ -31,6 +31,21 @@ function newUi(): boolean {
   }
 }
 
+/**
+ * Section V console (brief V7): ?ui=lab turns it on for this browser; ?ui=new or ?ui=classic
+ * turns it off. It stays behind this switch until Richard says yes.
+ */
+function labUi(): boolean {
+  const q = new URLSearchParams(location.search).get("ui");
+  try {
+    if (q === "lab") localStorage.setItem("su-lab", "1");
+    if (q === "new" || q === "classic") localStorage.removeItem("su-lab");
+    return localStorage.getItem("su-lab") === "1";
+  } catch {
+    return q === "lab";
+  }
+}
+
 async function run(): Promise<void> {
   // The app code is not built to start twice; if it failed part-way, start clean.
   if (appStarted) return location.reload();
@@ -47,6 +62,11 @@ async function run(): Promise<void> {
     appStarted = true;
     app.start(data);
     (window as unknown as { SU_DATA_VERSION: string }).SU_DATA_VERSION = data.version;
+    if (labUi()) {
+      import("./lab/mount")
+        .then((m) => m.mountLab(data))
+        .catch((e) => console.error("The console could not start; the wheel still works.", e));
+    }
     if (newUi()) {
       import("./reader/mount")
         .then((m) => m.mountReader(data))
