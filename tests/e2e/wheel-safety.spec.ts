@@ -105,11 +105,14 @@ for (const vp of [{ name: "phone 360", width: 360, height: 780 }, { name: "deskt
       await app.locator("#pc").getByRole("button", { name: /^Chapter 53, \d[\d,]* connections?$/ }).click();
       expect(await uni(app, (U) => U.selChap)).toBe(g);
       // 3. "Read Isaiah 53" opens it in the reader; tap verse 7 (quoted in Acts 8:32).
+      // The new reader (#rp) is the default since PR #22 was approved; the classic one is checked in reader.spec.ts.
       await app.locator("#pc").getByRole("button", { name: "Read Isaiah 53" }).click();
-      await expect(app.locator("#pc")).toContainText("Isaiah 53");
-      await app.locator('#pc [data-rv]').nth(6).click();
-      await expect(app.locator("#pc")).toContainText("Acts 8");
-      await expect(app.locator("#pc")).not.toContainText("went wrong");
+      await expect(app.locator("#rp-title")).toHaveText("Isaiah 53");
+      await app.locator("#rp .rp-verse").nth(6).click();
+      await expect(app.locator("#rp")).toContainText("Acts 8:32");
+      await expect(app.locator("#rp")).not.toContainText("went wrong");
+      // The wheel still shows Isaiah while the reader is open.
+      expect(await uni(app, (U) => U.sel)).toBe(22);
     });
 
     test("orbit, zoom and tapping a pair of books work, and the wheel keeps drawing", async ({ app }) => {
