@@ -54,7 +54,7 @@ async function layoutProblems(page: Page): Promise<string[]> {
         out.push(`button "${(e.textContent || e.getAttribute("aria-label") || "").trim().slice(0, 30)}" is too small (${Math.round(b.width)}×${Math.round(b.height)})`);
     }
     // Things side by side in one row must not touch each other.
-    for (const row of rp.querySelectorAll(".rp-head,.rp-tools,.r-vs-actions,.r-seg,.r-link-foot,.r-badges,.rp-foot,.r-group-h,.r-tablist")) {
+    for (const row of rp.querySelectorAll(".rp-head,.rp-tools,.r-vs-actions,.r-seg,.r-link-foot,.r-badges,.rp-foot,.r-group-h,.r-tablist,.r-kwi-top,.r-kwi-vv,.r-word-b,.r-kw-b")) {
       const kids = [...row.children].filter(visible);
       for (let i = 0; i < kids.length; i++)
         for (let j = i + 1; j < kids.length; j++)
@@ -219,6 +219,40 @@ for (const vp of [{ name: "phone 360", width: 360, height: 780 }, { name: "deskt
       await app.locator("#rp").getByRole("button", { name: /Side by side with another version/ }).click();
       await app.getByRole("option", { name: /^None/ }).click();
       await expect(app.locator("#rp .r-par")).toHaveCount(0);
+    });
+  });
+}
+
+for (const vp of [{ name: "phone 360", width: 360, height: 780 }, { name: "desktop 1280", width: 1280, height: 800 }]) {
+  test.describe(`new reader · key words · ${vp.name}`, () => {
+    test.use({ viewport: { width: vp.width, height: vp.height } });
+
+    test("key Hebrew words open, fit, match the classic reader, and a verse button opens that verse @phone", async ({ app }) => {
+      await openNew(app);
+      const kw = app.locator("#rp .r-kw");
+      await expect(kw.getByRole("button", { name: /Key Hebrew words in this chapter/ })).toHaveAttribute("aria-expanded", "false");
+      await expect(kw).not.toContainText("Loading", { timeout: 30_000 });
+      await kw.getByRole("button", { name: /Key Hebrew words in this chapter/ }).click();
+      await expect(kw.locator(".r-kwi").first()).toBeVisible();
+      await expect(kw.locator(".r-kwi").first()).toContainText(/\d+ times in this chapter/);
+      await expect(kw).toContainText("STEPBible.org (CC BY 4.0)");
+      expect(await layoutProblems(app)).toEqual([]);
+      // Same words as the classic reader works out from the same data.
+      const mine = await kw.locator(".r-kwi .r-word-o").allInnerTexts();
+      const classic = await uni(app, async (U) => {
+        for (let i = 0; i < 100; i++) {
+          const k = U.keyWords(22, 53);
+          if (k) return k.map((x: any) => x.L[0]);
+          await new Promise((r) => setTimeout(r, 200));
+        }
+        return null;
+      });
+      if (classic) expect(mine).toEqual(classic);
+      // A verse button opens that verse with its connections.
+      const btn = kw.locator(".r-vbtn").first();
+      const label = (await btn.innerText()).trim();
+      await btn.click();
+      await expect(app.locator("#rp-title")).toHaveText(`Isaiah 53:${label.replace("v. ", "")}`);
     });
   });
 }

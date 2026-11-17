@@ -798,3 +798,124 @@ body.su-nr #pshow {
     display: none;
   }
 }
+
+/* ---- Key words (chapter) ---- */
+.r-kw {
+  margin: 0 0 var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  max-width: 65ch;
+}
+.r-kw-h {
+  margin: 0;
+  font: inherit;
+}
+.r-kw-b {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--s3) var(--s4);
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.r-kw-b[data-focus-visible] {
+  outline: 3px solid var(--action);
+  outline-offset: -3px;
+}
+.r-kw-t {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font: 600 var(--t-sm) / 1.35 var(--font-ui);
+}
+.r-kw-t small {
+  font: 400 var(--t-xs) / 1.4 var(--font-ui);
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.r-kw-i {
+  flex: none;
+  color: var(--ink-3);
+  transition: transform var(--ease);
+}
+.r-kw[data-expanded] .r-kw-i {
+  transform: rotate(180deg);
+}
+.r-kw-p {
+  padding: 0 var(--s4) var(--s4);
+}
+.r-kwl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.r-kwi {
+  padding: var(--s3) 0;
+  border-top: 1px solid var(--line);
+}
+.r-kwi-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s3);
+  align-items: baseline;
+}
+/* The word list's grid areas do not apply here: the original word, then how it sounds, side by side. */
+.r-kwi-top > .r-word-o,
+.r-kwi-top > .r-word-t {
+  grid-area: auto;
+  min-width: 0;
+}
+.r-kwi-top .r-word-o.r-he {
+  text-align: left;
+}
+.r-kwi-g {
+  margin: var(--s1) 0 0;
+  font: 600 var(--t-sm) / 1.4 var(--font-ui);
+}
+.r-kwi-m {
+  margin: var(--s1) 0 0;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.r-kwi-m a {
+  color: var(--action);
+  text-underline-offset: 3px;
+}
+.r-kwi-vv {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+  margin-top: var(--s2);
+}
+.rp .r-vbtn {
+  min-height: 44px;
+  min-width: 56px;
+  padding: 0 var(--s3);
+  font-size: var(--t-xs);
+}
+.r-kwi-more {
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+}
+.r-kwn {
+  margin: var(--s3) 0 0;
+  padding-top: var(--s3);
+  border-top: 1px solid var(--line);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.r-he-i {
+  font-family: var(--font-he);
+}

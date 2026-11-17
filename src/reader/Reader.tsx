@@ -9,6 +9,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   Button,
+  Disclosure,
+  DisclosurePanel,
   Dialog,
   DialogTrigger,
   Heading,
@@ -49,7 +51,7 @@ import {
   Volume2,
   X,
 } from "lucide-react";
-import { LABELS, VERSIONS, strongest, type Link, type LinkSet, type ReaderData, type Word, type Lex } from "./data";
+import { LABELS, VERSIONS, stepUrl, strongest, type KeyWords, type Link, type LinkSet, type ReaderData, type Word, type Lex } from "./data";
 
 export interface Host {
   /** open a chapter through the classic app, so the wheel follows */
@@ -295,6 +297,7 @@ export function Reader(props: {
               </p>
               <p className="rp-hint">Tap a verse to see the verses it connects to.</p>
             </div>
+            <KeyWordsBox key={`${b}:${c}`} data={data} b={b} c={c} onVerse={(k) => setVerse(v0 + Math.max(k, 1) - 1)} />
             <ol className="rp-verses" aria-label={`${name}, ${plural(n, "verse")}`}>
               {Array.from({ length: n }, (_, k) => {
                 const v = v0 + k, m = chapterLinks.per[k];
@@ -743,6 +746,105 @@ function VersionPicker(props: { prefs: Prefs; setPrefs(p: Prefs): void }) {
         </ListBox>
       </Popover>
     </Select>
+  );
+}
+
+/** Key Hebrew or Greek words of the chapter (closed until opened), as in the classic reader. */
+function KeyWordsBox(props: { data: ReaderData; b: number; c: number; onVerse(k: number): void }) {
+  const he = props.b < 39;
+  const lang = he ? "Hebrew" : "Greek";
+  const [kw, setKw] = useState<KeyWords | null | undefined>(undefined);
+  const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    let live = true;
+    setKw(undefined);
+    props.data.keyWords(props.b, props.c).then((k) => live && setKw(k), () => live && setKw(null));
+    return () => {
+      live = false;
+    };
+  }, [props.data, props.b, props.c, retry]);
+  if (kw && !kw.words.length && !kw.names.length) return null;
+  const gloss = (g: string) => (g || "").split(":")[0].trim();
+  const first = (d: string) => {
+    const t = (d || "").split("\n")[0];
+    return t.length > 180 ? t.slice(0, 180).replace(/\s\S*$/, "") + " …" : t;
+  };
+  return (
+    <Disclosure className="r-kw">
+      <Heading level={4} className="r-kw-h">
+        <Button slot="trigger" className="r-kw-b">
+          <span className="r-kw-t">
+            Key {lang} words in this chapter
+            <small>{kw === undefined ? "Loading…" : kw === null ? "Could not be loaded" : kw.words.length ? kw.words.map((k) => gloss(k.lex[2])).join(" · ") : "People and places"}</small>
+          </span>
+          <ChevronDown aria-hidden size={20} className="r-kw-i" />
+        </Button>
+      </Heading>
+      <DisclosurePanel className="r-kw-p">
+        {kw === undefined && <Notice>Loading the {lang} key words…</Notice>}
+        {kw === null && (
+          <Notice tone="bad">
+            The {lang} key words could not be loaded.{" "}
+            <Button className="r-q r-inline" onPress={() => setRetry(retry + 1)}>
+              Try again
+            </Button>
+          </Notice>
+        )}
+        {kw && (
+          <>
+            <ul className="r-kwl">
+              {kw.words.map((k) => (
+                <li key={k.strong} className="r-kwi">
+                  <div className="r-kwi-top">
+                    <span className={"r-word-o" + (he ? " r-he" : "")} lang={he ? "he" : "grc"} dir={he ? "rtl" : "ltr"}>
+                      {k.lex[0]}
+                    </span>
+                    <span className="r-word-t">{k.lex[1]}</span>
+                  </div>
+                  <p className="r-kwi-g">
+                    “{gloss(k.lex[2])}” · {plural(k.times, "time")} in this chapter
+                  </p>
+                  {k.lex[3] && (
+                    <p className="r-kwi-m">
+                      {first(k.lex[3])}{" "}
+                      <a href={stepUrl(k.strong)} target="_blank" rel="noopener noreferrer">
+                        Full entry on STEPBible
+                      </a>
+                    </p>
+                  )}
+                  <div className="r-kwi-vv" role="group" aria-label={`Verses with “${gloss(k.lex[2])}”`}>
+                    {k.verses.slice(0, 10).map((v) => (
+                      <Button key={v} className="r-s r-vbtn" onPress={() => props.onVerse(v)} aria-label={v === 0 ? "The title" : `Verse ${v}`}>
+                        {v === 0 ? "Title" : `v. ${v}`}
+                      </Button>
+                    ))}
+                    {k.verses.length > 10 && <span className="r-kwi-more">+{k.verses.length - 10} more</span>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+            {kw.names.length > 0 && (
+              <p className="r-kwn">
+                <b>People and places named:</b>{" "}
+                {kw.names.map((n, i) => (
+                  <span key={i}>
+                    {i > 0 && " · "}
+                    <span lang={he ? "he" : "grc"} className={he ? "r-he-i" : ""}>
+                      {n.lex[0]}
+                    </span>{" "}
+                    {n.lex[2]}
+                  </span>
+                ))}
+              </p>
+            )}
+            <p className="rp-credit">
+              Words used two or more times in this chapter, most frequent first. Everyday words like “say”, “be” and “come”, and names, are left out. Tap a verse to read it with its original words. Words and meanings:
+              STEPBible.org (CC BY 4.0){he ? "" : ", Dodson Lexicon (public domain)"}.
+            </p>
+          </>
+        )}
+      </DisclosurePanel>
+    </Disclosure>
   );
 }
 
