@@ -1,10 +1,74 @@
 # Next-level brief: Scripture Universe for every age
 
-Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. **Section U (the Universe, 16 Nov 2026) is now the direction and its order (U7) comes first; it overrides anything below that disagrees.** Earlier order: C (redesign, design-first with Richard's approval) and D (all connections) are now top priority; A is done (PRs #8, #9); B continues alongside; then stages 1–8 inside the new design. Each numbered stage is its own pull request (or a short series), merged only when green.
+Owner: Richard. Written 2026-11-06. This is the working spec for the next stage. **Section V (the Bible as a live 3D simulator, 17 Nov 2026) replaces all screen-design work so far and comes first; Section U (the Universe, 16 Nov 2026) follows for the worlds; each overrides anything below that disagrees.** Earlier order: C (redesign, design-first with Richard's approval) and D (all connections) are now top priority; A is done (PRs #8, #9); B continues alongside; then stages 1–8 inside the new design. Each numbered stage is its own pull request (or a short series), merged only when green.
 
 The goal: a 7-year-old, a busy adult, and an 80-year-old with poor eyesight can each open the app and use it without help. The data stays honest and sourced, and the 3D wheel stays the heart of the app.
 
 ---
+
+## V. The Bible as a live 3D simulator (Richard, 17 Nov 2026; replaces all screen-design work so far)
+
+**V1. The vision.** Scripture Universe becomes a "how it works" 3D simulator of the Bible, in the style of Anthropic's "Grain 1" and "Rime 1" how-it-works pages, the V8 and Strandbeest simulators from the open-source teardown skill (github.com/elvarofficial/teardown, MIT), and the "Pelagos OC-8" octopus console. **The existing 3D wheel is the machine.** Everything around it is the instrument console that explains it.
+
+**V2. Do not touch.** The wheel's geometry, books, threads and current look stay exactly as they are (CLAUDE.md rule 9). Wheel colours change only with Richard's approval. New layers may be added to the scene (callouts, glows, exploded positions, camera moves); nothing that is there is replaced.
+
+**V3. One model drives everything.** One state model, written first:
+- selected book, chapter and verse
+- thread filter (Best / Old ↔ New / All)
+- story step
+- section
+- camera view
+
+The 3D scene, every panel, every number and every label read from it. No number on screen is typed by hand; all counts come from the data.
+
+**V4. The console** (desktop 1600 × 900 first, then phone):
+1. Top left: "Scripture Universe" and one big live number for the current selection.
+2. A strip of 6 live metric tiles under the scene, like Grain 1, each with a small unit label and a thin coloured underline:
+   - books
+   - chapters
+   - verses in the selection
+   - threads shown
+   - best-evidence links
+   - places named
+3. Top right: a short plain paragraph, "How does the Old Testament point to Jesus?", that changes with the selection.
+4. A schematic panel that redraws the wheel in 2D from the same model: the 66 books as a strip grouped by section (Law … Revelation), with the selected book and its links lit.
+5. A section dial, like Grain 1's process selector: turning it moves through the sections, and the wheel turns to match.
+6. Numbered callouts with thin leader lines, pinned to real books in 3D (1 Isaiah, 2 Acts …), like the "Dosing hoppers" and "Condenser and fan" tags.
+7. Subsystem buttons:
+   - **Isolate** a section
+   - **Exploded:** the two rings move apart and the threads stretch
+   - **X-ray:** books turn to glass and threads glow
+   - **Only this verse's threads**
+8. Camera buttons: Hero, Front, Side, Top, Inside the wheel. Smooth, cinematic moves.
+9. A story timeline along the bottom: the 16 story steps as stations; Play runs the tour.
+10. The tour: left alone, a cursor drives the page through the story. Any tap hands control to the visitor; 25 seconds of quiet brings the tour back.
+11. A second view, "Constellation": every verse as a star and connections as lines, clustered by book, like a knowledge-graph brain. Instanced geometry, built from the real data.
+
+**V5. Look.**
+- A light studio stage by default: soft floor shadow, pale background, and one accent for what is working now, like Grain 1 and Rime 1. The current Night look stays as an option.
+- Small uppercase labels, thin rules, crisp numbers.
+- No generic card layouts, no walls of text.
+
+**V6. Quality bar** (from the teardown method):
+- Warm every shader before the first frame.
+- Quality tiers for phones and integrated GPUs: lower pixel ratio, smaller shadows, panels redrawn every other frame. Target 30 fps on a mid-range Android.
+- Before showing Richard, render a still at every tour beat and check for:
+  - labels covering what they name,
+  - parts passing through each other,
+  - numbers that disagree with the scene.
+- Respect reduced motion. Keep the Simple view for old phones and screen readers.
+- All existing tests, and the wheel safety test, stay green.
+
+**V7. How to ship.**
+- Build it inside the real app, behind `?ui=lab`, using the real wheel engine. No separate app.
+- Phases, each its own PR:
+  - Phase 1: the model, metric strip, paragraph, callouts and camera buttons.
+  - Phase 2: schematic, dial, exploded and X-ray.
+  - Phase 3: story timeline and tour.
+  - Phase 4: Constellation.
+- Every PR includes a 20-second screen recording of the tour (frames rendered in headless Chrome, encoded with ffmpeg), 390 × 664 and 1600 × 900 screenshots, and the preview link.
+- Wait for Richard's yes before making `?ui=lab` the default.
+- The teardown skill's code may be read as a reference (MIT). If any of it is reused, record it in docs/RESOURCE_AUDIT.md and on the Credits screen.
 
 ## U. The Universe (Richard, 16 Nov 2026; overrides anything else in this brief that disagrees)
 
