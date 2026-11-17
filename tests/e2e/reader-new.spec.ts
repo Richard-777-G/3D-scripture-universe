@@ -197,3 +197,28 @@ test.describe("new reader · never opens on an empty tab", () => {
     await expect(app.locator("#rp")).not.toContainText("No best-evidence links");
   });
 });
+
+for (const vp of [{ name: "phone 360", width: 360, height: 780 }, { name: "desktop 1280", width: 1280, height: 800 }]) {
+  test.describe(`new reader · side by side · ${vp.name}`, () => {
+    test.use({ viewport: { width: vp.width, height: vp.height } });
+
+    test("a second version shows under every verse and in the verse sheet, and fits @phone", async ({ app }) => {
+      await openNew(app);
+      await app.locator("#rp").getByRole("button", { name: /Side by side with another version/ }).click();
+      await app.getByRole("option", { name: /^BSB/ }).click();
+      await expect(app.locator("#rp .rp-sub")).toContainText("side by side with Berean Standard Bible");
+      // Every verse of Isaiah 53 has its BSB line under it.
+      await expect(app.locator("#rp .rp-verse .r-par")).toHaveCount(12, { timeout: 30_000 });
+      await expect(app.locator("#rp .rp-verse").first().locator(".r-par")).toContainText("BSB");
+      expect(await layoutProblems(app)).toEqual([]);
+      await app.locator("#rp .rp-verse").nth(6).click();
+      await expect(app.locator("#rp .r-vs-text .r-par")).toContainText("BSB");
+      expect(await layoutProblems(app)).toEqual([]);
+      // The choice is kept; "None" turns it off.
+      await app.locator("#rp").getByRole("button", { name: /^Back to Isaiah 53/ }).click();
+      await app.locator("#rp").getByRole("button", { name: /Side by side with another version/ }).click();
+      await app.getByRole("option", { name: /^None/ }).click();
+      await expect(app.locator("#rp .r-par")).toHaveCount(0);
+    });
+  });
+}
