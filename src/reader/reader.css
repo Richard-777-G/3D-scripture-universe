@@ -343,6 +343,34 @@ body.su-nr #pshow {
 .r-vs-text.r-te {
   font-family: var(--font-te);
 }
+.r-par {
+  display: block;
+  margin-top: var(--s1);
+  padding-left: var(--s3);
+  border-left: 2px solid var(--line);
+  font: 400 var(--t-sm) / 1.6 var(--font-serif);
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.r-par b {
+  font: 600 var(--t-xs) / 1 var(--font-ui);
+  color: var(--ink-3);
+  margin-right: var(--s1);
+}
+.r-par.r-te {
+  font-family: var(--font-te);
+}
+.rp-verse .r-par {
+  grid-column: 2;
+  grid-row: 2;
+}
+.rp .r-cmp {
+  flex: none;
+}
+.rp .r-on {
+  border-color: var(--action);
+  color: var(--action);
+}
 .rp-verse .r-cnt {
   display: inline-flex;
   align-items: center;
@@ -762,4 +790,11 @@ body.su-nr #pshow {
   min-width: 3.2em;
   text-align: center;
   font-variant-numeric: tabular-nums;
+}
+
+/* Narrow phones: the version button shows only the short name (KJV), never a clipped long one. */
+@media (max-width: 479px) {
+  .rp .r-ver .r-opt-n {
+    display: none;
+  }
 }

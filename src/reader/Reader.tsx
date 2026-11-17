@@ -27,6 +27,7 @@ import {
 } from "react-aria-components";
 import {
   BookOpen,
+  Columns2,
   Check,
   ChevronDown,
   ChevronLeft,
@@ -65,6 +66,8 @@ export interface Prefs {
   theme: "auto" | "night" | "light";
   size: number;
   version: string;
+  /** a second version shown under each verse ("" for none) */
+  compare?: string;
 }
 
 const fmt = (n: number) => n.toLocaleString("en-US");
@@ -100,6 +103,10 @@ export function Reader(props: {
   const [lines, setLines] = useState<string[]>(data.kjv);
   const [textState, setTextState] = useState<"ok" | "loading" | "failed">("ok");
   const [textTry, setTextTry] = useState(0);
+  const parKey = prefs.compare && prefs.compare !== prefs.version ? prefs.compare : "";
+  const par = VERSIONS.find((x) => x[0] === parKey) ?? null;
+  const [parLines, setParLines] = useState<string[] | null>(null);
+  const [parState, setParState] = useState<"ok" | "loading" | "failed">("ok");
   const [speaking, setSpeaking] = useState<number | null>(null);
   const body = useRef<HTMLDivElement>(null);
   const speakRun = useRef(0);
@@ -129,6 +136,25 @@ export function Reader(props: {
       live = false;
     };
   }, [data, prefs.version, textTry]);
+
+  // Side by side: a second version under each verse.
+  useEffect(() => {
+    let live = true;
+    if (!parKey) {
+      setParLines(null);
+      setParState("ok");
+      return;
+    }
+    setParState("loading");
+    data.text(parKey).then(
+      (t) => live && (setParLines(t), setParState("ok")),
+      () => live && (setParLines(null), setParState("failed")),
+    );
+    return () => {
+      live = false;
+    };
+  }, [data, parKey, textTry]);
+  const parTe = parKey === "tel" || parKey === "irv";
 
   // Keep the place: the chapter opens at the top; going back from a verse returns to it.
   const lastVerse = useRef<number | null>(null);
@@ -228,6 +254,7 @@ export function Reader(props: {
             <ChevronLeft aria-hidden size={22} />
           </Button>
           <VersionPicker prefs={prefs} setPrefs={setPrefs} />
+          <ComparePicker prefs={prefs} setPrefs={setPrefs} />
           {canSpeak && (
             <Button className="r-s r-icon" onPress={() => (reading ? stopSpeaking() : speak(v0, v0 + n - 1))} aria-label={reading ? "Stop reading aloud" : `Listen to ${name}`}>
               {reading ? <Square aria-hidden size={18} /> : <Volume2 aria-hidden size={20} />}
@@ -249,12 +276,22 @@ export function Reader(props: {
             </Button>
           </Notice>
         )}
+        {parState === "loading" && par && <Notice>Loading {par[2]}…</Notice>}
+        {parState === "failed" && par && (
+          <Notice tone="bad">
+            {par[2]} could not be loaded right now.{" "}
+            <Button className="r-q r-inline" onPress={() => setTextTry(textTry + 1)}>
+              Try again
+            </Button>
+          </Notice>
+        )}
         {verse === null ? (
           <>
             <div className="rp-intro">
               <h3 className="rp-h">{name}</h3>
               <p className="rp-sub">
-                {ver[2]} · {plural(n, "verse")} · {plural(chapterLinks.total, "connected verse")} with the best evidence
+                {ver[2]}
+                {par ? ` · side by side with ${par[2]}` : ""} · {plural(n, "verse")} · {plural(chapterLinks.total, "connected verse")} with the best evidence
               </p>
               <p className="rp-hint">Tap a verse to see the verses it connects to.</p>
             </div>
@@ -267,12 +304,17 @@ export function Reader(props: {
                       className={"rp-verse" + (speaking === v ? " r-spoken" : "") + (telugu ? " r-te" : "")}
                       data-v={v}
                       onPress={() => setVerse(v)}
-                      aria-label={`Verse ${k + 1}${m ? `, ${plural(m, "connected verse")}` : ""}: ${lines[v] ?? ""}`}
+                      aria-label={`Verse ${k + 1}${m ? `, ${plural(m, "connected verse")}` : ""}: ${lines[v] ?? ""}${par && parLines?.[v] ? `. ${par[1]}: ${parLines[v]}` : ""}`}
                     >
                       <span className="r-no" aria-hidden>
                         {k + 1}
                       </span>
                       <span className="r-tx">{lines[v]}</span>
+                      {par && parLines?.[v] && (
+                        <span className={"r-par" + (parTe ? " r-te" : "")}>
+                          <b>{par[1]}</b> {parLines[v]}
+                        </span>
+                      )}
                       {m > 0 && (
                         <span className="r-cnt" aria-hidden>
                           <Link2 size={14} />
@@ -312,6 +354,7 @@ export function Reader(props: {
             host={host}
             v={verse}
             lines={lines}
+            par={par && parLines ? { short: par[1], lines: parLines, te: parTe } : null}
             telugu={telugu}
             version={ver[1]}
             speaking={speaking === verse}
@@ -329,6 +372,7 @@ function VerseSheet(props: {
   host: Host;
   v: number;
   lines: string[];
+  par: { short: string; lines: string[]; te: boolean } | null;
   telugu: boolean;
   version: string;
   speaking: boolean;
@@ -433,7 +477,14 @@ function VerseSheet(props: {
         <span className="r-no" aria-hidden>
           {data.verseNo(v)}
         </span>
-        {lines[v]}
+        <span>
+          {lines[v]}
+          {props.par?.lines[v] && (
+            <span className={"r-par" + (props.par.te ? " r-te" : "")}>
+              <b>{props.par.short}</b> {props.par.lines[v]}
+            </span>
+          )}
+        </span>
       </blockquote>
       <div className="r-vs-actions">
         {props.canSpeak && (
@@ -685,6 +736,36 @@ function VersionPicker(props: { prefs: Prefs; setPrefs(p: Prefs): void }) {
         <ListBox className="r-opts">
           {VERSIONS.map(([k, short, name]) => (
             <ListBoxItem key={k} id={k} className="r-opt" textValue={`${short}, ${name}`}>
+              <span className="r-opt-s">{short}</span>
+              <span className="r-opt-n">{name}</span>
+            </ListBoxItem>
+          ))}
+        </ListBox>
+      </Popover>
+    </Select>
+  );
+}
+
+/** Show a second version under each verse, or none. */
+function ComparePicker(props: { prefs: Prefs; setPrefs(p: Prefs): void }) {
+  const cur = props.prefs.compare && props.prefs.compare !== props.prefs.version ? props.prefs.compare : "none";
+  const items = [["none", "None", "Show one version only"] as const, ...VERSIONS.filter(([k]) => k !== props.prefs.version)];
+  const on = cur !== "none";
+  return (
+    <Select
+      className="r-cmp"
+      aria-label="Side by side with another version"
+      selectedKey={cur}
+      onSelectionChange={(k) => props.setPrefs({ ...props.prefs, compare: k === "none" ? "" : String(k) })}
+    >
+      <Button className={"r-s r-icon" + (on ? " r-on" : "")}>
+        <Columns2 aria-hidden size={20} />
+        <SelectValue className="r-sr" />
+      </Button>
+      <Popover className={"su-ui r-pop " + themeClass()} placement="bottom end">
+        <ListBox className="r-opts">
+          {items.map(([k, short, name]) => (
+            <ListBoxItem key={k} id={k} className="r-opt" textValue={k === "none" ? "None, one version only" : `${short}, ${name}`}>
               <span className="r-opt-s">{short}</span>
               <span className="r-opt-n">{name}</span>
             </ListBoxItem>
