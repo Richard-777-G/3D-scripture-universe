@@ -1,0 +1,25 @@
+{
+ "source": {
+  "name": "Natural Earth I with Shaded Relief, Water, and Drainages (high resolution)",
+  "url": "https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip",
+  "version": "2.0.0",
+  "sha256": "8841d08155415f0556462846dcb845a4ccb8f12390b0e0ba36ffde55efadeb56",
+  "licence": "Public domain (Natural Earth terms of use)"
+ },
+ "bounds": [
+  [
+   12.0,
+   8.0
+  ],
+  [
+   46.0,
+   62.0
+  ]
+ ],
+ "size": [
+  3240,
+  2390
+ ],
+ "projection": "Web Mercator (EPSG:3857), resampled row by row from the source's plate carr\u00e9e",
+ "sha256": "3a485fae10556d72aba3e431080643abcc57ba11ed04de6ca01f2a7bff3abcd0"
+}
