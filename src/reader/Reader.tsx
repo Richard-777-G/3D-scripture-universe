@@ -68,6 +68,8 @@ export interface Prefs {
   theme: "auto" | "night" | "light";
   size: number;
   version: string;
+  /** settings format; 2 = Night is the default */
+  v?: number;
   /** a second version shown under each verse ("" for none) */
   compare?: string;
 }

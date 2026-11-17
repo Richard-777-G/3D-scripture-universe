@@ -18,7 +18,7 @@ const SIZES = [
 ];
 
 async function openNew(page: Page, theme: "night" | "light" = "night") {
-  await page.evaluate((t) => localStorage.setItem("su-reader-prefs", JSON.stringify({ theme: t, size: 1, version: "kjv" })), theme);
+  await page.evaluate((t) => localStorage.setItem("su-reader-prefs", JSON.stringify({ theme: t, size: 1, version: "kjv", v: 2 })), theme);
   await page.goto("./");
   await page.waitForFunction(() => !!(window as any).UNI && !document.getElementById("boot"), null, { timeout: 45_000 });
   await expect.poll(() => uni(page, (U) => U.intro)).toBeFalsy();

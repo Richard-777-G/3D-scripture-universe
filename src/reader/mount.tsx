@@ -19,9 +19,14 @@ const U = (): Uni => (window as unknown as { UNI: Uni }).UNI;
 const PREFS = "su-reader-prefs";
 
 function loadPrefs(): Prefs {
-  const d: Prefs = { theme: "auto", size: 1, version: "kjv" };
+  // Night by default, like the rest of the app (the 3D space is dark); Light or "follow the phone" is a choice in Aa.
+  const d: Prefs = { theme: "night", size: 1, version: "kjv" };
   try {
-    return { ...d, ...JSON.parse(localStorage.getItem(PREFS) || "{}") };
+    const saved = JSON.parse(localStorage.getItem(PREFS) || "{}");
+    // Settings saved before Night became the default (no v) kept "follow the phone" without anyone
+    // choosing it; move them to Night once. A choice made in Aa from now on is kept as made.
+    if (saved.v !== 2) saved.theme = "night";
+    return { ...d, ...saved, v: 2 };
   } catch {
     return d;
   }
@@ -100,6 +105,22 @@ export function mountReader(dataset: Dataset): { sync(): void } {
     if (opening) requestAnimationFrame(() => document.getElementById("rp-title")?.focus({ preventScroll: true }));
   }
 
+  // Keep the whole wheel in view above the reader. The classic app re-fits its camera when the
+  // space for the wheel changes only while no book is selected; with the reader open a book is
+  // selected, so after the sheet opens or changes size we ask it to re-fit through setMin, the
+  // public switch whose only effect here is its re-fit (the classic panel is hidden meanwhile).
+  let refitTimer = 0;
+  new ResizeObserver(() => {
+    if (!view) return;
+    clearTimeout(refitTimer);
+    refitTimer = window.setTimeout(() => {
+      const u = U();
+      if (!view || !u?.setMin) return;
+      u.setMin(true);
+      u.setMin(false);
+    }, 60);
+  }).observe(document.getElementById("stage")!);
+
   // Watch the classic panel: it re-renders whenever the screen changes.
   const panel = document.getElementById("panel")!;
   const obs = new MutationObserver(() => sync());
@@ -130,7 +151,7 @@ function App(props: { data: ReaderData; host: Host; view: View }) {
   const setPrefs = (p: Prefs) => {
     setPrefsState(p);
     try {
-      localStorage.setItem(PREFS, JSON.stringify(p));
+      localStorage.setItem(PREFS, JSON.stringify({ ...p, v: 2 }));
     } catch {
       /* private mode: the choice lasts until the page closes */
     }
