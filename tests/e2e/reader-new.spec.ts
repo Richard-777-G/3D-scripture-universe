@@ -3,7 +3,7 @@ import { test, expect, uni } from "./fixtures";
 import type { Page } from "@playwright/test";
 
 /**
- * The new reader and connections panel (behind ?ui=new). Richard asked for
+ * The new reader and connections panel (the default; ?ui=classic for the old one). Richard asked for
  * "picture perfect, no overlapping, proper fitting of everything", so every size
  * and both themes are measured: the panel never covers the wheel or the tabs,
  * nothing inside it overlaps or runs off the side, and every button is big enough.
@@ -19,7 +19,7 @@ const SIZES = [
 
 async function openNew(page: Page, theme: "night" | "light" = "night") {
   await page.evaluate((t) => localStorage.setItem("su-reader-prefs", JSON.stringify({ theme: t, size: 1, version: "kjv" })), theme);
-  await page.goto("./?ui=new");
+  await page.goto("./");
   await page.waitForFunction(() => !!(window as any).UNI && !document.getElementById("boot"), null, { timeout: 45_000 });
   await expect.poll(() => uni(page, (U) => U.intro)).toBeFalsy();
   await uni(page, (U) => U.openReader(22, 53));

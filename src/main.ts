@@ -17,17 +17,17 @@ function hasWebGL(): boolean {
 let appStarted = false;
 
 /**
- * The new reader is behind a switch until Richard says yes (brief Section S):
- * ?ui=new turns it on for this browser, ?ui=classic turns it off again.
+ * The new reader is the default (Richard said yes on PR #22). The classic reader stays
+ * one switch away (brief Section S): ?ui=classic keeps it for this browser, ?ui=new undoes that.
  */
 function newUi(): boolean {
   const q = new URLSearchParams(location.search).get("ui");
   try {
-    if (q === "new") localStorage.setItem("su-ui", "new");
-    if (q === "classic") localStorage.removeItem("su-ui");
-    return localStorage.getItem("su-ui") === "new";
+    if (q === "classic") localStorage.setItem("su-ui", "classic");
+    if (q === "new") localStorage.removeItem("su-ui");
+    return localStorage.getItem("su-ui") !== "classic";
   } catch {
-    return q === "new";
+    return q !== "classic";
   }
 }
 

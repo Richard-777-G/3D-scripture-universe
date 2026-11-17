@@ -1,6 +1,12 @@
 import { test, expect, uni, panelText } from "./fixtures";
 
-test.describe("library and reader", () => {
+test.describe("library and reader (classic reader, still one switch away with ?ui=classic)", () => {
+  // The new reader is the default; these keep proving the classic one still works when chosen.
+  test.beforeEach(async ({ app }) => {
+    await app.goto("./?ui=classic");
+    await app.waitForFunction(() => !!(window as any).UNI && !document.getElementById("boot"), null, { timeout: 45_000 });
+  });
+
   test("the Library lists all 66 books by section @phone", async ({ app }) => {
     await app.locator("#tab-library").click();
     await expect(app.locator("#pttl")).toHaveText("Read the Bible");
