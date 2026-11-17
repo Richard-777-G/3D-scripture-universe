@@ -16,6 +16,21 @@ function hasWebGL(): boolean {
 
 let appStarted = false;
 
+/**
+ * The new reader is behind a switch until Richard says yes (brief Section S):
+ * ?ui=new turns it on for this browser, ?ui=classic turns it off again.
+ */
+function newUi(): boolean {
+  const q = new URLSearchParams(location.search).get("ui");
+  try {
+    if (q === "new") localStorage.setItem("su-ui", "new");
+    if (q === "classic") localStorage.removeItem("su-ui");
+    return localStorage.getItem("su-ui") === "new";
+  } catch {
+    return q === "new";
+  }
+}
+
 async function run(): Promise<void> {
   // The app code is not built to start twice; if it failed part-way, start clean.
   if (appStarted) return location.reload();
@@ -32,6 +47,11 @@ async function run(): Promise<void> {
     appStarted = true;
     app.start(data);
     (window as unknown as { SU_DATA_VERSION: string }).SU_DATA_VERSION = data.version;
+    if (newUi()) {
+      import("./reader/mount")
+        .then((m) => m.mountReader(data))
+        .catch((e) => console.error("The new reader could not start; the classic reader still works.", e));
+    }
     boot.classList.add("boot-done");
     setTimeout(() => boot.remove(), 400);
   } catch (e) {

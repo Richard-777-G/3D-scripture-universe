@@ -11,7 +11,8 @@
     "checkJs": false,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "jsx": "react-jsx"
   },
   "include": ["src", "tests", "pipeline/types.d.ts", "vite.config.ts", "playwright.config.ts"]
 }
