@@ -56,7 +56,32 @@ interface MapState {
   ctx: MapCtx; map: L.Map; places: Place[]; routes: Route[]; eras: string[];
   view: View; tm: Testament; sel: Place | null; route: Route | null; q: string;
   layer: L.LayerGroup; marks: Map<string, L.CircleMarker>; extra: L.LayerGroup; anim: number;
+  /** region and sea names written across the map, and river names */
+  names: L.LayerGroup; rivers: { n: string; at: [number, number] }[];
+  /** land shapes with their bounding boxes, to tell sea from land when placing sea names */
+  land: { ring: [number, number][]; box: [number, number, number, number] }[];
+  /** places drawn inside a numbered group (for the test hook and the summary) */
+  grouped: number;
+  /** where circles and dots are drawn, so names never sit on top of them: lat, lon, radius in px */
+  spots: [number, number, number][];
+  /** the name beside each numbered circle: lat, lon, circle radius, name, which side */
+  capts: [number, number, number, string, Side][];
 }
+
+type Side = "below" | "above" | "right" | "left";
+/** Width of a group name in the font it is drawn in (12 px Inter, semibold). */
+const measurer = document.createElement("canvas").getContext("2d")!;
+const textWidth = (t: string) => {
+  measurer.font = "600 12px Inter, system-ui, sans-serif";
+  return Math.ceil(measurer.measureText(t).width);
+};
+
+/** Regions and seas are written across the map as names, not drawn as dots. */
+const isArea = (p: Place) => p.t === "region" || p.t === "body of water";
+/** Grouping: places within this many pixels of a busier place join its numbered circle until you zoom in.
+ *  Circles are at most 42 px wide, so groups this far apart never touch. */
+const GROUP_PX = 58;
+const GROUP_UNTIL_ZOOM = 9;
 
 /** Open the map. `focus` is a place id or name to open straight away. */
 export async function openMap(ctx: MapCtx, focus?: string): Promise<void> {
@@ -89,7 +114,8 @@ export const isMapOpen = () => !!root && root.classList.contains("on");
 export const mapState = () => state && {
   view: state.view, tm: state.tm, sel: state.sel && state.sel.id, route: state.route && state.route.id,
   places: state.places.length, mapped: state.places.filter((p) => p.lat != null).length, routes: state.routes.length,
-  shown: state.marks.size, select: (id: string) => { const p = state!.places.find((x) => x.id === id || x.n === id); if (p) selectPlace(p, true); },
+  shown: state.places.filter(visible).length, dots: state.marks.size, grouped: state.grouped,
+  names: state.names.getLayers().length, select: (id: string) => { const p = state!.places.find((x) => x.id === id || x.n === id); if (p) selectPlace(p, true); },
   play: (id: string) => { const r = state!.routes.find((x) => x.id === id || x.n === id); if (r) openRoute(r, true); },
 };
 
@@ -139,14 +165,18 @@ async function load(ctx: MapCtx) {
     });
     map.attributionControl.setPrefix(false);
     map.attributionControl.addAttribution("Places: OpenBible.info (CC BY) · Routes: UBS MARBLE (CC BY-SA) · Base: Natural Earth");
-    drawBase(map, b as Base);
+    const rivers = drawBase(map, b as Base);
     state = {
       ctx, map, places: (g.places as Place[]).sort((a, b) => a.n.localeCompare(b.n)), routes: r.routes, eras: r.eras,
       view: "places", tm: "all", sel: null, route: null, q: "",
       layer: L.layerGroup().addTo(map), marks: new Map(), extra: L.layerGroup().addTo(map), anim: 0,
+      names: L.layerGroup().addTo(map), rivers, grouped: 0, spots: [], capts: [],
+      land: (b as Base).land.map((ring) => ({ ring, box: ring.reduce((a, [la, lo]) => [Math.min(a[0], la), Math.min(a[1], lo), Math.max(a[2], la), Math.max(a[3], lo)], [90, 180, -90, -180] as [number, number, number, number]) })),
     };
     map.fitBounds([[29.4, 33.9], [33.4, 36.6]]);
-    map.on("zoomend moveend", labels);
+    // Groups depend on the zoom; names depend on what is on screen.
+    map.on("zoomend", () => drawPlaces());
+    map.on("moveend", () => labels());
     drawPlaces();
     renderHome();
   } catch (e) {
@@ -157,36 +187,199 @@ async function load(ctx: MapCtx) {
   loading.hidden = true;
 }
 
-function drawBase(map: L.Map, b: Base) {
-  map.getContainer().style.background = "#0b1a2a";
-  L.polygon(b.land, { stroke: true, color: "#3a4a5c", weight: 0.8, fillColor: "#242d3b", fillOpacity: 1, interactive: false }).addTo(map);
-  L.polygon(b.lakes, { stroke: true, color: "#2a4a6a", weight: 0.6, fillColor: "#0b1a2a", fillOpacity: 1, interactive: false }).addTo(map);
-  for (const r of b.rivers) L.polyline(r.c, { color: "#2f5f8a", weight: r.r <= 3 ? 1.6 : 1, opacity: 0.9, interactive: false }).addTo(map);
+/** Sea, land with its coastline, lakes and rivers, in Night colours. Returns where to write river names. */
+function drawBase(map: L.Map, b: Base): { n: string; at: [number, number] }[] {
+  map.getContainer().style.background = "#0a1b2d";
+  L.polygon(b.land, { stroke: true, color: "#6d7f72", weight: 1.1, opacity: 0.85, fillColor: "#1f2822", fillOpacity: 1, interactive: false }).addTo(map);
+  L.polygon(b.lakes, { stroke: true, color: "#3b6b93", weight: 0.8, fillColor: "#0f2a45", fillOpacity: 1, interactive: false }).addTo(map);
+  // The longest stretch of each named river carries its name.
+  const best = new Map<string, { len: number; at: [number, number] }>();
+  for (const r of b.rivers) {
+    L.polyline(r.c, { color: "#4f8fc6", weight: r.r <= 3 ? 2 : 1.2, opacity: 0.95, interactive: false }).addTo(map);
+    if (!r.n || r.c.length < 2) continue;
+    const len = r.c.length;
+    if ((best.get(r.n)?.len ?? 0) < len) best.set(r.n, { len, at: r.c[Math.floor(r.c.length / 2)] });
+  }
+  return [...best].map(([n, v]) => ({ n, at: v.at }));
 }
 
 const visible = (p: Place) => p.lat != null && (state!.tm === "all" || (state!.tm === "ot" ? p.ot : p.nt));
 
+function dotFor(p: Place): L.CircleMarker {
+  const c = colorOf(p);
+  const big = Math.min(9, 3.5 + Math.log2(1 + p.v.length) * 0.8);
+  return p.b === "debated"
+    ? L.circleMarker([p.lat!, p.lon!], { radius: big + 1, color: c, weight: 1.6, dashArray: "3 3", fill: true, fillOpacity: 0.05 })
+    : p.b === "likely"
+      ? L.circleMarker([p.lat!, p.lon!], { radius: big, color: c, weight: 2, fillColor: c, fillOpacity: 0.35 })
+      : L.circleMarker([p.lat!, p.lon!], { radius: big, color: "#05070d", weight: 1, fillColor: c, fillOpacity: 0.95 });
+}
+
+/**
+ * Places, grouped: places that would sit on top of each other become one numbered circle
+ * ("12 places around Jerusalem") until you zoom in. Regions and seas are names, not dots.
+ */
 function drawPlaces() {
   const s = state!;
   s.layer.clearLayers();
   s.marks.clear();
-  if (s.view === "journeys") return;
-  // Most-mentioned first so the busy places sit on top.
-  const list = s.places.filter(visible).sort((a, b) => a.v.length - b.v.length);
+  s.grouped = 0;
+  if (s.view === "journeys") return labels();
+  s.spots = [];
+  s.capts = [];
+  const z = s.map.getZoom();
+  // Busiest places first: each starts a group, and quieter places nearby join it.
+  const list = s.places.filter((p) => visible(p) && !isArea(p)).sort((a, b) => b.v.length - a.v.length);
+  const groups: { pt: L.Point; members: Place[] }[] = [];
+  const singles: Place[] = [];
   for (const p of list) {
-    const c = colorOf(p);
-    const big = Math.min(9, 3.5 + Math.log2(1 + p.v.length) * 0.8);
-    const m = p.b === "debated"
-      ? L.circleMarker([p.lat!, p.lon!], { radius: big + 1, color: c, weight: 1.6, dashArray: "3 3", fill: true, fillOpacity: 0.05 })
-      : p.b === "likely"
-        ? L.circleMarker([p.lat!, p.lon!], { radius: big, color: c, weight: 2, fillColor: c, fillOpacity: 0.35 })
-        : L.circleMarker([p.lat!, p.lon!], { radius: big, color: "#05070d", weight: 1, fillColor: c, fillOpacity: 0.95 });
+    if (z >= GROUP_UNTIL_ZOOM || (s.sel && p.id === s.sel.id)) { singles.push(p); continue; }
+    const pt = s.map.project([p.lat!, p.lon!], z);
+    const g = groups.find((g) => g.pt.distanceTo(pt) < GROUP_PX);
+    if (g) g.members.push(p);
+    else groups.push({ pt, members: [p] });
+  }
+  // Group names: busiest first; a name that would touch another name or circle is left out (the circle still says it on tap).
+  const circleBox = (g: { pt: L.Point; members: Place[] }) => {
+    const r = (28 + Math.min(14, Math.log2(g.members.length) * 3)) / 2;
+    return [g.pt.x - r, g.pt.y - r, g.pt.x + r, g.pt.y + r] as [number, number, number, number];
+  };
+  const taken: [number, number, number, number][] = groups.filter((g) => g.members.length > 1).map(circleBox);
+  const clash = (b: [number, number, number, number]) => taken.some((o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+  const showName = new Map<{ pt: L.Point; members: Place[] }, Side>();
+  for (const g of groups) {
+    if (g.members.length < 2) continue;
+    const cb = circleBox(g), w = textWidth(g.members[0].n) + 6, cy = g.pt.y;
+    const at: Record<Side, [number, number, number, number]> = {
+      below: [g.pt.x - w / 2, cb[3] + 1, g.pt.x + w / 2, cb[3] + 17],
+      above: [g.pt.x - w / 2, cb[1] - 17, g.pt.x + w / 2, cb[1] - 1],
+      right: [cb[2] + 3, cy - 8, cb[2] + 3 + w, cy + 8],
+      left: [cb[0] - 3 - w, cy - 8, cb[0] - 3, cy + 8],
+    };
+    const side = (["below", "above", "right", "left"] as Side[]).find((k) => !clash(at[k]));
+    if (side) { taken.push(at[side]); showName.set(g, side); }
+  }
+  for (const g of groups) {
+    const group = g.members;
+    if (group.length === 1) { singles.push(group[0]); continue; }
+    s.grouped += group.length;
+    const head = group[0];
+    const n = group.length, size = Math.round(28 + Math.min(14, Math.log2(n) * 3));
+    s.spots.push([head.lat!, head.lon!, size / 2 + 4]);
+    const side = showName.get(g);
+    if (side) s.capts.push([head.lat!, head.lon!, size / 2, head.n, side]);
+    const name = `${n} places around ${head.n}. Tap to zoom in.`;
+    const m = L.marker([head.lat!, head.lon!], {
+      icon: L.divIcon({ className: "mcl", html: `<span aria-hidden="true">${n}</span>${side ? `<em class="${side}" aria-hidden="true">${esc(head.n)}</em>` : ""}`, iconSize: [size, size] }),
+      title: name, alt: name, keyboard: true, riseOnHover: true,
+    });
+    m.on("click", () => s.map.flyToBounds(L.latLngBounds(group.map((p) => [p.lat!, p.lon!] as [number, number])).pad(0.35), { maxZoom: Math.max(z + 2, GROUP_UNTIL_ZOOM), duration: reduced() ? 0 : 0.6 }));
+    m.addTo(s.layer);
+  }
+  // Most-mentioned last so the busy places sit on top.
+  singles.sort((a, b) => a.v.length - b.v.length);
+  for (const p of singles) {
+    const m = dotFor(p);
+    s.spots.push([p.lat!, p.lon!, (m.options.radius ?? 6) + 1]);
     m.on("click", () => selectPlace(p, false));
     m.bindTooltip(esc(p.n), { direction: "top", offset: [0, -6], className: "mtip" });
     m.addTo(s.layer);
     s.marks.set(p.id, m);
   }
   labels();
+}
+
+const onLand = (lat: number, lon: number) =>
+  state!.land.some(({ ring, box }) => {
+    if (lat < box[0] || lat > box[2] || lon < box[1] || lon > box[3]) return false;
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [ai, oi] = ring[i], [aj, oj] = ring[j];
+      if (oi > lon !== oj > lon && lat < ((aj - ai) * (lon - oi)) / (oj - oi) + ai) inside = !inside;
+    }
+    return inside;
+  });
+
+/** For the Great Sea when its own spot is off screen or crowded: open water on screen, nearest first. */
+function seaSpots(p: Place): [number, number][] {
+  const s = state!;
+  // Only the Great Sea (the Mediterranean) reaches across the map. The Salt Sea and the Sea of Galilee
+  // are lakes and the Red Sea is a separate gulf, so they are named only at their own point.
+  if (p.d !== "Mediterranean Sea") return [];
+  const size = s.map.getSize(), pt = s.map.latLngToContainerPoint([p.lat!, p.lon!]);
+  const out: [number, number, number][] = [];
+  for (let y = 30; y < size.y - 30; y += 24)
+    for (let x = 60; x < size.x - 60; x += 24) {
+      const ll = s.map.containerPointToLatLng([x, y]);
+      // North of the Gulf of Suez's head (about 30°N), so the name never lands in the Red Sea's gulfs.
+      if (ll.lat < 30.6 || Math.abs(ll.lat - p.lat!) > 8 || Math.abs(ll.lng - p.lon!) > 12) continue;
+      if (onLand(ll.lat, ll.lng) || onLand(ll.lat + 0.15, ll.lng) || onLand(ll.lat - 0.15, ll.lng)) continue;
+      out.push([ll.lat, ll.lng, (x - pt.x) ** 2 + (y - pt.y) ** 2]);
+    }
+  return out.sort((a, b) => a[2] - b[2]).slice(0, 40).map(([a, b]) => [a, b]);
+}
+
+/** Region, sea and river names across the map: the most-mentioned first, never on top of each other. */
+function areaNames(): [number, number, number, number][] {
+  const s = state!;
+  s.names.clearLayers();
+  const size = s.map.getSize(), z = s.map.getZoom();
+  // Circles and dots come first: a name is left out rather than written on top of one.
+  const boxes: [number, number, number, number][] = s.spots.map(([lat, lon, r]) => {
+    const pt = s.map.latLngToContainerPoint([lat, lon]);
+    return [pt.x - r, pt.y - r, pt.x + r, pt.y + r];
+  });
+  for (const [lat, lon, r, n, side] of s.capts) {
+    const pt = s.map.latLngToContainerPoint([lat, lon]);
+    const w = textWidth(n) + 6;
+    boxes.push(
+      side === "below" ? [pt.x - w / 2, pt.y + r, pt.x + w / 2, pt.y + r + 17]
+      : side === "above" ? [pt.x - w / 2, pt.y - r - 17, pt.x + w / 2, pt.y - r]
+      : side === "right" ? [pt.x + r + 3, pt.y - 8, pt.x + r + 3 + w, pt.y + 8]
+      : [pt.x - r - 3 - w, pt.y - 8, pt.x - r - 3, pt.y + 8],
+    );
+  }
+  const fits = (b: [number, number, number, number]) => b[0] >= 2 && b[1] >= 2 && b[2] <= size.x - 2 && b[3] <= size.y - 2 && !boxes.some((o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+  const said = new Set<string>();
+  const put = (text: string, at: [number, number], cls: string, px: number, spacing: number, onTap?: () => void) => {
+    // Each name once (the data has two places called Sharon, for example; the one named more often wins).
+    if (said.has(text)) return false;
+    const p0 = s.map.latLngToContainerPoint(at);
+    const w = Math.round(text.length * px * (0.62 + spacing) + 8), h = Math.round(px * 1.4);
+    // Where it belongs first, then a little above, below or to the side, never far from it.
+    const tries: [number, number][] = [[0, 0], [0, -h - 4], [0, h + 4], [-w / 3, 0], [w / 3, 0], [0, -2 * h - 8], [0, 2 * h + 8]];
+    let pt: L.Point | null = null, b: [number, number, number, number] = [0, 0, 0, 0];
+    for (const [dx, dy] of tries) {
+      const q = L.point(p0.x + dx, p0.y + dy);
+      b = [q.x - w / 2, q.y - h / 2, q.x + w / 2, q.y + h / 2];
+      if (fits(b)) { pt = q; break; }
+    }
+    if (!pt) return false;
+    said.add(text);
+    boxes.push(b);
+    const m = L.marker(s.map.containerPointToLatLng(pt), {
+      icon: L.divIcon({ className: "mname " + cls, html: `<span style="font-size:${px}px">${esc(text)}</span>`, iconSize: [w, h] }),
+      interactive: !!onTap, keyboard: !!onTap, title: onTap ? `${text}: read the verses that name it` : "",
+    });
+    if (onTap) m.on("click", onTap);
+    m.addTo(s.names);
+    return true;
+  };
+  const areas = s.places.filter((p) => visible(p) && isArea(p)).sort((a, b) => b.v.length - a.v.length);
+  // Seas and lakes first (they hold the map together), then regions; bigger names for places named more often.
+  // A sea whose named point is off screen is still named where its water shows.
+  for (const p of areas.filter((p) => p.t === "body of water")) {
+    const px = Math.min(16, 12 + z * 0.3), tap = () => selectPlace(p, false);
+    if (put(p.n, [p.lat!, p.lon!], "water", px, 0.06, tap)) continue;
+    for (const at of seaSpots(p)) if (put(p.n, at, "water", px, 0.06, tap)) break;
+  }
+  for (const p of areas.filter((p) => p.t === "region")) {
+    const px = Math.round(Math.min(17, Math.max(11, 9 + Math.log2(1 + p.v.length) * 1.1)));
+    put(p.n.toUpperCase(), [p.lat!, p.lon!], "region", px, 0.22, () => selectPlace(p, false));
+  }
+  // Rivers by name; modern canals are not part of the Bible's world.
+  for (const r of s.rivers) if (!/canal/i.test(r.n)) put(r.n, r.at, "river", 12, 0.04);
+  return boxes;
 }
 
 /** Permanent names for the most-mentioned places; more appear as you zoom in. */
@@ -197,14 +390,14 @@ function labels() {
   const order = [...s.marks.keys()].map((id) => byId.get(id)!).sort((a, b) => b.v.length - a.v.length);
   if (s.sel && s.marks.has(s.sel.id)) order.unshift(s.sel);
   const size = s.map.getSize();
-  const boxes: [number, number, number, number][] = [];
+  const boxes: [number, number, number, number][] = s.view === "list" ? [] : areaNames();
   const top = new Set<string>();
   for (const p of order) {
     if (top.has(p.id)) continue;
     const pt = s.map.latLngToContainerPoint([p.lat!, p.lon!]);
     if (pt.x < 0 || pt.y < 0 || pt.x > size.x || pt.y > size.y) continue;
     const w = p.n.length * 7 + 8, h = 16;
-    const b: [number, number, number, number] = [pt.x - w / 2, pt.y - 10 - h, pt.x + w / 2, pt.y - 8];
+    const b: [number, number, number, number] = [pt.x - w / 2, pt.y - 12 - h, pt.x + w / 2, pt.y - 12];
     if (boxes.some((o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1])) continue;
     boxes.push(b);
     top.add(p.id);
@@ -227,7 +420,8 @@ function legend() {
 <span><i class="d known"></i>${BAND.known.word}</span>
 <span><i class="d likely"></i>${BAND.likely.word}</span>
 <span><i class="d debated"></i>${BAND.debated.word}</span>
-</div><div class="mleg"><span><i class="c" style="background:${COL.ot}"></i>Old Testament</span><span><i class="c" style="background:${COL.nt}"></i>New Testament</span><span><i class="c" style="background:${COL.both}"></i>Both</span></div>`;
+</div><div class="mleg"><span><i class="c" style="background:${COL.ot}"></i>Old Testament</span><span><i class="c" style="background:${COL.nt}"></i>New Testament</span><span><i class="c" style="background:${COL.both}"></i>Both</span></div>
+<div class="mleg"><span><i class="g">12</i>Several places close together: tap to zoom in</span><span><b class="rn">GALILEE</b>Regions and seas are named on the map</span></div>`;
 }
 
 function renderHome() {
@@ -261,7 +455,7 @@ function selectPlace(p: Place, fly: boolean, all = false) {
     L.circleMarker([p.lat, p.lon!], { radius: 13, color: "#fff", weight: 2, fill: false, interactive: false }).addTo(s.extra);
     if (fly) s.map.flyTo([p.lat, p.lon!], Math.max(s.map.getZoom(), 8), { duration: reduced() ? 0 : 0.6 });
   }
-  labels();
+  drawPlaces(); // the chosen place is always drawn on its own, never inside a group
   const b = BAND[p.b];
   const where = p.lat == null ? `<p class="meta">${b.long}</p>` : `<p class="mconf ${p.b}"><b>${b.word}</b> · ${esc(p.d)}${p.s != null ? ` <small>(confidence ${pct(p.s)})</small>` : ""}</p><p class="meta">${b.long}</p>`;
   const alts = p.alt.length ? `<p class="meta"><b>Other suggested locations:</b> ${p.alt.map((a) => `${esc(a.d)} (${pct(a.s)})`).join(" · ")}</p>` : "";
@@ -355,7 +549,7 @@ function back() {
   cancelAnimationFrame(s.anim);
   s.extra.clearLayers();
   s.sel = null; s.route = null;
-  labels();
+  drawPlaces();
   renderHome();
 }
 
