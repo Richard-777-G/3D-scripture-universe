@@ -57,8 +57,24 @@ interface Pack {
 
 /** Word row: original, transliteration, English, Strong's number, grammar, dictionary word. */
 export type Word = [string, string, string, string, string, string];
-/** Lexicon row: lemma, transliteration, short gloss, definition. */
-export type Lex = [string, string, string, string];
+/** Lexicon row: lemma, transliteration, short gloss, definition, word type (e.g. "H:V", "N:..." for names), frequency in the Bible. */
+export type Lex = [string, string, string, string, string?, string?];
+
+/** A word that recurs in one chapter. verses are verse numbers in the chapter (0 = a psalm title). */
+export interface KeyWord {
+  strong: string;
+  lex: Lex;
+  times: number;
+  verses: number[];
+}
+export interface KeyWords {
+  words: KeyWord[];
+  names: { lex: Lex; times: number }[];
+}
+
+/** Everyday words (say, be, come, do, give, have, see, know, all…) left out of key words, as in the classic reader. */
+const KW_STOP = new Set(["G1510", "G3004", "G2036", "G2046", "G2064", "G1096", "G3956", "G4160", "G1325", "G2192", "G3708", "G1492", "H0559", "H1961", "H6213", "H0935", "H5414", "H3605", "H1696", "H7200", "H3212", "H1980", "H3318"]);
+export const stepUrl = (strong: string) => `https://www.stepbible.org/?q=strong=${encodeURIComponent(strong.replace(/[A-Za-z]$/, ""))}`;
 
 export class ReaderData {
   readonly books: Book[];
@@ -199,6 +215,61 @@ export class ReaderData {
     }
     const all = await p;
     return all[strong] ?? all[strong.replace(/[A-Z]$/, "")] ?? null;
+  }
+
+  /**
+   * Key Hebrew or Greek words of a chapter, worked out the same way as the classic reader:
+   * nouns, verbs and adjectives used two or more times (everyday words left out), most
+   * frequent first and, among equals, the rarer word in the Bible first; up to six.
+   * Names of people and places are listed separately (up to ten).
+   */
+  async keyWords(b: number, c: number): Promise<KeyWords> {
+    const fileKey = "w" + String(b + 1).padStart(2, "0");
+    let wp = this.words.get(b);
+    if (!wp) {
+      wp = this.fetchJson<Record<string, Word[]>>(fileKey);
+      wp.catch(() => this.words.delete(b));
+      this.words.set(b, wp);
+    }
+    const lexKey = b < 39 ? "lexh" : "lexg";
+    let lp = this.lex.get(lexKey);
+    if (!lp) {
+      lp = this.fetchJson<Record<string, Lex>>(lexKey);
+      lp.catch(() => this.lex.delete(lexKey));
+      this.lex.set(lexKey, lp);
+    }
+    const [W, lx] = await Promise.all([wp, lp]);
+    const N = this.books[b].ch[c - 1];
+    const tf = new Map<string, number>(), where = new Map<string, number[]>(), names = new Map<string, { lex: Lex; times: number }>();
+    for (let v = 0; v <= N; v++) {
+      const seen = new Set<string>();
+      for (const w of W[`${c}:${v}`] ?? []) {
+        const L = lx[w[3]];
+        if (!L) continue;
+        const ty = L[4] ?? "";
+        if (/^N:/.test(ty)) {
+          const n = names.get(w[3]) ?? { lex: L, times: 0 };
+          n.times++;
+          names.set(w[3], n);
+          continue;
+        }
+        if (KW_STOP.has((w[3].match(/[HG]\d+/) ?? [""])[0]) || !/^(H|G|A):(N|V|A)/.test(ty)) continue;
+        tf.set(w[3], (tf.get(w[3]) ?? 0) + 1);
+        if (!seen.has(w[3])) {
+          seen.add(w[3]);
+          where.set(w[3], [...(where.get(w[3]) ?? []), v]);
+        }
+      }
+    }
+    const scored: [string, number, number][] = [];
+    tf.forEach((n, strong) => {
+      if (n >= 2) scored.push([strong, n, Number(lx[strong][5]) || 1]);
+    });
+    scored.sort((a, z) => z[1] - a[1] || a[2] - z[2]);
+    return {
+      words: scored.slice(0, 6).map(([strong, times]) => ({ strong, lex: lx[strong], times, verses: where.get(strong) ?? [] })),
+      names: [...names.values()].sort((a, z) => z.times - a.times).slice(0, 10),
+    };
   }
 
   private async fetchText(key: string): Promise<string> {
