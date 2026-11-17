@@ -157,15 +157,19 @@ async function load(ctx: MapCtx) {
   const loading = root!.querySelector("#mapload") as HTMLElement;
   loading.hidden = false;
   try {
-    const [g, r, b] = await Promise.all(["geo", "routes", "geobase"].map((k) => ctx.loadAsset(k).then((t) => JSON.parse(t))));
+    const [[g, r, b], relief] = await Promise.all([
+      Promise.all(["geo", "routes", "geobase"].map((k) => ctx.loadAsset(k).then((t) => JSON.parse(t)))),
+      reliefLayer(),
+    ]);
     const map = L.map(root!.querySelector("#mapc") as HTMLElement, {
       renderer: L.canvas({ padding: 0.5, tolerance: 6 }),
       zoomControl: true, attributionControl: true, minZoom: 3, maxZoom: 12, zoomSnap: 0.5,
       maxBounds: L.latLngBounds([[2, -20], [52, 70]]), maxBoundsViscosity: 0.8, preferCanvas: true,
     });
     map.attributionControl.setPrefix(false);
-    map.attributionControl.addAttribution("Places: OpenBible.info (CC BY) · Routes: UBS MARBLE (CC BY-SA) · Base: Natural Earth");
-    const rivers = drawBase(map, b as Base);
+    map.attributionControl.addAttribution("Places: OpenBible.info (CC BY) · Routes: UBS MARBLE (CC BY-SA) · Map: Natural Earth");
+    if (relief) relief.addTo(map);
+    const rivers = drawBase(map, b as Base, !!relief);
     state = {
       ctx, map, places: (g.places as Place[]).sort((a, b) => a.n.localeCompare(b.n)), routes: r.routes, eras: r.eras,
       view: "places", tm: "all", sel: null, route: null, q: "",
@@ -173,10 +177,17 @@ async function load(ctx: MapCtx) {
       names: L.layerGroup().addTo(map), rivers, grouped: 0, spots: [], capts: [],
       land: (b as Base).land.map((ring) => ({ ring, box: ring.reduce((a, [la, lo]) => [Math.min(a[0], la), Math.min(a[1], lo), Math.max(a[2], la), Math.max(a[3], lo)], [90, 180, -90, -180] as [number, number, number, number]) })),
     };
-    map.fitBounds([[29.4, 33.9], [33.4, 36.6]]);
+    // Open on the whole Bible world, then glide in to the Holy Land (straight there with reduced motion).
+    const home: L.LatLngBoundsExpression = [[29.4, 33.9], [33.4, 36.6]];
+    if (reduced()) map.fitBounds(home);
+    else {
+      map.fitBounds([[22, 12], [42, 56]], { animate: false });
+      setTimeout(() => map.flyToBounds(home, { duration: 2.2, easeLinearity: 0.2 }), 450);
+    }
     // Groups depend on the zoom; names depend on what is on screen.
     map.on("zoomend", () => drawPlaces());
     map.on("moveend", () => labels());
+    if (pendingView) { state.view = pendingView; pendingView = null; syncTabs(); }
     drawPlaces();
     renderHome();
   } catch (e) {
@@ -187,15 +198,33 @@ async function load(ctx: MapCtx) {
   loading.hidden = true;
 }
 
-/** Sea, land with its coastline, lakes and rivers, in Night colours. Returns where to write river names. */
-function drawBase(map: L.Map, b: Base): { n: string; at: [number, number] }[] {
-  map.getContainer().style.background = "#0a1b2d";
-  L.polygon(b.land, { stroke: true, color: "#6d7f72", weight: 1.1, opacity: 0.85, fillColor: "#1f2822", fillOpacity: 1, interactive: false }).addTo(map);
-  L.polygon(b.lakes, { stroke: true, color: "#3b6b93", weight: 0.8, fillColor: "#0f2a45", fillOpacity: 1, interactive: false }).addTo(map);
+/** The painted relief (Natural Earth I), re-projected to line up with everything else; null if it cannot load. */
+async function reliefLayer(): Promise<L.ImageOverlay | null> {
+  try {
+    const base = import.meta.env.BASE_URL + "data/";
+    const m = await (await fetch(base + "manifest.json", { cache: "no-cache" })).json();
+    if (!m.files.relief || !m.files.reliefmeta) return null;
+    const meta = await (await fetch(base + m.files.reliefmeta.file)).json();
+    return L.imageOverlay(base + m.files.relief.file, meta.bounds, { interactive: false, className: "mrelief", alt: "" });
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Coastline, lakes and rivers drawn sharp over the painted relief (or, if it could not load,
+ * a plain land-and-sea map in its place). Returns where to write river names.
+ */
+function drawBase(map: L.Map, b: Base, painted: boolean): { n: string; at: [number, number] }[] {
+  map.getContainer().style.background = "#8bbddf";
+  L.polygon(b.land, painted
+    ? { stroke: true, color: "#5b7f95", weight: 0.8, opacity: 0.55, fill: false, interactive: false }
+    : { stroke: true, color: "#5b7f95", weight: 1, fillColor: "#e9dcc2", fillOpacity: 1, interactive: false }).addTo(map);
+  if (!painted) L.polygon(b.lakes, { stroke: true, color: "#5b7f95", weight: 0.8, fillColor: "#8bbddf", fillOpacity: 1, interactive: false }).addTo(map);
   // The longest stretch of each named river carries its name.
   const best = new Map<string, { len: number; at: [number, number] }>();
   for (const r of b.rivers) {
-    L.polyline(r.c, { color: "#4f8fc6", weight: r.r <= 3 ? 2 : 1.2, opacity: 0.95, interactive: false }).addTo(map);
+    L.polyline(r.c, { color: "#3f86c2", weight: r.r <= 3 ? 1.8 : 1.1, opacity: 0.9, interactive: false }).addTo(map);
     if (!r.n || r.c.length < 2) continue;
     const len = r.c.length;
     if ((best.get(r.n)?.len ?? 0) < len) best.set(r.n, { len, at: r.c[Math.floor(r.c.length / 2)] });
@@ -270,7 +299,7 @@ function drawPlaces() {
     if (side) s.capts.push([head.lat!, head.lon!, size / 2, head.n, side]);
     const name = `${n} places around ${head.n}. Tap to zoom in.`;
     const m = L.marker([head.lat!, head.lon!], {
-      icon: L.divIcon({ className: "mcl", html: `<span aria-hidden="true">${n}</span>${side ? `<em class="${side}" aria-hidden="true">${esc(head.n)}</em>` : ""}`, iconSize: [size, size] }),
+      icon: L.divIcon({ className: "mcl", html: `<b class="mcl-in"></b><span aria-hidden="true">${n}</span>${side ? `<em class="${side}" aria-hidden="true">${esc(head.n)}</em>` : ""}`, iconSize: [size, size] }),
       title: name, alt: name, keyboard: true, riseOnHover: true,
     });
     m.on("click", () => s.map.flyToBounds(L.latLngBounds(group.map((p) => [p.lat!, p.lon!] as [number, number])).pad(0.35), { maxZoom: Math.max(z + 2, GROUP_UNTIL_ZOOM), duration: reduced() ? 0 : 0.6 }));
@@ -452,7 +481,8 @@ function selectPlace(p: Place, fly: boolean, all = false) {
       L.polyline([[p.lat, p.lon!], [a.lat, a.lon]], { color: "#cfc8b8", weight: 1, dashArray: "2 4", interactive: false }).addTo(s.extra);
       L.circleMarker([a.lat, a.lon], { radius: 5, color: "#cfc8b8", weight: 1.5, dashArray: "2 2", fill: false }).bindTooltip(`${esc(a.d)} (other suggestion)`, { className: "mtip" }).addTo(s.extra);
     }
-    L.circleMarker([p.lat, p.lon!], { radius: 13, color: "#fff", weight: 2, fill: false, interactive: false }).addTo(s.extra);
+    // A pulsing ring marks the chosen place (still with reduced motion).
+    L.marker([p.lat, p.lon!], { icon: L.divIcon({ className: "mpulse", html: "<i></i><i></i>", iconSize: [34, 34] }), interactive: false, keyboard: false }).addTo(s.extra);
     if (fly) s.map.flyTo([p.lat, p.lon!], Math.max(s.map.getZoom(), 8), { duration: reduced() ? 0 : 0.6 });
   }
   drawPlaces(); // the chosen place is always drawn on its own, never inside a group
@@ -553,9 +583,19 @@ function back() {
   renderHome();
 }
 
+/** A tab tapped while the map is still loading, applied once it is ready. */
+let pendingView: View | null = null;
+
 function onClick(e: Event) {
   const t = e.target as HTMLElement;
-  if (!state) return;
+  if (!state) {
+    const tab = t.closest<HTMLElement>("[data-mv]");
+    if (tab) {
+      pendingView = tab.dataset.mv as View;
+      root!.querySelectorAll("[data-mv]").forEach((b) => b.setAttribute("aria-selected", String(b === tab)));
+    }
+    return;
+  }
   const s = state;
   let el: HTMLElement | null;
   if ((el = t.closest("[data-mv]"))) {

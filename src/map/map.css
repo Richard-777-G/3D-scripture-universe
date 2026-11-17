@@ -61,23 +61,43 @@ body.map-on #tabs,body.map-on #panel{visibility:hidden}
   #mapv.list #mapsh{grid-column:1 / -1}
 }
 
-/* Numbered circles: several places close together, until you zoom in. */
-#mapv .mcl{display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0b1320e6;border:2px solid #f0cf74;box-shadow:0 0 0 4px #f0cf7433,0 2px 8px #000a;color:#fff;font:700 13px/1 Inter,system-ui,sans-serif;cursor:pointer}
-#mapv .mcl{overflow:visible}
-#mapv .mcl em{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:2px;white-space:nowrap;font:600 12px/1.3 Inter,system-ui,sans-serif;font-style:normal;color:#fff;text-shadow:0 0 3px #000,0 0 6px #000;pointer-events:none}
+/* The painted relief: sharp at its own size, softened just a little when zoomed far in. */
+#mapv .mrelief{image-rendering:auto}
+#mapv .leaflet-container,#mapc{background:#8bbddf}
+
+/* Numbered circles: several places close together, until you zoom in. They grow in as they appear. */
+#mapv .mcl{display:flex;align-items:center;justify-content:center;overflow:visible;color:#fff;font:700 13px/1 Inter,system-ui,sans-serif;cursor:pointer}
+#mapv .mcl .mcl-in{position:absolute;inset:0;border-radius:50%;background:#0b1320f0;border:2px solid #e0b44a;box-shadow:0 0 0 4px #ffffff99,0 3px 10px #0007;animation:mgrow .35s cubic-bezier(.2,.8,.3,1.25) both}
+#mapv .mcl span{position:relative;animation:mfade .35s ease-out both}
+#mapv .mcl:hover .mcl-in{border-color:#f0cf74;box-shadow:0 0 0 5px #fff,0 3px 12px #0009}
+#mapv .mcl em{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:2px;white-space:nowrap;font:600 12px/1.3 Inter,system-ui,sans-serif;font-style:normal;color:#1d1a14;text-shadow:0 0 2px #fff,0 0 4px #fff,0 0 7px #fffa;pointer-events:none;animation:mfade .45s ease-out both}
 #mapv .mcl em.above{top:auto;bottom:100%;margin:0 0 1px}
 #mapv .mcl em.right{top:50%;left:100%;transform:translateY(-50%);margin:0 0 0 3px}
 #mapv .mcl em.left{top:50%;left:auto;right:100%;transform:translateY(-50%);margin:0 3px 0 0}
-#mapv .mcl:focus-visible{outline:3px solid #8fbcff;outline-offset:3px}
-/* Names written across the map: regions in spaced capitals, seas and rivers in blue italics. */
+#mapv .mcl:focus-visible{outline:3px solid #1e4fa3;outline-offset:3px;border-radius:50%}
+@keyframes mgrow{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes mfade{from{opacity:0}to{opacity:1}}
+
+/* Names written across the map, as in a printed atlas: regions in spaced brown capitals,
+   seas and rivers in blue italics, each with a soft light halo so it reads over the relief. */
 #mapv .mname{display:flex;align-items:center;justify-content:center;white-space:nowrap;pointer-events:none}
 #mapv .mname.leaflet-interactive{pointer-events:auto;cursor:pointer}
-#mapv .mname span{display:block;line-height:1;text-shadow:0 0 3px #0a1b2d,0 0 6px #0a1b2d,0 0 10px #0a1b2d}
-#mapv .mname.region span{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:.22em;color:#d9cfb6;opacity:.82}
-#mapv .mname.water span{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:600;letter-spacing:.06em;color:#8cc2ee}
-#mapv .mname.river span{font-family:"Source Serif 4",Georgia,serif;font-style:italic;color:#7fb4e2}
-#mapv .mname:focus-visible{outline:3px solid #8fbcff;outline-offset:2px;border-radius:4px}
-#mapv .leaflet-container{background:#0a1b2d}
-#mapc{background:#0a1b2d}
-.mleg .g{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:2px solid #f0cf74;background:#0b1320;color:#fff;font:700 11px Inter,system-ui,sans-serif;font-style:normal}
-.mleg .rn{font:600 11px Inter,system-ui,sans-serif;letter-spacing:.2em;color:#d9cfb6}
+#mapv .mname span{display:block;line-height:1;animation:mfade .5s ease-out both}
+#mapv .mname.region span{font-family:Inter,system-ui,sans-serif;font-weight:700;letter-spacing:.22em;color:#6b4a22;text-shadow:0 0 2px #fff8ee,0 0 4px #fff8ee,0 0 8px #fff8eecc}
+#mapv .mname.water span{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:600;letter-spacing:.06em;color:#174d80;text-shadow:0 0 3px #d6ebf8,0 0 6px #d6ebf8}
+#mapv .mname.river span{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:600;color:#1f5f99;text-shadow:0 0 2px #fff,0 0 5px #fff}
+#mapv .mname:focus-visible{outline:3px solid #1e4fa3;outline-offset:2px;border-radius:4px}
+/* Place names on the painted map: dark text with a light halo. */
+#mapv .mtip.lab{background:transparent;color:#1d1a14;text-shadow:0 0 2px #fff,0 0 4px #fff,0 0 7px #fffa;padding:0}
+
+/* The chosen place: a gold ring that pulses outwards. */
+#mapv .mpulse i{position:absolute;inset:6px;border-radius:50%;border:3px solid #e0b44a;box-shadow:0 0 0 2px #fff}
+#mapv .mpulse i+i{inset:6px;border-width:2px;box-shadow:none;animation:mpulse 1.8s ease-out infinite}
+@keyframes mpulse{from{transform:scale(1);opacity:.9}to{transform:scale(2.4);opacity:0}}
+
+@media (prefers-reduced-motion:reduce){
+  #mapv .mcl .mcl-in,#mapv .mcl span,#mapv .mcl em,#mapv .mname span{animation:none}
+  #mapv .mpulse i+i{animation:none;opacity:0}
+}
+.mleg .g{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:2px solid #e0b44a;background:#0b1320;color:#fff;font:700 11px Inter,system-ui,sans-serif;font-style:normal}
+.mleg .rn{font:700 11px Inter,system-ui,sans-serif;letter-spacing:.2em;color:#d9cfb6}
