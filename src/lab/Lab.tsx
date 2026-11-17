@@ -196,10 +196,16 @@ function Callouts(props: { model: Model }) {
         if (x < 0 || x > W || y < 0 || y > H) return;
         placed.push({ ...t, i, x, y, side: x < cx ? -1 : 1, ty: y });
       });
-      // Keep tags on each side at least 34 px apart.
+      // Place each side's tags inside the window first (clear of the "Fig. 1" label and the
+      // camera bar), then space them 34 px apart, pushing back up from the bottom if needed;
+      // a tag that still cannot fit is left out rather than drawn on top of another.
+      const TOP = 44, BOTTOM = H - 74, GAP = 34;
       for (const side of [-1, 1]) {
         const col = placed.filter((p) => p.side === side).sort((a, b) => a.y - b.y);
-        for (let k = 1; k < col.length; k++) if (col[k].ty - col[k - 1].ty < 34) col[k].ty = col[k - 1].ty + 34;
+        for (const c of col) c.ty = Math.max(TOP, Math.min(BOTTOM, c.y - (narrow ? 0 : 46)));
+        for (let k = 1; k < col.length; k++) if (col[k].ty - col[k - 1].ty < GAP) col[k].ty = col[k - 1].ty + GAP;
+        for (let k = col.length - 1; k >= 0; k--) col[k].ty = Math.min(col[k].ty, k === col.length - 1 ? BOTTOM : col[k + 1].ty - GAP);
+        for (const c of col) if (c.ty < TOP) placed.splice(placed.indexOf(c), 1);
       }
       const lines = el.querySelectorAll<SVGPolylineElement>("polyline");
       const dots = el.querySelectorAll<SVGCircleElement>("circle");
@@ -214,8 +220,7 @@ function Callouts(props: { model: Model }) {
           return;
         }
         const gx = narrow ? (p.side < 0 ? 10 : W - 10) : p.side < 0 ? Math.max(14, p.x - 150) : Math.min(W - 14, p.x + 150);
-        // Clear of the "Fig. 1" label at the top and the camera bar at the bottom.
-        const ty = Math.max(44, Math.min(H - 74, p.ty - (narrow ? 0 : 46)));
+        const ty = p.ty;
         line.setAttribute("points", `${p.x},${p.y} ${p.x + (gx - p.x) * 0.35},${ty} ${gx},${ty}`);
         dot.setAttribute("cx", String(p.x));
         dot.setAttribute("cy", String(p.y));
