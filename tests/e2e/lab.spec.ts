@@ -27,10 +27,11 @@ for (const vp of [{ name: "desktop 1600", width: 1600, height: 900 }, { name: "p
         return { books: core.books.length, chapters, verses, best: core.counts.best, places: core.counts.placesNamed };
       });
       await expect(tile(app, "Books")).toHaveText(String(d.books));
-      expect(await num(app, "Chapters")).toBe(d.chapters);
-      expect(await num(app, "Verses")).toBe(d.verses);
-      expect(await num(app, "Best evidence")).toBe(d.best);
-      expect(await num(app, "Places named")).toBe(d.places);
+      // Numbers count up to their value, so read them once they settle.
+      await expect.poll(() => num(app, "Chapters")).toBe(d.chapters);
+      await expect.poll(() => num(app, "Verses")).toBe(d.verses);
+      await expect.poll(() => num(app, "Best evidence")).toBe(d.best);
+      await expect.poll(() => num(app, "Places named")).toBe(d.places);
       // What the wheel draws is the best-evidence set, link for link.
       await expect.poll(() => num(app, "Threads shown")).toBe(d.best);
       await expect(app.locator(".lab-big b")).toHaveText(d.best.toLocaleString("en-US"));
@@ -56,12 +57,13 @@ for (const vp of [{ name: "desktop 1600", width: 1600, height: 900 }, { name: "p
       await expect(app.locator(".lab-big")).toContainText("Isaiah");
       await expect(app.locator(".lab-para h2")).toHaveText("How does Isaiah point to Jesus?");
       await expect(app.locator(".lab-para")).toContainText(`by ${isa} best-evidence threads`);
-      expect(await num(app, "Best evidence")).toBe(isa);
+      await expect.poll(() => num(app, "Best evidence")).toBe(isa);
       await expect(tile(app, "Places named")).not.toHaveText("0", { timeout: 20_000 });
       // The main callout is pinned to Isaiah and shows its count.
       await expect(app.locator(".lab-tag.on")).toContainText("Isaiah");
       await expect(app.locator(".lab-tag.on")).toHaveCSS("opacity", "1");
-      // Read opens the reader on Isaiah 1.
+      // Read opens the reader on Isaiah 1 (on phones the paragraph's buttons sit below the fold).
+      await app.locator(".lab-acts").getByRole("button", { name: "Read Isaiah 1" }).scrollIntoViewIfNeeded();
       await app.locator(".lab-acts").getByRole("button", { name: "Read Isaiah 1" }).click();
       await expect.poll(() => uni(app, (U) => U.uiMode)).toBe("reader");
     });
@@ -104,4 +106,95 @@ test("?ui=new turns the console off again", async ({ app }) => {
   await app.waitForFunction(() => !!(window as any).UNI && !document.getElementById("boot"), null, { timeout: 45_000 });
   await expect(app.locator("#lab")).toHaveCount(0);
   await expect(app.locator("#tabs")).toBeVisible();
+});
+
+
+for (const vp of [{ name: "desktop 1600", width: 1600, height: 900 }, { name: "phone 390×664", width: 390, height: 664 }]) {
+  test.describe(`console polish · ${vp.name}`, () => {
+    test.use({ viewport: { width: vp.width, height: vp.height } });
+
+    test("the wheel fills about 70% of its window and stays inside it; every name appears once @phone", async ({ app }) => {
+      await openLab(app);
+      // Let the idle wheel settle to its fill distance.
+      await app.waitForTimeout(2500);
+      const fill = await app.evaluate(() => {
+        const U = (window as any).UNI;
+        const w = document.querySelector(".lab-stage")!.getBoundingClientRect();
+        const pts = U.books.map((_: unknown, i: number) => U.screenOf(i)).filter((p: any) => p && p.z < 1);
+        const xs = pts.map((p: any) => p.x), ys = pts.map((p: any) => p.y);
+        const st = document.getElementById("stage")!.getBoundingClientRect();
+        const box = { l: Math.min(...xs) + st.left, r: Math.max(...xs) + st.left, t: Math.min(...ys) + st.top, b: Math.max(...ys) + st.top };
+        return { wShare: (box.r - box.l) / w.width, hShare: (box.b - box.t) / w.height, inside: box.l >= w.left && box.r <= w.right && box.t >= w.top && box.b <= w.bottom };
+      });
+      expect(Math.max(fill.wShare, fill.hShare), "the wheel fills its window").toBeGreaterThan(0.6);
+      expect(fill.inside, "no book is cut off at the window's edge").toBe(true);
+      // Names: the callouts are the only book names; none twice, no faded half-names.
+      await app.evaluate(() => (window as any).UNI.select(39));
+      await app.waitForTimeout(2000);
+      const names = await app.evaluate(() => {
+        const vis = (e: Element) => getComputedStyle(e).display !== "none" && getComputedStyle(e).opacity !== "0" && e.getBoundingClientRect().width > 0;
+        const engine = [...document.querySelectorAll("#labels .lab")].filter(vis).map((e) => e.textContent!.trim());
+        const tags = [...document.querySelectorAll(".lab-tag")].filter(vis).map((e) => e.childNodes[1]?.textContent?.trim() ?? "");
+        return { engine, tags };
+      });
+      const all = [...names.engine, ...names.tags].map((n) => n.toLowerCase());
+      expect(new Set(all).size, `each name once: ${all.join(", ")}`).toBe(all.length);
+      for (const n of names.engine) expect(["new testament", "old testament"].some((r) => n.toLowerCase().includes(r)) || /\d/.test(n), `only ring captions or a chapter tag from the engine, got "${n}"`).toBe(true);
+    });
+
+    test("tiles do what they say: Places opens the map, Chapters opens the reader", async ({ app }) => {
+      await openLab(app);
+      await app.locator(".lab-metric", { hasText: "Places named" }).click();
+      await expect(app.locator("#mapv")).toBeVisible();
+      await app.locator("#mapback").click();
+      await app.locator(".lab-metric", { hasText: "Chapters" }).click();
+      await expect.poll(() => uni(app, (U) => U.uiMode)).toBe("reader");
+    });
+  });
+}
+
+test.describe("console on a phone · order and fit", () => {
+  test.use({ viewport: { width: 390, height: 664 } });
+
+  test("title and number, then the wheel (55% of the screen), then the tiles, then the words; bar and callouts fully on screen @phone", async ({ app }) => {
+    await openLab(app);
+    await uni(app, (U) => U.select(22));
+    await app.waitForTimeout(2500);
+    const g = await app.evaluate(() => {
+      const r = (s: string) => document.querySelector(s)!.getBoundingClientRect();
+      const tags = [...document.querySelectorAll(".lab-tag")].filter((e) => getComputedStyle(e).opacity !== "0").map((e) => e.getBoundingClientRect());
+      return { id: r(".lab-id"), stage: r(".lab-stage"), metrics: r(".lab-metrics"), para: r(".lab-para"), cams: r(".lab-cams"), tags: tags.map((t) => [t.left, t.right, t.top, t.bottom]), vw: innerWidth, vh: innerHeight };
+    });
+    expect(g.id.bottom).toBeLessThanOrEqual(g.stage.top + 1);
+    expect(g.stage.bottom).toBeLessThanOrEqual(g.metrics.top + 1);
+    expect(g.metrics.bottom).toBeLessThanOrEqual(g.para.top + 1);
+    expect(g.stage.height).toBeGreaterThanOrEqual(g.vh * 0.55 - 1);
+    // The camera bar sits fully on screen without scrolling.
+    expect(g.cams.left).toBeGreaterThanOrEqual(0);
+    expect(g.cams.right).toBeLessThanOrEqual(g.vw);
+    expect(g.cams.bottom).toBeLessThanOrEqual(g.vh);
+    for (const [l, r, t, b] of g.tags) {
+      expect(l).toBeGreaterThanOrEqual(0);
+      expect(r).toBeLessThanOrEqual(g.vw);
+      expect(t).toBeGreaterThanOrEqual(g.stage.top);
+      expect(b).toBeLessThanOrEqual(g.cams.top + 1);
+    }
+    // The paragraph opens with "Read more".
+    await app.locator(".lab-more").click();
+    await expect(app.locator(".lab-more")).toHaveText(/Show less/);
+  });
+});
+
+test.describe("console with reduced motion", () => {
+  test.use({ reducedMotion: "reduce", viewport: { width: 1600, height: 900 } });
+  test("numbers go straight to their value and nothing keeps moving", async ({ app }) => {
+    await openLab(app);
+    await uni(app, (U) => U.select(22));
+    await expect(app.locator(".lab-big b")).not.toHaveText("1,911");
+    const v = (await app.locator(".lab-big b").innerText()).trim();
+    await app.waitForTimeout(150);
+    expect((await app.locator(".lab-big b").innerText()).trim()).toBe(v);
+    const anim = await app.evaluate(() => getComputedStyle(document.querySelector(".lab-metric")!, "::after").animationName);
+    expect(anim).toBe("none");
+  });
 });

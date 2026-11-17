@@ -507,9 +507,10 @@ body.su-lab #labels .lab:not(.pin):not(.ring) {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 12px;
     scrollbar-width: none;
     margin: 0 -12px;
-    padding: 0 12px;
+    padding: 0;
   }
   .lab-metrics::-webkit-scrollbar {
     display: none;
@@ -520,7 +521,11 @@ body.su-lab #labels .lab:not(.pin):not(.ring) {
     padding: 10px 12px 12px;
   }
   .lab-metric:first-child {
-    padding-left: 0;
+    padding-left: 12px;
+    border-left: 0;
+  }
+  .lab-metric:first-child::after {
+    left: 12px;
   }
   .lab-metric b {
     font-size: 22px;
@@ -562,4 +567,10 @@ body.su-lab #labels .lab:not(.pin):not(.ring) {
 .lab-link[data-focus-visible] {
   outline: 3px solid #1e4fa3;
   outline-offset: 2px;
+}
+/* Phones: the ring captions fall under the camera bar, and the paragraph names the rings. */
+@media (max-width: 760px) {
+  body.su-lab #labels .lab.ring {
+    display: none !important;
+  }
 }

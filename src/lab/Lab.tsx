@@ -43,7 +43,7 @@ function fillDistance(): number {
   const r = document.getElementById("stage")!.getBoundingClientRect();
   const asp = r.width / Math.max(1, r.height);
   const engineFit = Math.min(95, Math.max(30, 27 / (2 * Math.tan((22.5 * Math.PI) / 180) * Math.min(asp, 1.6))));
-  return Math.max(22, engineFit * (asp > 1.2 ? 0.74 : 0.86));
+  return Math.max(22, engineFit * (asp > 1.2 ? 0.82 : 1.02));
 }
 
 /** Camera presets, relative to the hero view the wheel opens with. */
