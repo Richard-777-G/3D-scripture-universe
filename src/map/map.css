@@ -60,3 +60,24 @@ body.map-on #tabs,body.map-on #panel{visibility:hidden}
   #mapsh{grid-column:2;grid-row:3;min-height:0;border-top:0;border-left:1px solid var(--line)}
   #mapv.list #mapsh{grid-column:1 / -1}
 }
+
+/* Numbered circles: several places close together, until you zoom in. */
+#mapv .mcl{display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0b1320e6;border:2px solid #f0cf74;box-shadow:0 0 0 4px #f0cf7433,0 2px 8px #000a;color:#fff;font:700 13px/1 Inter,system-ui,sans-serif;cursor:pointer}
+#mapv .mcl{overflow:visible}
+#mapv .mcl em{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:2px;white-space:nowrap;font:600 12px/1.3 Inter,system-ui,sans-serif;font-style:normal;color:#fff;text-shadow:0 0 3px #000,0 0 6px #000;pointer-events:none}
+#mapv .mcl em.above{top:auto;bottom:100%;margin:0 0 1px}
+#mapv .mcl em.right{top:50%;left:100%;transform:translateY(-50%);margin:0 0 0 3px}
+#mapv .mcl em.left{top:50%;left:auto;right:100%;transform:translateY(-50%);margin:0 3px 0 0}
+#mapv .mcl:focus-visible{outline:3px solid #8fbcff;outline-offset:3px}
+/* Names written across the map: regions in spaced capitals, seas and rivers in blue italics. */
+#mapv .mname{display:flex;align-items:center;justify-content:center;white-space:nowrap;pointer-events:none}
+#mapv .mname.leaflet-interactive{pointer-events:auto;cursor:pointer}
+#mapv .mname span{display:block;line-height:1;text-shadow:0 0 3px #0a1b2d,0 0 6px #0a1b2d,0 0 10px #0a1b2d}
+#mapv .mname.region span{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:.22em;color:#d9cfb6;opacity:.82}
+#mapv .mname.water span{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:600;letter-spacing:.06em;color:#8cc2ee}
+#mapv .mname.river span{font-family:"Source Serif 4",Georgia,serif;font-style:italic;color:#7fb4e2}
+#mapv .mname:focus-visible{outline:3px solid #8fbcff;outline-offset:2px;border-radius:4px}
+#mapv .leaflet-container{background:#0a1b2d}
+#mapc{background:#0a1b2d}
+.mleg .g{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:2px solid #f0cf74;background:#0b1320;color:#fff;font:700 11px Inter,system-ui,sans-serif;font-style:normal}
+.mleg .rn{font:600 11px Inter,system-ui,sans-serif;letter-spacing:.2em;color:#d9cfb6}
