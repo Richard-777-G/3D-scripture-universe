@@ -71,7 +71,8 @@ test.describe("search", () => {
     expect(r).toBeTruthy();
     await search(app, "John 3:16");
     await app.locator("#pc").getByText("Go to John 3:16").click();
-    // v16 behaviour: opens the book of John with chapter 3 selected in the 3D view.
+    // John, chapter 3, is chosen on the wheel (and the new reader opens at verse 16:
+    // see reader-new.spec.ts, "Go to a verse").
     await expect.poll(() => uni(app, (U) => U.sel)).toBe(42);
     const g = await uni(app, (U) => U.chs.findIndex((c: any) => c.b === 42 && c.c === 3));
     await expect.poll(() => uni(app, (U) => U.selChap)).toBe(g);

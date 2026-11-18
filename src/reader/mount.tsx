@@ -126,6 +126,41 @@ export function mountReader(dataset: Dataset): { sync(): void } {
   const obs = new MutationObserver(() => sync());
   obs.observe(panel, { attributes: true, attributeFilter: ["class"] });
   obs.observe(document.getElementById("pc")!, { childList: true });
+  // "Go to John 3:16" and verse results in Search open that verse in the reader, not just the
+  // book on the wheel: someone looking up a verse they heard in church sees the verse at once
+  // (its text and links), and "Back to John 3" reads around it. Capture runs before the classic
+  // handler, which would only select the chapter on the wheel.
+  document.getElementById("pc")!.addEventListener(
+    "click",
+    (e) => {
+      const t = (e.target as HTMLElement).closest<HTMLElement>("[data-goref],[data-vs]");
+      if (!t) return;
+      const chs = U()?.chs as { b: number; c: number; v0: number; n: number }[] | undefined;
+      if (!chs) return;
+      let ch: { b: number; c: number; v0: number; n: number } | undefined;
+      let verse: number | undefined;
+      if (t.dataset.goref != null) {
+        ch = chs[Number(t.dataset.goref)];
+        const m = /:(\d+)/.exec(t.querySelector("b")?.textContent ?? "");
+        if (ch && m) verse = ch.v0 + Math.min(Math.max(Number(m[1]), 1), ch.n) - 1;
+      } else {
+        const v = Number(t.dataset.vs);
+        let lo = 0, hi = chs.length - 1;
+        while (lo < hi) {
+          const mid = (lo + hi + 1) >> 1;
+          if (chs[mid].v0 <= v) lo = mid;
+          else hi = mid - 1;
+        }
+        ch = chs[lo];
+        verse = v;
+      }
+      if (!ch) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      host.open(ch.b, ch.c, verse);
+    },
+    true,
+  );
   el.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !e.defaultPrevented && !(e.target as HTMLElement).closest("[role=dialog],[role=listbox]")) host.close();
   });
