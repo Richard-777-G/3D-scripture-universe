@@ -7,7 +7,6 @@ body.su-lab {
   display: block;
   background: #f3f1ec;
 }
-body.su-lab #tabs,
 body.su-lab #panel,
 body.su-lab #brand,
 body.su-lab #cta,
@@ -19,6 +18,17 @@ body.su-lab #top {
   display: none !important;
 }
 
+/* The five section tabs always stay: fixed along the bottom, the console above them. */
+body.su-lab #tabs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+}
+.slab[hidden] {
+  display: none;
+}
 .slab {
   --ink: #16181d;
   --ink-2: #4a4f59;
@@ -29,7 +39,7 @@ body.su-lab #top {
   --acc: #c8641e;
   --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
   position: fixed;
-  inset: 0;
+  inset: 0 0 calc(54px + env(safe-area-inset-bottom, 0px));
   overflow: auto;
   overscroll-behavior: contain;
   background:

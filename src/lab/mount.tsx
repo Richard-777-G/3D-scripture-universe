@@ -1,7 +1,8 @@
 /**
  * Starts the Section V console (?ui=lab). The real wheel (#stage, with its canvas and
  * every listener) is moved into the console's viewing window, so the engine keeps
- * working untouched; the classic panel and tabs step aside while the console is on.
+ * working untouched. The section tabs stay visible; any of them, or the reader, the map
+ * or Credits, hands the screen back to the normal app (see shell.ts).
  */
 import { createRoot } from "react-dom/client";
 import "../ui/tokens.css";
@@ -9,6 +10,7 @@ import "./lab.css";
 import type { Dataset } from "../data/loader";
 import { Model, U } from "./model";
 import { Lab } from "./Lab";
+import { rememberStage, leaveLab, inLab } from "./shell";
 
 export function mountLab(data: Dataset): Model {
   const model = new Model(data);
@@ -24,6 +26,17 @@ export function mountLab(data: Dataset): Model {
     /* intro already closed */
   }
   const stage = document.getElementById("stage")!;
+  rememberStage(stage);
+  // The five section tabs stay at the bottom in the console. Tapping one gives the screen
+  // back to the normal app first (capture runs before the tab's own handler), so the
+  // section opens exactly as it always does.
+  document.getElementById("tabs")?.addEventListener(
+    "click",
+    () => {
+      if (inLab()) leaveLab();
+    },
+    true,
+  );
   createRoot(root).render(<Lab model={model} onView={(el) => el.appendChild(stage)} />);
   (window as unknown as { SU_LAB: Model }).SU_LAB = model;
   return model;

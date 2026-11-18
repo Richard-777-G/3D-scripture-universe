@@ -32,18 +32,17 @@ function newUi(): boolean {
 }
 
 /**
- * Section V console (brief V7): ?ui=lab turns it on for this browser; ?ui=new or ?ui=classic
- * turns it off. It stays behind this switch until Richard says yes.
+ * Section V console (brief V7): only while ?ui=lab is in the link, until Richard approves it
+ * as the default. It is never remembered; an older build remembered it (su-lab), so that
+ * stored switch is cleared here and the plain link always opens the normal app.
  */
 function labUi(): boolean {
-  const q = new URLSearchParams(location.search).get("ui");
   try {
-    if (q === "lab") localStorage.setItem("su-lab", "1");
-    if (q === "new" || q === "classic") localStorage.removeItem("su-lab");
-    return localStorage.getItem("su-lab") === "1";
+    localStorage.removeItem("su-lab");
   } catch {
-    return q === "lab";
+    /* private mode: nothing stored */
   }
+  return new URLSearchParams(location.search).get("ui") === "lab";
 }
 
 async function run(): Promise<void> {
