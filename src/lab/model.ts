@@ -17,18 +17,25 @@ export type Filter = "best" | "otnt" | "all";
 export type Tier = "sourced" | "wording" | "shared";
 
 /** The canonical sections of the Protestant Bible, by first book index (0-based). */
-export const SECTIONS: { name: string; from: number; to: number; t: 0 | 1 }[] = [
-  { name: "Law", from: 0, to: 4, t: 0 },
-  { name: "History", from: 5, to: 16, t: 0 },
-  { name: "Poetry and Wisdom", from: 17, to: 21, t: 0 },
-  { name: "Major Prophets", from: 22, to: 26, t: 0 },
-  { name: "Minor Prophets", from: 27, to: 38, t: 0 },
-  { name: "Gospels", from: 39, to: 42, t: 1 },
-  { name: "Acts", from: 43, to: 43, t: 1 },
-  { name: "Paul's Letters", from: 44, to: 56, t: 1 },
-  { name: "General Letters", from: 57, to: 64, t: 1 },
-  { name: "Revelation", from: 65, to: 65, t: 1 },
+export const SECTIONS: { name: string; call: string; many: boolean; from: number; to: number; t: 0 | 1 }[] = [
+  { name: "Law", call: "the Law", many: false, from: 0, to: 4, t: 0 },
+  { name: "History", call: "the History books", many: true, from: 5, to: 16, t: 0 },
+  { name: "Poetry and Wisdom", call: "Poetry and Wisdom", many: true, from: 17, to: 21, t: 0 },
+  { name: "Major Prophets", call: "the Major Prophets", many: true, from: 22, to: 26, t: 0 },
+  { name: "Minor Prophets", call: "the Minor Prophets", many: true, from: 27, to: 38, t: 0 },
+  { name: "Gospels", call: "the Gospels", many: true, from: 39, to: 42, t: 1 },
+  { name: "Acts", call: "Acts", many: false, from: 43, to: 43, t: 1 },
+  { name: "Paul's Letters", call: "Paul's Letters", many: true, from: 44, to: 56, t: 1 },
+  { name: "General Letters", call: "the General Letters", many: true, from: 57, to: 64, t: 1 },
+  { name: "Revelation", call: "Revelation", many: false, from: 65, to: 65, t: 1 },
 ];
+
+/**
+ * One colour per section, for the schematic and the dial. The six tile accents come first,
+ * so the console keeps one palette; four more in the same printed-ink family complete the ten.
+ */
+export const ACCENT = { books: "#c8641e", chapters: "#2f6fb0", verses: "#5b8a3a", threads: "#d4a017", best: "#a2452e", places: "#2e8b84" };
+export const SECTION_COLOURS = [ACCENT.books, ACCENT.chapters, ACCENT.verses, ACCENT.threads, ACCENT.best, ACCENT.places, "#6b4fa0", "#3b5f7a", "#8a6d3b", "#b0466e"];
 
 export interface State {
   /** selected book (0-based), chapter number (1-based) and verse index, or null */
@@ -41,6 +48,9 @@ export interface State {
   step: number | null;
   section: number | null;
   camera: Camera;
+  /** Exploded view (the rings pulled apart) and X-ray (see-through covers) */
+  exploded: boolean;
+  xray: boolean;
   /** threads the wheel is drawing right now (from the engine: links summed over its drawn lines) */
   drawn: number;
 }
@@ -67,7 +77,7 @@ export class Model {
   private readonly ts: number[];
   private readonly vo: number[];
   private placeVerses: number[][] | null = null;
-  state: State = { book: null, chapter: null, verse: null, pair: null, filter: "best", step: null, section: null, camera: "hero", drawn: 0 };
+  state: State = { book: null, chapter: null, verse: null, pair: null, filter: "best", step: null, section: null, camera: "hero", exploded: false, xray: false, drawn: 0 };
   private subs = new Set<() => void>();
 
   constructor(private readonly data: Dataset) {
@@ -128,6 +138,26 @@ export class Model {
     return out.sort((x, y) => y.n - x.n);
   }
 
+  /** the section (index into SECTIONS) a book belongs to */
+  sectionOf(b: number): number {
+    return SECTIONS.findIndex((x) => b >= x.from && b <= x.to);
+  }
+
+  /** best-evidence threads of a section (each thread has one end in each Testament, so the sum is exact) */
+  sectionLinks(k: number): number {
+    const x = SECTIONS[k];
+    let n = 0;
+    for (let b = x.from; b <= x.to; b++) n += this.links[b];
+    return n;
+  }
+
+  /** books in the other Testament joined to a section, busiest first */
+  sectionPartners(k: number): { b: number; n: number }[] {
+    const x = SECTIONS[k], tally = new Map<number, number>();
+    for (let b = x.from; b <= x.to; b++) for (const p of this.partners(b)) tally.set(p.b, (tally.get(p.b) ?? 0) + p.n);
+    return [...tally].map(([b, n]) => ({ b, n })).sort((a, c) => c.n - a.n);
+  }
+
   /** the books with the most best-evidence links */
   busiest(k: number): number[] {
     return this.links.map((n, b) => ({ n, b })).sort((x, y) => y.n - x.n).slice(0, k).map((x) => x.b);
@@ -177,12 +207,12 @@ export class Model {
     const placed = this.placesNamed();
     if (s.book === null && s.pair === null)
       return [
-        { key: "books", label: "Books", value: this.books.length, unit: "on the wheel", accent: "#c8641e" },
-        { key: "chapters", label: "Chapters", value: this.totalChapters, unit: "in all", accent: "#2f6fb0" },
-        { key: "verses", label: "Verses", value: this.totalVerses, unit: "in all", accent: "#5b8a3a" },
-        { key: "threads", label: "Threads shown", value: s.drawn, unit: "drawn now", accent: "#d4a017" },
-        { key: "best", label: "Best evidence", value: Number(this.counts.best ?? 0), unit: "links", accent: "#a2452e" },
-        { key: "places", label: "Places named", value: placed ?? 0, unit: "with a location", accent: "#2e8b84" },
+        { key: "books", label: "Books", value: this.books.length, unit: "on the wheel", accent: ACCENT.books },
+        { key: "chapters", label: "Chapters", value: this.totalChapters, unit: "in all", accent: ACCENT.chapters },
+        { key: "verses", label: "Verses", value: this.totalVerses, unit: "in all", accent: ACCENT.verses },
+        { key: "threads", label: "Threads shown", value: s.drawn, unit: "drawn now", accent: ACCENT.threads },
+        { key: "best", label: "Best evidence", value: Number(this.counts.best ?? 0), unit: "links", accent: ACCENT.best },
+        { key: "places", label: "Places named", value: placed ?? 0, unit: "with a location", accent: ACCENT.places },
       ];
     const books = s.pair ? [s.pair.o, s.pair.n] : [s.book!];
     const b = books[0];
@@ -195,12 +225,12 @@ export class Model {
         : this.links[b];
     const lit = s.pair ? 2 : 1 + this.partners(b).length;
     return [
-      { key: "books", label: "Books", value: lit, unit: s.pair ? "the pair" : "lit on the wheel", accent: "#c8641e" },
-      { key: "chapters", label: "Chapters", value: chapters, unit: s.chapter !== null && !s.pair ? `chapter ${s.chapter}` : "in the selection", accent: "#2f6fb0" },
-      { key: "verses", label: "Verses", value: verses, unit: "in the selection", accent: "#5b8a3a" },
-      { key: "threads", label: "Threads shown", value: s.drawn, unit: "drawn now", accent: "#d4a017" },
-      { key: "best", label: "Best evidence", value: best, unit: "links", accent: "#a2452e" },
-      { key: "places", label: "Places named", value: placed ?? 0, unit: placed === null ? "loading" : "in these books", accent: "#2e8b84" },
+      { key: "books", label: "Books", value: lit, unit: s.pair ? "the pair" : "lit on the wheel", accent: ACCENT.books },
+      { key: "chapters", label: "Chapters", value: chapters, unit: s.chapter !== null && !s.pair ? `chapter ${s.chapter}` : "in the selection", accent: ACCENT.chapters },
+      { key: "verses", label: "Verses", value: verses, unit: "in the selection", accent: ACCENT.verses },
+      { key: "threads", label: "Threads shown", value: s.drawn, unit: "drawn now", accent: ACCENT.threads },
+      { key: "best", label: "Best evidence", value: best, unit: "links", accent: ACCENT.best },
+      { key: "places", label: "Places named", value: placed ?? 0, unit: placed === null ? "loading" : "in these books", accent: ACCENT.places },
     ];
   }
 
@@ -209,6 +239,7 @@ export class Model {
     const s = this.state;
     if (s.pair) return this.pairs.get(s.pair.o * 100 + s.pair.n) ?? 0;
     if (s.book !== null) return s.chapter !== null ? this.chapterLinks(s.book, s.chapter).total : this.links[s.book];
+    if (s.section !== null) return this.sectionLinks(s.section);
     return Number(this.counts.best ?? 0);
   }
 
@@ -235,6 +266,17 @@ export class Model {
         text: `${where} is joined to the ${other} Testament by ${f(n)} best-evidence ${n === 1 ? "thread" : "threads"}: ${f(t.sourced)} sourced ${t.sourced === 1 ? "prophecy" : "prophecies"}, ${f(t.wording)} with the same wording and ${f(t.shared)} sharing rare words.${top && s.chapter === null ? ` The most run to ${B(top.b)} (${f(top.n)}).` : ""}`,
       };
     }
+    if (s.section !== null) {
+      const x = SECTIONS[s.section], n = this.sectionLinks(s.section), top = this.sectionPartners(s.section)[0];
+      const span = x.from === x.to ? B(x.from) : `${B(x.from)} to ${B(x.to)}`;
+      const count = x.to - x.from + 1;
+      const what = x.from === x.to ? "" : ` (${count} books, ${span})`;
+      const Call = x.call[0].toUpperCase() + x.call.slice(1);
+      return {
+        title: x.t === 0 ? `How ${x.many ? "do" : "does"} ${x.call} point to Jesus?` : `How ${x.many ? "do" : "does"} ${x.call} connect to the Old Testament?`,
+        text: `${Call}${what} ${x.many ? "have" : "has"} ${f(n)} best-evidence ${n === 1 ? "thread" : "threads"} to the ${x.t === 0 ? "New" : "Old"} Testament.${top ? ` The most run to ${B(top.b)} (${f(top.n)}).` : ""} Tap a book to see its own.`,
+      };
+    }
     return {
       title: "How does the Old Testament point to Jesus?",
       text: `The lower ring holds the ${this.firstOT} books of the Old Testament, the upper ring the ${nt} of the New. Each thread joins an Old Testament passage to a New Testament one where the evidence is strongest: a sourced prophecy, the same wording, or rare words they share. ${f(Number(this.counts.best ?? 0))} threads in all. Tap a book to see its own.`,
@@ -257,7 +299,8 @@ export class Model {
     const s = this.state;
     const changed = s.book !== book || s.chapter !== chapter || (s.pair?.o ?? -1) !== (pair?.o ?? -1) || (s.pair?.n ?? -1) !== (pair?.n ?? -1) || s.drawn !== drawn;
     if (changed) {
-      this.state = { ...s, book, chapter, pair, drawn };
+      const section = book !== null && book !== s.book ? this.sectionOf(book) : s.section;
+      this.state = { ...s, book, chapter, pair, drawn, section };
       if ((book !== null || pair) && !this.placeVerses) void this.loadPlaces();
       this.emit();
     }

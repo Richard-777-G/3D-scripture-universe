@@ -84,9 +84,12 @@ for (const vp of [{ name: "desktop 1600", width: 1600, height: 900 }, { name: "p
         const hit = (a: DOMRect, b: DOMRect) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1;
         const tags = [...document.querySelectorAll(".lab-tag")].filter((e) => getComputedStyle(e).opacity !== "0");
         const bar = r(document.querySelector(".lab-cams")!), fig = r(document.querySelector(".lab-fig")!), stage = r(document.querySelector(".lab-stage")!);
+        const views = r(document.querySelector(".lab-views")!);
+        if (hit(views, fig)) out.push("the view buttons cover the figure label");
         tags.forEach((t, i) => {
           const b = r(t);
           if (hit(b, bar)) out.push(`tag ${t.textContent} covers the camera bar`);
+          if (hit(b, views)) out.push(`tag ${t.textContent} covers the view buttons`);
           if (hit(b, fig)) out.push(`tag ${t.textContent} covers the figure label`);
           if (b.left < stage.left - 1 || b.right > stage.right + 1) out.push(`tag ${t.textContent} sticks out of the window`);
           tags.slice(i + 1).forEach((u) => hit(b, r(u)) && out.push(`tags overlap: ${t.textContent} / ${u.textContent}`));
