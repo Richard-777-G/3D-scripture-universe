@@ -13,6 +13,7 @@ import "./reader.css";
 import type { Dataset } from "../data/loader";
 import { ReaderData } from "./data";
 import { Reader, type Host, type Prefs } from "./Reader";
+import { mountContinue, saveLastRead } from "./continue";
 
 type Uni = Record<string, any>;
 const U = (): Uni => (window as unknown as { UNI: Uni }).UNI;
@@ -99,6 +100,7 @@ export function mountReader(dataset: Dataset): { sync(): void } {
     pending = null;
     if (!opening && view!.b === ch.b && view!.c === ch.c && verse === null) return;
     view = { b: ch.b, c: ch.c, verse, nonce: ++nonce };
+    saveLastRead(ch.b, ch.c);
     el.hidden = false;
     document.body.classList.add("su-nr");
     render();
@@ -130,6 +132,7 @@ export function mountReader(dataset: Dataset): { sync(): void } {
     if (e.key === "Escape" && !e.defaultPrevented && !(e.target as HTMLElement).closest("[role=dialog],[role=listbox]")) host.close();
   });
   sync();
+  mountContinue(data.books, (b, c) => host.open(b, c));
   return { sync };
 }
 

@@ -921,3 +921,70 @@ body.su-nr #pshow {
 .r-he-i {
   font-family: var(--font-he);
 }
+
+/* Continue reading: a returning reader's one-tap way back, where first-time visitors see
+   "Start the story here" (which steps aside while this shows). */
+body.su-cont #cta {
+  display: none !important;
+}
+.su-cont-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  z-index: 6;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100% - 32px);
+  min-height: 52px;
+  padding: 0 22px 0 16px;
+  border: 1px solid #e8c46a;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #2a2210f2, #14110af2);
+  color: #f6e7b8;
+  font: 600 15px/1.2 Inter, system-ui, sans-serif;
+  text-align: left;
+  box-shadow: 0 8px 24px #000b;
+  cursor: pointer;
+}
+.su-cont-btn[hidden] {
+  display: none;
+}
+.su-cont-btn svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.su-cont-btn span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.su-cont-btn small {
+  font: 600 11px/1.2 Inter, system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  color: #e8c46acc;
+}
+.su-cont-btn b {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.su-cont-btn:focus-visible {
+  outline: 3px solid #f6e7b8;
+  outline-offset: 3px;
+}
+/* Wide screens: the empty corner by the Story tab, clear of the wheel and its ring captions. */
+@media (min-width: 761px) {
+  .su-cont-btn {
+    left: 24px;
+    transform: none;
+  }
+}
