@@ -8,6 +8,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Button, ToggleButton, ToggleButtonGroup, Slider, SliderTrack, SliderThumb, SliderOutput, Label } from "react-aria-components";
 import { BookOpen, Box, Eye, MoveHorizontal, ArrowDownToLine, Orbit, RotateCcw, ChevronDown, ChevronLeft, ChevronRight, UnfoldVertical, ScanEye } from "lucide-react";
+import { leaveLab } from "./shell";
 import { Model, U, SECTIONS, SECTION_COLOURS, type Camera } from "./model";
 import type React from "react";
 
@@ -182,7 +183,7 @@ export function Lab(props: { model: Model; onView(el: HTMLElement): void }) {
       </header>
       <Para title={para.title} text={para.text}>
         {state.book !== null && (
-          <Button className="lab-btn lab-btn-p" onPress={() => U().openReader(state.book, state.chapter ?? 1)}>
+          <Button className="lab-btn lab-btn-p" onPress={() => { leaveLab(); U().openReader(state.book, state.chapter ?? 1); }}>
             <BookOpen size={16} aria-hidden />
             Read {m.books[state.book].n} {state.chapter ?? 1}
           </Button>
@@ -284,7 +285,7 @@ export function Lab(props: { model: Model; onView(el: HTMLElement): void }) {
       </section>
       <p className="lab-foot">
         <span>Every number is counted from the data</span>
-        <Button className="lab-link" onPress={() => U().credits()}>
+        <Button className="lab-link" onPress={() => { leaveLab(); U().credits(); }}>
           Sources and credits
         </Button>
       </p>
@@ -312,8 +313,8 @@ function Para(props: { title: string; text: string; children?: React.ReactNode }
 /** Tiles that do something when tapped (the others are numbers only). */
 function tileAction(key: string, s: Model["state"]): { hint: string; go(): void } | null {
   const u = U();
-  if (key === "places") return { hint: "Tap for the map", go: () => u.openMap() };
-  if (key === "chapters") return { hint: s.book !== null ? `Tap to read ${s.chapter ? "chapter " + s.chapter : "chapter 1"}` : "Tap to read Genesis 1", go: () => u.openReader(s.book ?? 0, s.chapter ?? 1) };
+  if (key === "places") return { hint: "Tap for the map", go: () => { leaveLab(); u.openMap(); } };
+  if (key === "chapters") return { hint: s.book !== null ? `Tap to read ${s.chapter ? "chapter " + s.chapter : "chapter 1"}` : "Tap to read Genesis 1", go: () => { leaveLab(); u.openReader(s.book ?? 0, s.chapter ?? 1); } };
   if (key === "best") {
     // The wheel always draws the best-evidence set; from a chapter or a journey, this goes back to it.
     if (s.chapter !== null && s.book !== null) return { hint: "Tap for all of the book's", go: () => u.select(s.book) };

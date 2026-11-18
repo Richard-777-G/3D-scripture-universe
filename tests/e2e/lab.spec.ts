@@ -103,9 +103,9 @@ for (const vp of [{ name: "desktop 1600", width: 1600, height: 900 }, { name: "p
   });
 }
 
-test("?ui=new turns the console off again", async ({ app }) => {
+test("?ui=lab is not remembered: the plain link opens the normal app", async ({ app }) => {
   await openLab(app);
-  await app.goto("./?ui=new");
+  await app.goto("./");
   await app.waitForFunction(() => !!(window as any).UNI && !document.getElementById("boot"), null, { timeout: 45_000 });
   await expect(app.locator("#lab")).toHaveCount(0);
   await expect(app.locator("#tabs")).toBeVisible();
@@ -149,7 +149,11 @@ for (const vp of [{ name: "desktop 1600", width: 1600, height: 900 }, { name: "p
       await openLab(app);
       await app.locator(".lab-metric", { hasText: "Places named" }).click();
       await expect(app.locator("#mapv")).toBeVisible();
+      // Leaving for the map hands the screen back to the normal app (its tabs are there).
       await app.locator("#mapback").click();
+      await expect(app.locator("#lab")).toBeHidden();
+      await expect(app.locator("#tabs")).toBeVisible();
+      await openLab(app);
       await app.locator(".lab-metric", { hasText: "Chapters" }).click();
       await expect.poll(() => uni(app, (U) => U.uiMode)).toBe("reader");
     });
@@ -166,7 +170,7 @@ test.describe("console on a phone · order and fit", () => {
     const g = await app.evaluate(() => {
       const r = (s: string) => document.querySelector(s)!.getBoundingClientRect();
       const tags = [...document.querySelectorAll(".lab-tag")].filter((e) => getComputedStyle(e).opacity !== "0").map((e) => e.getBoundingClientRect());
-      return { id: r(".lab-id"), stage: r(".lab-stage"), metrics: r(".lab-metrics"), para: r(".lab-para"), cams: r(".lab-cams"), tags: tags.map((t) => [t.left, t.right, t.top, t.bottom]), vw: innerWidth, vh: innerHeight };
+      return { id: r(".lab-id"), stage: r(".lab-stage"), metrics: r(".lab-metrics"), para: r(".lab-para"), cams: r(".lab-cams"), tabs: r("#tabs"), tags: tags.map((t) => [t.left, t.right, t.top, t.bottom]), vw: innerWidth, vh: innerHeight };
     });
     expect(g.id.bottom).toBeLessThanOrEqual(g.stage.top + 1);
     expect(g.stage.bottom).toBeLessThanOrEqual(g.metrics.top + 1);
@@ -175,7 +179,7 @@ test.describe("console on a phone · order and fit", () => {
     // The camera bar sits fully on screen without scrolling.
     expect(g.cams.left).toBeGreaterThanOrEqual(0);
     expect(g.cams.right).toBeLessThanOrEqual(g.vw);
-    expect(g.cams.bottom).toBeLessThanOrEqual(g.vh);
+    expect(g.cams.bottom).toBeLessThanOrEqual(g.tabs.top);
     for (const [l, r, t, b] of g.tags) {
       expect(l).toBeGreaterThanOrEqual(0);
       expect(r).toBeLessThanOrEqual(g.vw);
